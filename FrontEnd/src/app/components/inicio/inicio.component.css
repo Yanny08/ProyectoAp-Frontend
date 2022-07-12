@@ -1,0 +1,251 @@
+/*
+  ==========
+  SECCIÓN MENU DE NAVEGACIÓN
+  ==========
+  */
+
+  .navbar {
+    position: relative;
+    height: 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 20px;
+    z-index: 1;
+    /*Posiciona por encima de todo .*/
+    width: 100%;
+    top: 0;
+    position: fixed;
+    /*Se muestra siempre .*/
+    background: var(--grey);
+    backdrop-filter: blur(20px);
+    transition: .6s ease;
+    box-shadow: 3px 3px 10px var(--pink);
+  
+  }
+  
+  .nav_logos {
+    margin-left: 10px;
+    align-items: center;
+    filter: invert(40%) sepia(15%) saturate(8500%) hue-rotate(180deg) brightness(300%) contrast(100%);
+  }
+  
+  
+  .logout_btn {
+    padding: 7px;
+    background: #19B3D3;
+    text-transform: uppercase;
+    float: right;
+    margin-right: 45px;
+    border-radius: 2px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    transition: .6s ease;
+    transition-property: background;
+    margin-left: 20px;
+  }
+  
+  .logout_btn:hover {
+    background: #bb0d81;
+  
+  }
+  
+  .toggle-btn {
+    position: absolute;
+    font-weight: bolder;
+    right: 15px;
+    top: 20px;
+    cursor: pointer;
+    text-align: center;
+    transition: 0.5s;
+    transition-property: background;
+  }
+  
+  
+  .toggle-btn i {
+    color: #fff;
+    display: block;
+    width: 40px;
+    border-radius: 5px;
+    border: 3px solid #19B3D3;
+  }
+  
+  .toggle-btn i:hover {
+    background: #ff008c;
+  }
+  
+  
+  /*
+    ==========
+    MENU LATERAL
+    ==========
+    */
+  
+  
+  .sidebar {
+    position: fixed;
+    width: 250px;
+    height: 100%;
+    z-index: 1;
+    /*se pone por encima*/
+    /*background-color: var(--dark2);*/
+    backdrop-filter: blur(8px);
+    top: 0;
+    margin-top: 80px;
+    padding-top: 25px;
+    left: -250px;
+    transition: 0.5s;
+    transition-property: left;
+    overflow-y: auto;
+    /* box-shadow: inset 1px 1px 22px 4px var(--dark2); */
+  }
+  
+  /* active el side bar */
+  .mostrarLateral {
+    left: 0px;
+  }
+  
+  
+  .sidebar a {
+    color: #fff;
+    display: block;
+    width: 100%;
+    line-height: 45px;
+    text-decoration: none;
+    padding-left: 40px;
+    box-sizing: border-box;
+    transition: background 0.5s;
+  }
+  
+  .sidebar i {
+    padding-right: 10px;
+  }
+  
+  .sidebar a:hover {
+    background: #19b4d3bb;
+    border-radius: 12px;
+    padding-left: 70px;
+    
+  }
+  
+  
+  .menu-bar img {
+    content: "";
+    width: 120px;
+    border-radius: 50%;
+    border: 6px solid #ff008c;
+    justify-content: center;
+    display: block;
+    margin: 0 auto;
+    box-shadow: 3px 3px 10px var(--blue);
+  }
+  
+  .edit-icon {
+    float: right;
+    
+  }
+  
+  .menu-bar h4 {
+    color: #fff;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+  
+  /*
+    ==========
+    SECCIÓN BANNER IMAGE
+    ==========
+    */
+  
+  .banner {
+    height: 100vh;
+    margin-top: 80px;
+    background-image: url("src/assets/banner.jpg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    /*para que se expanda al total del navegador*/
+    background-attachment: fixed;
+    /*posiciona la imagen en un solo lugar*/
+    box-shadow: 3px 3px 10px var(--pink);
+  }
+  
+  main i {
+    float: right;
+    font-size: 2rem;
+  }
+  
+  /* .banner_titulo {
+      position: absolute;
+      min-width: 100px;
+      margin-top: 250px;
+      right: 75px;
+      text-shadow:2px 3px rgb(10, 157, 255);
+      
+    }
+    
+    
+    .banner_titulo h1{
+      color: var(--white);
+      font-size:4em;
+      font-weight: 600;
+      line-height: 70px;
+      align-items: center;
+      -webkit-text-stroke: 2.5px rgba(0, 0, 0, 0.308);
+    }
+    
+    .banner_titulo h3{
+      color: var(--white);
+      font-size: 2em;
+      font-weight: 600;
+      line-height: 50px;
+      -webkit-text-stroke: 1.5px rgba(0, 0, 0, 0.308);
+    } */
+  /* .css-1rohdmw {
+    margin: 0;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    color: #fff;
+    line-height: 1.5;
+    letter-spacing: 0.00938em;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    font-weight: 700;
+  } */
+  
+  
+  @media(max-width:463px) {
+    #logos{
+      display: none;
+    }
+  }
+  
+  .modal{
+    cursor: pointer;
+  }
+
+  .modal-header{
+    background-color: #ff008c;
+  }
+
+  .modal-body{
+    background: var(--grey);
+    backdrop-filter: blur(20px);
+  }
+
+  label{
+    color: #fff;
+  }

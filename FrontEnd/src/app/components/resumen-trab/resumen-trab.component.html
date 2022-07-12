@@ -1,0 +1,146 @@
+<div class="row">
+  <div class="titulo-edu col-lg-10">
+    <h3 class="fw-bold"><i class="bi bi-briefcase-fill">
+        Experiencia Laboral</i>
+    </h3>
+  </div>
+  <div class="col-lg-2 text-center">
+    <i class="bi bi-plus-circle" (click)="openModal(content)"></i>
+  </div>
+</div>
+
+<div class="shadow" *ngFor="let ResumenTrab of resumenTrab">
+  <div class="row">
+    <div class="col-lg-10">
+      <h4>{{ResumenTrab.puesto}}</h4> -
+      <p><em>{{ResumenTrab.organismo}}</em></p>
+      <h6>{{ResumenTrab.fechaIni | date: 'dd/MM/yyyy'}} - {{ResumenTrab.fechaFin | date: 'dd/MM/yyyy'}}</h6>
+    </div>
+    <div class="col-lg-2 text-center">
+      <i class="bi bi-pencil-square" (click)="openEdit(contentEdit,ResumenTrab)"></i>
+      <i class="bi bi-trash3" (click)="openDelete(contentDelete, ResumenTrab)"></i>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-10">
+      <p>{{ResumenTrab.descripcion}}
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL AGREGAR -->
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Bienvenid@!</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+
+    <form [formGroup]="trabForm">
+
+      <div class="form-group">
+        <label for="puesto">Puesto</label>
+        <div class="input-group">
+          <input class="form-control" formControlName="puesto">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="organismo">organismo</label>
+        <div class="input-group">
+          <input class="form-control" formControlName="organismo">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="fechaIni">FechaIni</label>
+        <div class="input-group">
+          <input type="date" class="form-control" formControlName="fechaIni">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="fechaFin">fechaFin</label>
+        <div class="input-group">
+          <input type="date" class="form-control" formControlName="fechaFin">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="descripcion">Descripción</label>
+        <textarea type="text" name="descripcion" class="form-control" rows="5" cols="10"
+          formControlName="descripcion"></textarea>
+      </div>
+      <br>
+
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-outline-primary" (click)="guardar()">Agregar</button>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<!-- EDITAR MODAL -->
+<ng-template #contentEdit let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title2">Editar Experiencia Laboral</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="trabForm">
+
+      <div class="form-group">
+        <label for="puesto">Puesto</label>
+        <div class="input-group">
+          <input class="form-control" formControlName="puesto">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="organismo">Organismo</label>
+        <div class="input-group">
+          <input class="form-control" formControlName="organismo">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="fechaIni">fechaIni</label>
+        <div class="input-group">
+          <input type="date" class="form-control" formControlName="fechaIni">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="fechaFin">fechaFin</label>
+        <div class="input-group">
+          <input type="date" class="form-control" formControlName="fechaFin">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="descripcion">descripcion</label>
+        <div class="input-group">
+          <textarea class="form-control" rows="5" cols="10" formControlName="descripcion"></textarea>
+        </div>
+      </div>
+    </form>
+
+
+    <div class="modal-footer">
+      <button data-dismiss="modal" class="btn btn-outline-primary" (click)="editar()">Actualizar</button>
+      <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">Cerrar</button>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Modal Eliminar -->
+<ng-template #contentDelete let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Eliminar Experiencia Laboral</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <h3>Esta seguro de eliminar este registro?</h3>
+  </div>
+  <div class="modal-footer">
+    <button data-dismiss="modal" class="btn btn-outline-danger" (click)="onDelete()">Eliminar</button>
+    <button type="button" class="btn btn-outline-primary" (click)="modal.close('Save click')">Cerrar</button>
+  </div>
+</ng-template>

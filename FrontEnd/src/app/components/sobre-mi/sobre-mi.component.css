@@ -1,0 +1,97 @@
+/*
+==========
+SECCIÓN HOME/Acerca de Mi
+==========
+*/
+.home-info {
+  color: #fff;
+  padding: 1rem;
+  margin-top: 3rem;
+  box-shadow: 3px 3px 30px #14a3dc;
+}
+
+#section-title{
+  color:#14a3dc;
+  font-size: 45px;
+  
+}
+
+#probando{
+  z-index: -100;
+  text-transform: uppercase;
+  font-weight: 600px;
+  font-size:28px;
+  -webkit-text-stroke: 1px rgb(46, 66, 75);
+  color:#ffffff07;
+  font-size: 55px;
+  
+}
+
+.content-borders {
+  padding: 1rem;
+}
+.info-mi{
+  float:right;
+}
+#home-icons {
+  margin-top: 4rem;
+  padding: 1rem;
+}
+
+#home-icons a {
+  color: inherit;
+  text-decoration: none;
+  font-size: 2.5rem;
+  padding: 1rem;
+}
+
+.btn{
+  box-shadow: 5px 5px 8px var(--pink);
+  transition: 0.5s;
+  transition-property: background;
+  
+}
+
+.btn:hover{
+  background:#ff008c;
+}
+
+.bi-github:hover:before {
+  filter:invert(60%) sepia(20%) saturate(5000%) hue-rotate(1150deg) brightness(200%) contrast(100%);
+  transform: scale(2.5);
+  transition: transform .5s;
+  
+}
+
+.bi-linkedin:hover:before {
+  filter:invert(60%) sepia(20%) saturate(5000%) hue-rotate(100deg) brightness(200%) contrast(100%);
+  transform: scale(2.5);
+  transition: transform .5s;
+}
+
+
+.bi-discord:hover:before {
+  filter:invert(40%) sepia(25%) saturate(1500%) hue-rotate(2180deg) brightness(300%) contrast(100%);
+  transform: scale(2.5);
+  transition: transform .5s;
+}
+
+.home-info p{
+  transform: inherit;
+  color:#fff;
+  font-size: var(--normal-font-size);
+  max-width: 350;
+}
+
+.modal-header{
+  background-color: #ff008c;
+}
+
+.modal-body{
+  background: var(--grey);
+  backdrop-filter: blur(20px);
+}
+
+label{
+  color: #fff;
+}

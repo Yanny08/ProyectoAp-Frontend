@@ -1,0 +1,81 @@
+<!-- Seccion Sobre Mí/Home-->
+<section class="home-info container" id="SobreMi" *ngFor="let sobre_Mi of sobreMi">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="row">
+                <div class="col-4 text-center content-borders" id="home-icons">
+                    <a href="{{sobre_Mi.linkGit}}"><i class="bi bi-github" style="color:#9900ff;" id="github"></i></a>
+                    <a href="{{sobre_Mi.linkLinke}}"><i class="bi bi-linkedin" style="color:#0471ff;" id="linkedin"></i></a>
+                    <a href="{{sobre_Mi.linkDisc}}"><i class="bi bi-discord" style="color:#ff6600;" id="discord"></i></a>
+                </div>
+                <div class="col-8 content-borders">
+                    <div class="position-relative d-flex aling-iteams-center justify-content-center">
+                        <h1 class="decoracion"  id="probando"> SOBRE MÍ</h1>
+                        <h3 class="position-absolute fw-bold" id="section-title">Sobre mí</h3>
+                    </div>
+                    <div class="row content-borders">
+                        <p>{{sobre_Mi.descripcion}}
+                        </p>
+                    </div>
+                    <div class="row content-borders">
+                        <a href="#" class="btn btn-primary">
+                            Descargar CV <i class="bi bi-arrow-down-circle-fill"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div>
+                <img src="{{sobre_Mi.img}}" accept="image/*" id="home-perfil" class="img-fluid">
+                <i class="edit-icon bi bi-pencil-square" (click)="openEdit(contentEdit,sobre_Mi)"></i>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- EDITAR MODAL -->
+<ng-template #contentEdit let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title2">Editar SobreMi</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    
+    <form [formGroup]="editForm">
+
+      <div class="form-group">
+        <label for="linkGit ">linkGit</label>
+        <input type="text" name="linkGit" id="" class="form-control" formControlName="linkGit">
+      </div>
+      <div class="form-group">
+        <label for="linkDisc">linkDisc</label>
+        <input type="text" name="linkDisc" id="" class="form-control" formControlName="linkDisc">
+      </div>
+      <div class="form-group">
+        <label for="linkLinke">linkLinke</label>
+        <input type="text" name="linkLinke" id="" class="form-control" formControlName="linkLinke">
+      </div>
+      <div class="form-group">
+        <label for="descripcion">descripcion</label>
+          <textarea type="text" class="form-control" rows="5" cols="10" formControlName="descripcion"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="img">img</label>
+        <div class="input-group">
+          <input  type="file" alife-file-to-base64 (onFileChanged)="obtener($event)" class="form-control">
+          <img src="{{base64}}" height="100px">
+        </div>
+      </div>
+
+    </form>
+
+
+    <div class="modal-footer">
+      <button data-dismiss="modal" class="btn btn-primary" (click)="guardar()">Actualizar</button>
+      <button type="button" class="btn btn-danger" (click)="modal.close('Save click')">Cerrar</button>
+    </div>
+  </div>
+</ng-template>

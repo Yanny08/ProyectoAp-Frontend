@@ -1,0 +1,89 @@
+<!--header-->
+<header id="Inicio">
+  <nav class="navbar">
+    <div class="nav_logos" id="logos">
+      <img class="logo_argprograma" src="../assets/APLogo.png" width="110" height="40" id="ArgenPrograma">
+      <img class="logo_inti" src="../assets/LogoInti.png" width="50" height="50" id="INTI">
+      <img class="logo_ministerio" src="../assets/LogoMinisterio.png" width="150" height="60" id="Ministerio">
+
+    </div>
+    <!-- <span class="css-1rohdmw">
+            "<"
+           <span>
+           <div style="display:incline-clock">Yanina Loiacono</div>
+           <span style="display: incline-block; transition: opacity 0.5s ease 0s;"></span>
+           </span>
+           "/>"
+        </span> -->
+    <!-- boton login -->
+    <div class="boton-login" id="boton-login">
+      <a href="#" class="logout_btn">Login</a>
+    </div>
+    <!-- boton Menu -->
+    <div class="toggle-btn" (click)="mostrarBarra()">
+      <i class="bi bi-list fs-4"></i>
+    </div>
+  </nav>
+</header>
+<!--Barra de Navegacion-->
+<aside class="sidebar" id="menu-lateral" [ngClass]="{'mostrarLateral': barraActiva}">
+  <div class="menu-bar">
+    <div *ngFor="let persona of personas">
+      <i class="edit-icon bi bi-pencil-square" (click)="openEdit(contentEdit,persona)"></i>
+      <img class="img-fluid" src="{{persona.img}}" accept="image/*">
+      <h4>{{persona.nombre}} {{persona.apellido}}</h4>
+    </div>
+    <a href="#Inicio"><i class="bi bi-display fs-4"></i><span>Inicio</span></a>
+    <a href="#SobreMi"><i class="bi bi-person-video2 fs-4"></i><span>Sobre mí</span></a>
+    <a href="#Resumen"><i class="bi bi-award fs-4"></i><span>Resumen</span></a>
+    <a href="#Skills"><i class="bi bi-diagram-3 fs-4"></i><span>Habilidades</span></a>
+    <a href="#Proyect"><i class="bi bi-code-slash fs-4"></i><span>Proyectos</span></a>
+    <a href="#Contact"><i class="bi bi-envelope fs-4"></i><span>Contacto</span></a>
+  </div>
+</aside>
+<!--BANNER-->
+<main class="banner">
+  <i class="edit-icon bi bi-pencil-square"></i>
+  <!-- <div class="banner_titulo" id="banner-titulo">
+            <h1 class="display-3 fw-bold">Yanina Loiacono</h1>
+            <h3>Desarrollador@ Web Fullstack</h3>
+        </div> -->
+</main>
+
+<!-- EDITAR MODAL PERSONA -->
+<ng-template #contentEdit let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title2">Editar Perfil</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="editForm">
+      <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <div class="input-group">
+          <input class="form-control" formControlName="nombre">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="apellido">Apellido</label>
+        <div class="input-group">
+          <input class="form-control" formControlName="apellido">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="img">img</label>
+        <div class="input-group">
+          <input type="file" alife-file-to-base64 (onFileChanged)="obtener($event)" class="form-control">
+          <img src="{{base64}}" height="100px">
+        </div>
+      </div>
+    </form>
+
+    <div class="modal-footer">
+      <button data-dismiss="modal" class="btn btn-primary" (click)="guardar()">Actualizar</button>
+      <button type="button" class="btn btn-danger" (click)="modal.close('Save click')">Cerrar</button>
+    </div>
+  </div>
+</ng-template>

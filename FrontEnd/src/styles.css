@@ -1,0 +1,80 @@
+/*
+==========
+ESTILOS GLOBALES
+==========
+*/
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* mantiene las cosas en su lugar */
+  }
+  
+  :root {
+    --dark: #040b14;
+    --dark2: rgba(34,34,34,0.75);
+    --light: #a8a9b4;
+    --grey: rgba(0, 0, 0, 0.89);
+    --grey2: rgba(78, 78, 78, 0.116);
+    --blue: #149ddd;
+    --white: #fff;
+    --transparent-color: rgba(106, 89, 209, 0.1);
+    --color-filter: invert(1);
+    --pink: #ff008c;
+    --box-shadow: 0px 0px 20p rgb(0 0 0 /10%);
+    --small-font-size: 0.9em;
+    --normal-font-size: 1em;
+  }
+
+  /* Determina un minimo de tamaño y de esta forma los iconos de la navbar no colapsan en responsive.  */
+  /* html, body {
+    min-width: 472px;
+    width: auto; 
+  }*/
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    background-color: var(--dark);
+  }
+
+  section[id] {
+    scroll-margin-top: 125px;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "Roboto", sans-serif;
+    color: var(--white);
+  }
+  
+  p {
+    font-family: "Open Sans", sans-serif;
+    color:#fff;
+    
+  }
+  
+  p {
+    font-family: "Open Sans", sans-serif;
+    color:#fff;
+    
+  }
+  
+  ul, li {
+    list-style: none;
+    padding: 0;
+    color: #fff;
+  }
+  
+  a, a:link, a:visited {
+    color: inherit;
+    text-decoration: none;
+    margin-right: 5px;
+  }
+
+  i {
+    color: white;
+    text-decoration: none;
+    margin-right: 5px;
+  }
+  
