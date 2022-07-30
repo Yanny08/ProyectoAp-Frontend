@@ -5,7 +5,7 @@
     </h3>
   </div>
   <div class="col-lg-2 text-center">
-    <i class="bi bi-plus-circle" (click)="openModal(content)"></i>
+    <i class="bi bi-plus-circle" (click)="modalAgregar(content)" *ngIf="isAdmin"></i>
   </div>
 </div>
 <div class="shadow" *ngFor="let ResumenEdu of resumenEdu">
@@ -16,11 +16,11 @@
       <h6>{{ResumenEdu.fechaIni | date: 'dd/MM/yyyy'}} - {{ResumenEdu.fechaFin | date: 'dd/MM/yyyy'}}</h6>
     </div>
     <div class="col-lg-2 text-center">
-      <i class="bi bi-pencil-square" (click)="openEdit(contentEdit,ResumenEdu)"></i>
-      <i class="bi bi-trash3" (click)="openDelete(contentDelete,ResumenEdu)"></i>
+      <i class="bi bi-pencil-square" (click)="modalEdit(contentEdit,ResumenEdu)" *ngIf="isAdmin"></i>
+      <i class="bi bi-trash3" (click)="modalBorrar(contentDelete,ResumenEdu)" *ngIf="isAdmin"></i>
     </div>
   </div>
-  <div class="row">
+  <div class="row container content-borde">
     <div class="col-lg-10">
       <p>{{ResumenEdu.descripcion}}
       </p>
@@ -140,7 +140,7 @@
     <h3>Esta seguro de eliminar este registro?</h3>
   </div>
   <div class="modal-footer">
-    <button data-dismiss="modal" class="btn btn-outline-danger" (click)="onDelete()">Eliminar</button>
+    <button data-dismiss="modal" class="btn btn-outline-danger" (click)="borrar()">Eliminar</button>
     <button type="button" class="btn btn-outline-primary" (click)="modal.close('Save click')">Cerrar</button>
   </div>
 </ng-template>

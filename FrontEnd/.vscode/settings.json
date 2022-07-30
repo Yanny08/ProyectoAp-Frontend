@@ -1,0 +1,7 @@
+{
+    "javascript.inlayHints.functionLikeReturnTypes.enabled": false,
+    "javascript.format.enable": true,
+    "javascript.suggestionActions.enabled": true,
+    "javascript.validate.enable": true,
+    "editor.cursorStyle": "line"
+}

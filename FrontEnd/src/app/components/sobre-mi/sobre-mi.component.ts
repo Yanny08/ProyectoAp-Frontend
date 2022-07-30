@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgbModalConfig, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { SobreMi } from 'src/app/Models/sobre-mi.model';
 import { SobreMiService } from 'src/app/Services/sobre-mi.service';
+import { TokenService} from 'src/app/Services/token.service'
 
 @Component({
   selector: 'app-sobre-mi',
@@ -19,44 +20,77 @@ export class SobreMiComponent implements OnInit {
   private deleteId: number;
   base64:string="";
   
-
+  isAdmin = false;
+  roles: string[];
 
   constructor(config: NgbModalConfig, 
     private modalService: NgbModal,
-    private form: FormBuilder,
+    private fb: FormBuilder,
     private SobreMiService: SobreMiService,
+    private tokenService:TokenService,
     public httpClient:HttpClient) {
-   
+   // personalizar los valores predeterminados de los modales
     config.backdrop = 'static';
     config.keyboard = false;
   }
 
   
-
   ngOnInit(): void {
-    this.SobreMiService.getSobreMi().subscribe(data => {this.sobreMi = data})
-    this.editForm = this.form.group({
+    this.getSobreMi();
+    this.editForm = this.fb.group({
       id: [''],
-      linkGit: ['', Validators.required],
-      linkDisc: ['', Validators.required],
-      linkLinke: ['', Validators.required],
-      descripcion: ['', Validators.required],
-      img: ['', Validators.required],
+      linkGit: [''],
+      linkDisc: [''],
+      linkLinke: [''],
+      descripcion: [''],
+      img: [''],
       
     });
+    if(this.tokenService.getToken()){
+      this.isAdmin = true;
+    }else{
+      this.isAdmin = false;
+      }
+  }
+  public getSobreMi(){
+    this.SobreMiService.getSobreMi().subscribe(data => (this.sobreMi = data));
+
+    // this.roles = this.tokenService.getAuthorities();
+    // this.roles.forEach(rol => {
+    //   if (rol === 'ROLE_ADMIN') {
+    //     this.isAdmin = true;
+    //   }
+    // });
   }
 
-openModal(targetModal: any) {
-  this.modalService.open(targetModal, {
-    centered: true,
-    backdrop: 'static',
-    size: 'lg'
+  obtener($event:any){
+    this.base64=$event[0].base64;
+    this.editForm.value.img=this.base64;
+   }
 
-  });
-}
+   //Modal Agregar
+  //  open(content) {
+  //   this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+  //     this.closeResult = `Closed with: ${result}`;
+  //   }, (reason) => {
+  //     this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+  //   });
+  // }
+   
+  // onSubmit(f: NgForm) {
+  //   f.form.value.imagen=this.base64;
+  //   console.log(f.form.value);
+  //   const url = 'http://localhost:8080/sobreMi/crear';
+  //   this.httpClient.post(url, f.value)
+  //     .subscribe((result) => {
+  //       this.ngOnInit(); // recargar la tabla
+  //     });
+  //   this.modalService.dismissAll();
+  // }
 
+  //Modal Editar
 
-  openEdit(targetModal, sobreMi: SobreMi) {
+  modalEdit(targetModal, sobreMi:SobreMi) {
     this.modalService.open(targetModal, {
       centered: true,
       backdrop: 'static',
@@ -69,50 +103,36 @@ openModal(targetModal: any) {
       linkLinke: sobreMi.linkLinke,
       descripcion: sobreMi.descripcion,
       img: sobreMi.img,
-    
     });
    }
 
-   obtener($event:any){
-    this.base64=$event[0].base64;
-    this.editForm.value.img=this.base64;
-   }
-  
 
   guardar(){
-    const url = 'http://localhost:8080/sobreMi/crear';
-    console.log(this.editForm.value);
-     this.httpClient.post(url, this.editForm.value).subscribe(res=>{this.SobreMi!=res,
-    this.ngOnInit()});
+    const editUrl = 'http://localhost:8080/sobreMi/'+'editar/'+this.editForm.value.id;
+     this.httpClient.put(editUrl, this.editForm.value)
+     .subscribe((results) => {
+    this.ngOnInit();
     this.modalService.dismissAll();
-  
+  });
   }
 
-  openDelete(targetModal, sobreMi:SobreMi) {
-    this.deleteId= sobreMi.id;
-    this.modalService.open(targetModal, {
-      backdrop: 'static',
-      size: 'lg'
-    });
-  }
+  //Modal Eliminar
+  // modalBorrar(targetModal, sobreMi:SobreMi) {
+  //   this.deleteId= sobreMi.id;
+  //   this.modalService.open(targetModal, {
+  //     backdrop: 'static',
+  //     size: 'lg'
+  //   });
+  // }
 
-  onDelete() {
-    const deleteURL = 'http://localhost:8080/sobreMi/' +  'borrar/'+ this.deleteId ;
-    this.httpClient.delete(deleteURL)
-      .subscribe((results) => {
-        this.ngOnInit();
-        this.modalService.dismissAll();
-      });
-  }
-
-
-  open(content) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
+  // onDelete() {
+  //   const deleteURL = 'http://localhost:8080/sobreMi/' +  'borrar/'+ this.deleteId ;
+  //   this.httpClient.delete(deleteURL)
+  //     .subscribe((results) => {
+  //       this.ngOnInit();
+  //       this.modalService.dismissAll();
+  //     });
+  // }
 
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {

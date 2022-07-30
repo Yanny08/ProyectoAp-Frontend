@@ -5,7 +5,7 @@
   */
 
   .navbar {
-    position: relative;
+    position: absolute;
     height: 5rem;
     display: flex;
     justify-content: space-between;
@@ -31,7 +31,7 @@
   }
   
   
-  .logout_btn {
+  /* .boton-login {
     padding: 7px;
     background: #19B3D3;
     text-transform: uppercase;
@@ -45,13 +45,8 @@
     transition-property: background;
     margin-left: 20px;
   }
-  
-  .logout_btn:hover {
-    background: #bb0d81;
-  
-  }
-  
-  .toggle-btn {
+   */
+  .boton-login {
     position: absolute;
     font-weight: bolder;
     right: 15px;
@@ -63,15 +58,43 @@
   }
   
   
-  .toggle-btn i {
+  .boton-login i {
+    font-size: 35px;
+    color: #fff;
+    display: block;
+    width: 40px;
+    /* border-radius: 5px;
+    border: 3px solid #19B3D3; */
+  }
+  
+  .boton-login  i:hover {
+  color: #ff008c;
+
+}
+  
+  .boton-menu {
+    position: absolute;
+    font-weight: bolder;
+    padding: 5px 5px 5px 5px;
+    right: 60px;
+    top: 20px;
+    cursor: pointer;
+    text-align: center;
+    transition: 0.5s;
+    transition-property: background;
+  }
+  
+  
+  .boton-menu i {
+    font-size: 35px;
     color: #fff;
     display: block;
     width: 40px;
     border-radius: 5px;
-    border: 3px solid #19B3D3;
+    border: 2px solid #19B3D3;
   }
   
-  .toggle-btn i:hover {
+  .boton-menu i:hover {
     background: #ff008c;
   }
   

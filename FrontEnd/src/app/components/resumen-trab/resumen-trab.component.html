@@ -5,7 +5,7 @@
     </h3>
   </div>
   <div class="col-lg-2 text-center">
-    <i class="bi bi-plus-circle" (click)="openModal(content)"></i>
+    <i class="bi bi-plus-circle" (click)="openModal(content)" *ngIf="isAdmin"></i>
   </div>
 </div>
 
@@ -17,11 +17,11 @@
       <h6>{{ResumenTrab.fechaIni | date: 'dd/MM/yyyy'}} - {{ResumenTrab.fechaFin | date: 'dd/MM/yyyy'}}</h6>
     </div>
     <div class="col-lg-2 text-center">
-      <i class="bi bi-pencil-square" (click)="openEdit(contentEdit,ResumenTrab)"></i>
-      <i class="bi bi-trash3" (click)="openDelete(contentDelete, ResumenTrab)"></i>
+      <i class="bi bi-pencil-square" (click)="openEdit(contentEdit,ResumenTrab)" *ngIf="isAdmin"></i>
+      <i class="bi bi-trash3" (click)="openDelete(contentDelete, ResumenTrab)" *ngIf="isAdmin"></i>
     </div>
   </div>
-  <div class="row">
+  <div class="row" content-borde>
     <div class="col-lg-10">
       <p>{{ResumenTrab.descripcion}}
       </p>

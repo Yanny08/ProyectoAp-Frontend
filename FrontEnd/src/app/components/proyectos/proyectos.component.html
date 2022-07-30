@@ -1,45 +1,117 @@
 <section class="proyectos container" id="proyectos">
-    <div class="main-titulo">
-        <h2>Proyectos</h2>
-        <span>03.</span>
-    </div>
+  <div class="main-titulo">
+    <h2>Proyectos</h2>
+    <span>03.</span>
+  </div>
 
-    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-indicators">
-          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+
+  <div class="container col-12 d-flex alingn-contetn-center justify-content-center">
+    <i class="bi bi-plus-circle" (click)="open(content)" *ngIf="isAdmin"></i>
+    <div >
+      
+      <div class="card col-lg-2 col-sm-12 col-md-4" *ngFor="let proyecto of proyectos">
+        <div class="imgBx">
+          <img src="{{proyecto.img}}">
         </div>
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img src="..." class="d-block w-100" alt="...">
-            <div class="carousel-caption d-none d-md-block">
-              <h5>First slide label</h5>
-              <p>Some representative placeholder content for the first slide.</p>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <img src="..." class="d-block w-100" alt="...">
-            <div class="carousel-caption d-none d-md-block">
-              <h5>Second slide label</h5>
-              <p>Some representative placeholder content for the second slide.</p>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <img src="..." class="d-block w-100" alt="...">
-            <div class="carousel-caption d-none d-md-block">
-              <h5>Third slide label</h5>
-              <p>Some representative placeholder content for the third slide.</p>
-            </div>
-          </div>
+        <div class="detalles">
+          <h2>{{proyecto.titulo}}<br><span>{{proyecto.subtitulo}}</span></h2>
+          <i class="bi bi-pencil-square" (click)="modalEdit(contentEdit,proyecto)" *ngIf="isAdmin"></i>
+          <i class="bi bi-trash3" (click)="modalBorrar(contentDelete,proyecto)" *ngIf="isAdmin"></i>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
+        
       </div>
+    </div>
+  </div>  
 </section>
+
+<!-- MODAL AGREGAR -->
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Bienvenid@!</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+      <div class="form-group">
+        <label for="titulo">Titulo</label>
+        <div class="input-group">
+          <input class="form-control" name="titulo" #titulo="ngModel" ngModel required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="subtitulo">Subtitulo</label>
+        <div class="input-group">
+          <input class="form-control" name="subtitulo" ngModel>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="img">img</label>
+        <div class="input-group">
+          <input type="file" alife-file-to-base64 (onFileChanged)="obtener($event)" class="form-control" name="img" ngModel>
+          <img src="{{base64}}" height="100px">
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-outline-dark" (click)="('Save click')">Agregar</button>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<!-- EDITAR MODAL -->
+<ng-template #contentEdit let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title2">Editar Perfil</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="editForm">
+
+      <div class="form-group">
+        <label for="titulo">Titulo</label>
+        <div class="input-group">
+          <input class="form-control" formControlName="titulo">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="subtitulo">Subtitulo</label>
+        <div class="input-group">
+          <input class="form-control" formControlName="subtitulo">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="img">img</label>
+        <div class="input-group">
+          <input type="file" alife-file-to-base64 (onFileChanged)="obtener($event)" class="form-control">
+          <img src="{{base64}}" height="100px">
+        </div>
+      </div>
+    </form>
+
+    <div class="modal-footer">
+      <button data-dismiss="modal" class="btn btn-primary" (click)="guardar()">Guardar</button>
+      <button type="button" class="btn btn-danger" (click)="modal.close('Save click')">Cerrar</button>
+    </div>
+  </div>
+</ng-template>
+
+<!-- MODAL ELIMINAR-->
+<ng-template #contentDelete let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Eliminar Perfil</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <h3>Esta seguro de eliminar este registro?</h3>
+  </div>
+  <div class="modal-footer">
+    <button data-dismiss="modal" class="btn btn-danger" (click)="borrar()">Eliminar</button>
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Cerrar</button>
+  </div>
+</ng-template>

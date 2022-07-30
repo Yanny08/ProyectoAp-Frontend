@@ -10,12 +10,11 @@ export class SobreMiService {
 
   URL = 'http://localhost:8080/sobreMi/';
 
-  
-  
+
   constructor(private http: HttpClient) { }
 
 
-  public getSobreMi()  {
+  public getSobreMi(): Observable<SobreMi[]> {
     return this.http.get<SobreMi[]>(this.URL + 'traer');
   }
   public getSobreMiId(id: any): Observable<SobreMi> {

@@ -16,11 +16,15 @@
            "/>"
         </span> -->
     <!-- boton login -->
-    <div class="boton-login" id="boton-login">
-      <a href="#" class="logout_btn">Login</a>
-    </div>
+     <a class="boton-login" (click)="login()" *ngIf="!isLogged">
+      <i class="bi bi-person-plus"></i>
+     </a>
+    <!-- boton logOut (cerrar sesion)-->
+    <a class="boton-login" (click)="onLogOut()" *ngIf="isLogged">
+      <i class="bi bi-person-x" ></i> 
+    </a>
     <!-- boton Menu -->
-    <div class="toggle-btn" (click)="mostrarBarra()">
+    <div class="boton-menu" (click)="mostrarBarra()">
       <i class="bi bi-list fs-4"></i>
     </div>
   </nav>
@@ -29,7 +33,7 @@
 <aside class="sidebar" id="menu-lateral" [ngClass]="{'mostrarLateral': barraActiva}">
   <div class="menu-bar">
     <div *ngFor="let persona of personas">
-      <i class="edit-icon bi bi-pencil-square" (click)="openEdit(contentEdit,persona)"></i>
+      <i class="edit-icon bi bi-pencil-square" (click)="openEdit(contentEdit,persona)" *ngIf="isLogged"></i>
       <img class="img-fluid" src="{{persona.img}}" accept="image/*">
       <h4>{{persona.nombre}} {{persona.apellido}}</h4>
     </div>
@@ -42,8 +46,8 @@
   </div>
 </aside>
 <!--BANNER-->
-<main class="banner">
-  <i class="edit-icon bi bi-pencil-square"></i>
+<main class="banner" #banner>
+  <i class="edit-icon bi bi-pencil-square" *ngIf="isLogged"></i>
   <!-- <div class="banner_titulo" id="banner-titulo">
             <h1 class="display-3 fw-bold">Yanina Loiacono</h1>
             <h3>Desarrollador@ Web Fullstack</h3>

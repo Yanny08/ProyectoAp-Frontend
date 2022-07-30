@@ -1,9 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, NgForm, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgbModalConfig, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Persona } from 'src/app/Models/persona.model';
 import { PersonaService } from 'src/app/Services/persona.service';
+import {Router} from '@angular/router';
+import { TokenService } from 'src/app/Services/token.service';
 
 
 @Component({
@@ -13,31 +15,35 @@ import { PersonaService } from 'src/app/Services/persona.service';
 })
 export class InicioComponent implements OnInit {
   
-  
   personas: Persona[];
   Persona = new Persona();
   closeResult: string;
   editForm!: FormGroup;
   private deleteId: number;
   base64:string="";
+  // LOGIN
+  isLogged = false;
+  // IMAGEN BANNER
+  // @ViewChild('banner',{static: true})persona.img!: ElementRef<HTMLDivElement>;
   
-  barraActiva: boolean = false;
   
-  mostrarBarra():void {
-    this.barraActiva = !this.barraActiva;
-  }
-
   constructor(config: NgbModalConfig, 
     private modalService: NgbModal,
     private form: FormBuilder,
     private PersonaService: PersonaService,
+    private router:Router,
+    private tokenService:TokenService,
     public httpClient:HttpClient) {
    
     config.backdrop = 'static';
     config.keyboard = false;
   }
 
+  barraActiva: boolean = false;
   
+  mostrarBarra():void {
+    this.barraActiva = !this.barraActiva;
+  }
 
   ngOnInit(): void {
     this.PersonaService.getPersona().subscribe(data => {this.personas = data})
@@ -48,7 +54,24 @@ export class InicioComponent implements OnInit {
       img: ['', Validators.required],
       
     });
+
+    // TOKEN
+    if(this.tokenService.getToken()){
+      this.isLogged = true;
+    }else{
+      this.isLogged = false;
+      }
+    }
+
+    onLogOut(): void {
+      this.tokenService.logOut();
+      window.location.reload();
+    }
+
+  login(){
+    this.router.navigate(['/login'])
   }
+
   
 
 

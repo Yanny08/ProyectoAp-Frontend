@@ -98,6 +98,12 @@ h4::before {
   padding-right: 5rem;
 }
 
+.content-borde {
+  overflow-wrap: break-word;
+  padding: 10px;
+
+}
+
 .modal{
     cursor: pointer;
   }

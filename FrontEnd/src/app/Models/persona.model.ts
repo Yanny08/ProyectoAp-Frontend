@@ -1,8 +1,8 @@
 export class Persona {
     id:number;
-    nombre:string;
-    apellido:string;
-    img:string;
+    nombre:String;
+    apellido:String;
+    img:String;
     
   
   

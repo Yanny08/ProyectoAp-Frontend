@@ -28,8 +28,16 @@ SECCIÓN HOME/Acerca de Mi
 }
 
 .content-borders {
-  padding: 1rem;
+  padding: 20px;
 }
+
+.content-border2{
+text-align: center;
+overflow-wrap: break-word; /*contenedor de texto */
+padding-left: 50px;
+
+}
+
 .info-mi{
   float:right;
 }

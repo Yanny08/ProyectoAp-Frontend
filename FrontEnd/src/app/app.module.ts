@@ -15,6 +15,10 @@ import { AlifeFileToBase64Module } from 'alife-file-to-base64';
 import { HttpClientModule } from '@angular/common/http';
 import { ResumenEduComponent } from './components/resumen-edu/resumen-edu.component';
 import { ResumenTrabComponent } from './components/resumen-trab/resumen-trab.component';
+import { HomeComponent } from './components/home/home.component';
+import { LoginComponent } from './components/login/login.component';
+import {IvyCarouselModule} from 'angular-responsive-carousel';
+import { NgCircleProgressModule } from 'ng-circle-progress';
 
 
 @NgModule({
@@ -28,6 +32,8 @@ import { ResumenTrabComponent } from './components/resumen-trab/resumen-trab.com
     ResumenComponent,
     ResumenEduComponent,
     ResumenTrabComponent,
+    HomeComponent,
+    LoginComponent,
   
   ],
   imports: [
@@ -37,7 +43,9 @@ import { ResumenTrabComponent } from './components/resumen-trab/resumen-trab.com
     NgbModule,
     ReactiveFormsModule,
     HttpClientModule,
-    AlifeFileToBase64Module
+    AlifeFileToBase64Module,
+    IvyCarouselModule,
+    NgCircleProgressModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]
