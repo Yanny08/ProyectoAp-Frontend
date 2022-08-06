@@ -8,37 +8,86 @@
     <i class="bi bi-plus-circle" (click)="modalAgregar(content)" *ngIf="isAdmin"></i>
   </div>
 </div>
-<div class="shadow" *ngFor="let ResumenEdu of resumenEdu">
+<div class="shadow" *ngFor="let resumenEdu of resumenEdu">
   <div class="row">
     <div class="col-lg-10">
-      <h4>{{ResumenEdu.titulo}}</h4> -
-      <p><em>{{ResumenEdu.institucion}}</em></p>
-      <h6>{{ResumenEdu.fechaIni | date: 'dd/MM/yyyy'}} - {{ResumenEdu.fechaFin | date: 'dd/MM/yyyy'}}</h6>
+      <h4>{{resumenEdu.titulo}}</h4> -
+      <p><em>{{resumenEdu.institucion}}</em></p>
+      <h6>{{resumenEdu.fechaIni | date: 'dd/MM/yyyy'}} - {{resumenEdu.fechaFin | date: 'dd/MM/yyyy'}}</h6>
     </div>
     <div class="col-lg-2 text-center">
-      <i class="bi bi-pencil-square" (click)="modalEdit(contentEdit,ResumenEdu)" *ngIf="isAdmin"></i>
-      <i class="bi bi-trash3" (click)="modalBorrar(contentDelete,ResumenEdu)" *ngIf="isAdmin"></i>
+      <i class="bi bi-pencil-square" (click)="modalEdit(contentEdit,resumenEdu)" *ngIf="isAdmin"></i>
+      <i class="bi bi-trash3" (click)="modalBorrar(contentDelete,resumenEdu)" *ngIf="isAdmin"></i>
     </div>
   </div>
-  <div class="row container content-borde">
+  <div class="row content-borde">
     <div class="col-lg-10">
-      <p>{{ResumenEdu.descripcion}}
+      <p>{{resumenEdu.descripcion}}
       </p>
     </div>
   </div>
 </div>
 
 
-<!-- MODAL AGREGAR -->
+<!--MODAL AGREGAR -->
 <ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Bienvenid@!</h4>
+
+    <h4 class="modal-title" id="modal-basic-title">Agregar Educación</h4>
     <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
   </div>
+
   <div class="modal-body">
+    <form #f="ngForm" (ngSubmit)="enviar(f)" novalidate>
+      <div class="form-group">
+        <label for="titulo">Titulo</label>
+          <div class="input-group">
+            <input class="form-control" name="titulo" #titulo="ngModel" ngModel required>
+          </div>
+        </div>
+      <div class="form-group">
+        <label for="institucion">Institucion</label>
+        <div class="input-group">
+          <input class="form-control" name="titulo" #titulo="ngModel" ngModel>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="fechaIni">FechaIni</label>
+        <div class="input-group">
+          <input type="date" class="form-control" name="fechaIni" #fechaIni="ngModel" ngModel>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="fechaFin">FechaFin</label>
+        <div class="input-group">
+          <input type="date" class="form-control" name="fechaFin" #fechaFin="ngModel" ngModel>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="descripcion">Descripción</label>
+        <textarea type="text" name="descripcion" class="form-control" rows="5" cols="10"
+        #descripcion="ngModel" ngModel></textarea>
+      </div>
+      <br>
 
-    <form [formGroup]="eduForm">
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-outline-primary">Agregar</button>
+      </div>
+    </form>
+  </div>
+</ng-template>
 
+<!-- MODAL EDITAR -->
+<ng-template #contentEdit let-modal>
+
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title2">Editar Educación</h4>
+    <button type="button" class="btn-close" aria-label="btn-Close" (click)="modal.dismiss('Cross click')">
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <form [formGroup]="editForm" novalidate>
       <div class="form-group">
         <label for="titulo">Titulo</label>
         <div class="input-group">
@@ -64,55 +113,6 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="descripcion">Descripción</label>
-        <textarea type="text" name="descripcion" class="form-control" rows="5" cols="10"
-          formControlName="descripcion"></textarea>
-      </div>
-      <br>
-
-      <div class="modal-footer">
-        <button type="submit" class="btn btn-outline-primary" (click)="guardar()">Agregar</button>
-      </div>
-    </form>
-  </div>
-</ng-template>
-
-<!-- EDITAR MODAL -->
-<ng-template #contentEdit let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title2">Editar Educación</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <form [formGroup]="eduForm">
-
-      <div class="form-group">
-        <label for="titulo">Titulo</label>
-        <div class="input-group">
-          <input class="form-control" formControlName="titulo">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="institucion">Institucion</label>
-        <div class="input-group">
-          <input class="form-control" formControlName="institucion">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="fechaIni">FechaIni</label>
-        <div class="input-group">
-          <input type="date" class="form-control"  formControlName="fechaIni">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="fechaFin">FechaFin</label>
-        <div class="input-group">
-          <input type="date" class="form-control" formControlName="fechaFin">
-        </div>
-      </div>
-      <div class="form-group">
         <label for="descripcion">Descripcion</label>
         <div class="input-group">
           <textarea class="form-control" rows="5" cols="10" formControlName="descripcion"></textarea>
@@ -120,25 +120,27 @@
       </div>
     </form>
 
-
     <div class="modal-footer">
+      
       <button data-dismiss="modal" class="btn btn-outline-primary" (click)="editar()">Actualizar</button>
       <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">Cerrar</button>
     </div>
   </div>
 </ng-template>
 
-<!-- Modal Eliminar -->
+<!-- MODAL ELIMINAR -->
 <ng-template #contentDelete let-modal>
+
   <div class="modal-header">
     <h4 class="modal-title">Eliminar Educación</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
+    <button type="button" class="btn-close" aria-label="btn-Close" (click)="modal.dismiss('Cross click')">
     </button>
   </div>
+
   <div class="modal-body">
     <h3>Esta seguro de eliminar este registro?</h3>
   </div>
+
   <div class="modal-footer">
     <button data-dismiss="modal" class="btn btn-outline-danger" (click)="borrar()">Eliminar</button>
     <button type="button" class="btn btn-outline-primary" (click)="modal.close('Save click')">Cerrar</button>

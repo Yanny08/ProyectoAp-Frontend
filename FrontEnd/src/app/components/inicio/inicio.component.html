@@ -16,11 +16,11 @@
            "/>"
         </span> -->
     <!-- boton login -->
-     <a class="boton-login" (click)="login()" *ngIf="!isLogged">
+     <a class="boton-login" (click)="login()" *ngIf="!isAdmin">
       <i class="bi bi-person-plus"></i>
      </a>
     <!-- boton logOut (cerrar sesion)-->
-    <a class="boton-login" (click)="onLogOut()" *ngIf="isLogged">
+    <a class="boton-login" (click)="onLogOut()" *ngIf="isAdmin">
       <i class="bi bi-person-x" ></i> 
     </a>
     <!-- boton Menu -->
@@ -33,8 +33,8 @@
 <aside class="sidebar" id="menu-lateral" [ngClass]="{'mostrarLateral': barraActiva}">
   <div class="menu-bar">
     <div *ngFor="let persona of personas">
-      <i class="edit-icon bi bi-pencil-square" (click)="openEdit(contentEdit,persona)" *ngIf="isLogged"></i>
-      <img class="img-fluid" src="{{persona.img}}" accept="image/*">
+      <i class="edit-icon bi bi-pencil-square" (click)="modalEdit(contentEdit,persona)" *ngIf="isAdmin"></i>
+      <img class="img-fluid" src="{{persona.imgPerfil}}" accept="image/*">
       <h4>{{persona.nombre}} {{persona.apellido}}</h4>
     </div>
     <a href="#Inicio"><i class="bi bi-display fs-4"></i><span>Inicio</span></a>
@@ -45,25 +45,28 @@
     <a href="#Contact"><i class="bi bi-envelope fs-4"></i><span>Contacto</span></a>
   </div>
 </aside>
-<!--BANNER-->
-<main class="banner" #banner>
-  <i class="edit-icon bi bi-pencil-square" *ngIf="isLogged"></i>
+<div *ngFor="let persona of personas">
+<main class="banner" #banner [ngStyle]="{ 'background-image': 'url(' + persona.imgBanner + ')' }">
+  
   <!-- <div class="banner_titulo" id="banner-titulo">
             <h1 class="display-3 fw-bold">Yanina Loiacono</h1>
             <h3>Desarrollador@ Web Fullstack</h3>
         </div> -->
 </main>
+</div>
+<!--BANNER-->
 
-<!-- EDITAR MODAL PERSONA -->
+<!-- MODAL EDITAR -->
 <ng-template #contentEdit let-modal>
+
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title2">Editar Perfil</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
+    <button type="button" class="btn-close" aria-label="btn-close" (click)="modal.dismiss('Cross click')">
     </button>
   </div>
+
   <div class="modal-body">
-    <form [formGroup]="editForm">
+    <form [formGroup]="editForm" novalidate>
       <div class="form-group">
         <label for="nombre">Nombre</label>
         <div class="input-group">
@@ -77,16 +80,26 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="img">img</label>
+        <label for="imgPerfil">imgPerfil</label>
         <div class="input-group">
-          <input type="file" alife-file-to-base64 (onFileChanged)="obtener($event)" class="form-control">
-          <img src="{{base64}}" height="100px">
+          <input type="file" alife-file-to-base64 (onFileChanged)="obtener($event)"
+          name="imgPerfil" class="form-control">
+          <!-- <img src="{{base64}}" height="100px"> -->
+          <img src="{{this.editForm.value.imgPerfil}}" height="100px">
         </div>
       </div>
-    </form>
+      <div class="form-group">
+        <label for="imgBanner">imgBanner</label>
+        <div class="input-group">
+          <input type="file" alife-file-to-base64 (onFileChanged)="obtener2($event)" class="form-control" name="imgBanner">
+          <img src="{{this.editForm.value.imgBanner}}" height="100px">
+        </div>
+      </div>
+    </form> 
 
     <div class="modal-footer">
-      <button data-dismiss="modal" class="btn btn-primary" (click)="guardar()">Actualizar</button>
+
+      <button data-dismiss="modal" class="btn btn-primary" (click)="editar()">Actualizar</button>
       <button type="button" class="btn btn-danger" (click)="modal.close('Save click')">Cerrar</button>
     </div>
   </div>

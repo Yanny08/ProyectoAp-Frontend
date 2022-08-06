@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, NgForm } from '@angular/forms';
 import { NgbModalConfig, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ResumenEdu } from 'src/app/Models/resumenEdu.model';
 import { ResumenEduService } from 'src/app/Services/resumen-edu.service';
@@ -14,18 +14,16 @@ import { TokenService } from 'src/app/Services/token.service';
 export class ResumenEduComponent implements OnInit {
 
   resumenEdu: ResumenEdu[];
-  ResumenEdu = new ResumenEdu();
   closeResult: string;
-  eduForm: FormGroup;
+  editForm: FormGroup;
   private deleteId: number;
 
-  // isLogged = false;
   isAdmin = false;
 
   constructor(config: NgbModalConfig,
     private modalService: NgbModal,
     private form: FormBuilder,
-    private ResumenEduService: ResumenEduService,
+    private resumenEduService: ResumenEduService,
     private tokenService: TokenService,
     public httpClient: HttpClient) {
 
@@ -33,29 +31,34 @@ export class ResumenEduComponent implements OnInit {
     config.keyboard = false;
   }
 
-
-
   ngOnInit(): void {
-    this.ResumenEduService.getResumenEdu().subscribe(data => { this.resumenEdu = data })
-    this.eduForm = this.form.group({
+    this.getResumenEdu();
+    this.editForm = this.form.group({
       id: [''],
       titulo: [''],
       institucion: [''],
       fechaIni: [''],
       fechaFin: [''],
       descripcion: [''],
-
     });
-
     // TOKEN
     if (this.tokenService.getToken()) {
       this.isAdmin = true;
     } else {
       this.isAdmin = false;
     }
-
+    
   }
 
+  public getResumenEdu(){
+    this.resumenEduService.getResumenEdu().subscribe(data => { this.resumenEdu = data });
+     // console.log(this.resumenEdu)
+
+    
+  }
+
+ 
+ //Modal Agregar
   modalAgregar(content) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -64,15 +67,17 @@ export class ResumenEduComponent implements OnInit {
     });
   }
 
-  guardar() {
-    const url = 'http://localhost:8080/resumenEdu/crear';
-    console.log(this.eduForm.value);
-    this.httpClient.post(url, this.eduForm.value).subscribe(res => {
-      this.resumenEdu!=res,
-      this.ngOnInit();
-      this.modalService.dismissAll();
-    })
+  enviar(f: NgForm) {
+    console.log(f.form.value);
+    this.resumenEduService.addResumenEdu(f.value)
+      .subscribe((result) => {
+        this.ngOnInit(); // recargar la tabla
+      });
+    this.modalService.dismissAll(); // desaparece el modal
   }
+
+
+ //Modal Editar
 
   modalEdit(targetModal, resumenEdu: ResumenEdu) {
     this.modalService.open(targetModal, {
@@ -80,7 +85,7 @@ export class ResumenEduComponent implements OnInit {
       backdrop: 'static',
       size: 'lg'
     });
-    this.eduForm.patchValue({
+    this.editForm.patchValue({
       id: resumenEdu.id,
       titulo: resumenEdu.titulo,
       institucion: resumenEdu.institucion,
@@ -88,16 +93,19 @@ export class ResumenEduComponent implements OnInit {
       fechaFin: resumenEdu.fechaFin,
       descripcion: resumenEdu.descripcion,
     });
+    console.log(this.editForm.value);
   }
 
-  editar() {
-    const editURL = 'http://localhost:8080/resumenEdu/' + 'editar/' + this.eduForm.value.id;
-    this.httpClient.put(editURL, this.eduForm.value)
+  editar() {  
+    this.resumenEduService.updateResumenEdu(this.editForm.value)
       .subscribe((results) => {
         this.ngOnInit();
         this.modalService.dismissAll();
       });
   }
+
+
+   // Modal Eliminar
 
   modalBorrar(targetModal, resumenEdu: ResumenEdu) {
     this.deleteId = resumenEdu.id;
@@ -108,13 +116,12 @@ export class ResumenEduComponent implements OnInit {
   }
 
   borrar() {
-    const deleteURL = 'http://localhost:8080/resumenEdu/' + 'borrar/' + this.deleteId;
-    this.httpClient.delete(deleteURL)
-      .subscribe((results) => {
-        this.ngOnInit();
-        this.modalService.dismissAll();
-      });
-  }
+    this.resumenEduService.deleteResumenEdu(this.deleteId)
+    .subscribe((results) => {
+      this.ngOnInit();
+      this.modalService.dismissAll();
+    });
+}
 
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {

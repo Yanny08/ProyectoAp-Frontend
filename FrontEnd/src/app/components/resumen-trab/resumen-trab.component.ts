@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, NgForm } from '@angular/forms';
 import { NgbModalConfig, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ResumenTrab } from 'src/app/Models/resumenTrab.model';
 import { ResumenTrabService } from 'src/app/Services/resumen-trab.service';
@@ -15,9 +15,8 @@ export class ResumenTrabComponent implements OnInit {
 
 
   resumenTrab: ResumenTrab[];
-  ResumenTrab = new ResumenTrab();
   closeResult: string;
-  trabForm: FormGroup;
+  editForm: FormGroup;
   private deleteId: number;
 
   isAdmin = false;
@@ -25,7 +24,7 @@ export class ResumenTrabComponent implements OnInit {
   constructor(config: NgbModalConfig,
     private modalService: NgbModal,
     private form: FormBuilder,
-    private ResumenTrabService: ResumenTrabService,
+    private resumenTrabService: ResumenTrabService,
     private tokenService: TokenService,
     public httpClient: HttpClient) {
 
@@ -36,38 +35,59 @@ export class ResumenTrabComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.ResumenTrabService.getResumenTrab().subscribe(data => { this.resumenTrab = data })
-    this.trabForm = this.form.group({
+    this.getResumenTrab();
+    this.editForm = this.form.group({
       id: [''],
       puesto: [''],
       organismo: [''],
       fechaIni: [''],
       fechaFin: [''],
       descripcion: [''],
-
     });
 
+    
     // TOKEN
     if (this.tokenService.getToken()) {
       this.isAdmin = true;
     } else {
       this.isAdmin = false;
     }
+  }
+
+  public getResumenTrab(){
+    this.resumenTrabService.getResumenTrab().subscribe(data => { this.resumenTrab = data });
+     // console.log(this.resumenEdu)
 
   }
 
+  
+  //Modal Agregar
+  modalAgregar(content) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
 
-  // Submit(){
-  //   console.log(this.editForm.value);
-  // }
+  enviar(f: NgForm) {
+    console.log(f.form.value);
+    this.resumenTrabService.addResumenTrab(f.value)
+      .subscribe((result) => {
+        this.ngOnInit(); // recargar la tabla
+      });
+    this.modalService.dismissAll(); // desaparece el modal
+  }
 
-  openEdit(targetModal, resumenTrab: ResumenTrab) {
+//Modal Editar
+
+  modalEdit(targetModal, resumenTrab: ResumenTrab) {
     this.modalService.open(targetModal, {
       centered: true,
       backdrop: 'static',
       size: 'lg'
     });
-    this.trabForm.patchValue({
+    this.editForm.patchValue({
       id: resumenTrab.id,
       puesto: resumenTrab.puesto,
       organismo: resumenTrab.organismo,
@@ -75,30 +95,20 @@ export class ResumenTrabComponent implements OnInit {
       fechaFin: resumenTrab.fechaFin,
       descripcion: resumenTrab.descripcion,
     });
+    console.log(this.editForm.value);
   }
 
-  guardar() {
-    const url = 'http://localhost:8080/resumenTrab/crear';
-    console.log(this.trabForm.value);
-    this.httpClient.post(url, this.trabForm.value).subscribe(res => {
-      this.resumenTrab != res,
-      this.ngOnInit();
-    })
-    this.modalService.dismissAll();
-  }
-
-
-
-  editar() {
-    const editURL = 'http://localhost:8080/resumenTrab/' + 'editar/' + this.trabForm.value.id;
-    this.httpClient.put(editURL, this.trabForm.value)
+  editar() {  
+    this.resumenTrabService.updateResumenTrab(this.editForm.value)
       .subscribe((results) => {
         this.ngOnInit();
         this.modalService.dismissAll();
       });
   }
 
-  openDelete(targetModal, resumenTrab: ResumenTrab) {
+ // Modal Eliminar
+
+ modalBorrar(targetModal, resumenTrab: ResumenTrab) {
     this.deleteId = resumenTrab.id;
     this.modalService.open(targetModal, {
       backdrop: 'static',
@@ -106,23 +116,15 @@ export class ResumenTrabComponent implements OnInit {
     });
   }
 
-  onDelete() {
-    const deleteURL = 'http://localhost:8080/resumenTrab/' + 'borrar/' + this.deleteId;
-    this.httpClient.delete(deleteURL)
-      .subscribe((results) => {
-        this.ngOnInit();
-        this.modalService.dismissAll();
-      });
-  }
-
-
-  openModal(content) {
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+  borrar() {
+    this.resumenTrabService.deleteResumenTrab(this.deleteId)
+    .subscribe((results) => {
+      this.ngOnInit();
+      this.modalService.dismissAll();
     });
-  }
+}
+
+
 
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {

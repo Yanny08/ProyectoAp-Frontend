@@ -37,46 +37,49 @@
   </div>
 </section>
 
-<!-- EDITAR MODAL -->
+<!-- MODAL EDITAR -->
 <ng-template #contentEdit let-modal>
+
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title2">Editar SobreMi</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
+    <button type="button" class="btn-close" aria-label="btn-close" (click)="modal.dismiss('Cross click')">
     </button>
   </div>
-  <div class="modal-body">
-    <form [formGroup]="editForm">
 
+  <div class="modal-body">
+    <form [formGroup]="editForm" novalidate>
       <div class="form-group">
         <label for="linkGit ">linkGit</label>
-        <input type="text" name="linkGit" id="" class="form-control" formControlName="linkGit">
+        <input class="form-control" formControlName="linkGit">
       </div>
       <div class="form-group">
         <label for="linkDisc">linkDisc</label>
-        <input type="text" name="linkDisc" id="" class="form-control" formControlName="linkDisc">
+        <input class="form-control" formControlName="linkDisc">
       </div>
       <div class="form-group">
         <label for="linkLinke">linkLinke</label>
-        <input type="text" name="linkLinke" id="" class="form-control" formControlName="linkLinke">
+        <input class="form-control" formControlName="linkLinke">
       </div>
       <div class="form-group">
-        <label for="descripcion">descripcion</label>
-        <textarea type="text" class="form-control" rows="5" cols="10" formControlName="descripcion"></textarea>
+        <label for="descripcion">Descripcion</label>
+        <div class="input-group">
+          <textarea class="form-control" rows="5" cols="10" formControlName="descripcion"></textarea>
+        </div>
       </div>
       <div class="form-group">
         <label for="img">img</label>
         <div class="input-group">
-          <input type="file" alife-file-to-base64 (onFileChanged)="obtener($event)" class="form-control">
-          <img src="{{base64}}" height="100px">
+          <input type="file" alife-file-to-base64 (onFileChanged)="obtener($event)" name="img" class="form-control" >
+          <img src="{{this.editForm.value.img}}" height="100px">
         </div>
       </div>
 
       <div class="modal-footer">
-        <button data-dismiss="modal" class="btn btn-primary" (click)="guardar()">Actualizar</button>
+
+        <button data-dismiss="modal" class="btn btn-primary" (click)="editar()">Actualizar</button>
         <button type="button" class="btn btn-danger" (click)="modal.close('Save click')">Cerrar</button>
       </div>
-    
+
     </form>
   </div>
 </ng-template>

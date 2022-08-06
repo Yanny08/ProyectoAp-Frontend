@@ -57,12 +57,6 @@ export class ProyectosComponent implements OnInit {
   public getProyecto(){
     this.ProyectoService.getProyecto().subscribe(data => {this.proyectos = data});
     
-    // this.roles = this.tokenService.getAuthorities();
-    // this.roles.forEach(rol => {
-    //   if (rol === 'ROLE_ADMIN') {
-    //     this.isAdmin = true;
-    //   }
-    // });
   }
 
 obtener($event:any){

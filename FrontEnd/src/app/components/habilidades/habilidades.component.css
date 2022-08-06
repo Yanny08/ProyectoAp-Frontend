@@ -51,23 +51,6 @@ section {
     font-weight: 600px;
 }
 
-/* .bar-progreso{
-    position: relative;
-}
-.scroll-div{
-    /* word-wrap: break-word; 
-    height: 500px;
-    padding: 10px 20px;
-    overflow: hidden;
-    overflow-y: scroll;
-    width: 500px;
-    display: flex;
-} */
-
-/* circle-progress{
-    display: flex;
-    justify-content: center;
-} */
 
 @property --rotate {
     syntax: "<angle>";
@@ -76,14 +59,10 @@ section {
   }
   
 
-  
-  
-  
   .card {
     background: #191c29;
-    width: 8em;
-    height:11em;
-    padding: 3px;
+    width: 10em;
+    padding-left: 5px;
     position: relative;
     border-radius: 6px;
     justify-content: center;
@@ -101,7 +80,7 @@ section {
     color: rgb(88 199 250 / 100%);
     transition: color 1s;
   }
-  .card:hover:before, .card:hover:after {
+  .card:hover:before{
     animation: none;
     opacity: 0;
   }
@@ -110,20 +89,19 @@ section {
   .card::before {
     content: "";
     width: 104%;
-    height: 102%;
+    height: 105%;
     border-radius: 8px;
-    background-image: linear-gradient(
-      var(--rotate)
-      , #5ddcff, #3c67e3 43%, #4e00c2);
-      position: absolute;
-      z-index: -1;
-      animation: spin 2.5s linear infinite;
+    background-image: linear-gradient(var(--rotate)
+    , #5ddcff, #3c67e3 43%, #4e00c2);
+    position: absolute;
+    z-index: -1;
+    animation: spin 2.5s linear infinite;
   }
   
   .card::after {
     position: absolute;
     content: "";
-    top: calc(var(--card-height) / 6);
+    top: calc(var(--card-height) / 27);
     left: 0;
     right: 0;
     z-index: -1;
@@ -149,3 +127,32 @@ section {
     }
   }
   
+  .iconoLeng{
+    position: absolute;
+    Overflow:hidden;
+    align-items: center;
+    top: 50px;
+    justify-content: center;
+  }
+
+  .modal{
+    cursor: pointer;
+  }
+
+  .modal-header{
+    background-color: #ff008c;
+  }
+
+  .modal-body{
+    background: var(--grey);
+    backdrop-filter: blur(20px);
+  }
+
+  .modal-footer{
+    background: var(--grey);
+    backdrop-filter: blur(20px);
+  }
+
+  label{
+    color: #fff;
+  }

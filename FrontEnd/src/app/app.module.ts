@@ -19,6 +19,8 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import {IvyCarouselModule} from 'angular-responsive-carousel';
 import { NgCircleProgressModule } from 'ng-circle-progress';
+import { ToastrModule } from'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -44,6 +46,8 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
     ReactiveFormsModule,
     HttpClientModule,
     AlifeFileToBase64Module,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
     IvyCarouselModule,
     NgCircleProgressModule.forRoot(),
   ],

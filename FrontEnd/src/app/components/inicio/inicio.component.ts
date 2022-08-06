@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component,ElementRef,OnInit, ViewChild} from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { NgbModalConfig, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Persona } from 'src/app/Models/persona.model';
 import { PersonaService } from 'src/app/Services/persona.service';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 import { TokenService } from 'src/app/Services/token.service';
 
 
@@ -14,123 +14,118 @@ import { TokenService } from 'src/app/Services/token.service';
   styleUrls: ['./inicio.component.css']
 })
 export class InicioComponent implements OnInit {
-  
-  personas: Persona[];
-  Persona = new Persona();
+
+  personas:Persona[];
+  // persona= new persona();
   closeResult: string;
-  editForm!: FormGroup;
-  private deleteId: number;
-  base64:string="";
-  // LOGIN
-  isLogged = false;
+  editForm: FormGroup;
+  base64: string = "";
+ 
+
+  isAdmin = false;
+
   // IMAGEN BANNER
-  // @ViewChild('banner',{static: true})persona.img!: ElementRef<HTMLDivElement>;
+  // @ViewChild('banner', { static: true }) imgBanner!: ElementRef<HTMLDivElement>; //para la imagen representativa.
+
   
-  
-  constructor(config: NgbModalConfig, 
+  constructor(config: NgbModalConfig,
     private modalService: NgbModal,
-    private form: FormBuilder,
-    private PersonaService: PersonaService,
-    private router:Router,
-    private tokenService:TokenService,
-    public httpClient:HttpClient) {
-   
+    private fb: FormBuilder,
+    private personaService: PersonaService,
+    private router: Router,
+    private tokenService: TokenService,
+    public httpClient: HttpClient) {
+    // personaliza los valores predeterminados de los modales
     config.backdrop = 'static';
     config.keyboard = false;
   }
 
   barraActiva: boolean = false;
-  
-  mostrarBarra():void {
+
+  mostrarBarra(): void {
     this.barraActiva = !this.barraActiva;
   }
 
   ngOnInit(): void {
-    this.PersonaService.getPersona().subscribe(data => {this.personas = data})
-    this.editForm = this.form.group({
+    this.getPersona();
+    this.editForm = this.fb.group({
       id: [''],
-      nombre: ['', Validators.required],
-      apellido: ['', Validators.required],
-      img: ['', Validators.required],
-      
+      nombre: [''],
+      apellido: [''],
+      imgPerfil: [''],
+      imgBanner: [''],
     });
-
+   
+    
     // TOKEN
-    if(this.tokenService.getToken()){
-      this.isLogged = true;
-    }else{
-      this.isLogged = false;
-      }
+    if (this.tokenService.getToken()) {
+      this.isAdmin = true;
+    } else {
+      this.isAdmin = false;
     }
+    
+  }
 
-    onLogOut(): void {
-      this.tokenService.logOut();
-      window.location.reload();
-    }
+  // LOGIN
+  onLogOut(): void {
+    this.tokenService.logOut();
+    window.location.reload();
+  }
 
-  login(){
+  login() {
     this.router.navigate(['/login'])
   }
 
+  // ngAfterViewChecked() {
+   
+  //   this.imgBanner.nativeElement.style.background="url(" + "../assets/banner.jpg" + ")"
+  //   this.imgBanner.nativeElement.style.background="url(" + this.personas[0].imgBanner + ")"
+  //   this.imgBanner.nativeElement.style.backgroundAttachment = "fixed"
+  //   this.imgBanner.nativeElement.style.backgroundSize = "cover"
+  //   this.imgBanner.nativeElement.style.width = "auto"
+  //   this.imgBanner.nativeElement.style.height = "100vh"
+  // }  
+
+  public getPersona() {
+    this.personaService.getPersona().subscribe(data => { this.personas = data });
+    
+  }
+
+  //Imagen Base64
+  obtener(e:any):void {
+    this.base64=e[0].base64;
+    this.editForm.value.imgPerfil=this.base64;
+   }
+   
   
 
+  obtener2(e:any):void {
+    this.base64= e[0].base64;
+    this.editForm.value.imgBanner=this.base64;
+   
+  }
 
-openModal(targetModal: any) {
-  this.modalService.open(targetModal, {
-    centered: true,
-    backdrop: 'static',
-    size: 'lg'
-
-  });
-}
-
-obtener($event:any){
-  this.base64=$event[0].base64;
-  this.editForm.value.img=this.base64;
- }
-
-
-  openEdit(targetModal: any, persona:Persona) {
+  //Modal Editar
+  modalEdit(targetModal, persona: Persona) {
     this.modalService.open(targetModal, {
       centered: true,
       backdrop: 'static',
       size: 'lg'
     });
-    this.editForm.patchValue( {
+    this.editForm.patchValue({
       id: persona.id,
       nombre: persona.nombre,
       apellido: persona.apellido,
-      img: persona.img,
-    
+      imgPerfil: persona.imgPerfil,
+      // imgBanner: persona.imgBanner,
     });
-
-   }
-
-  
-
-
-  guardar(){
-    const url = 'http://localhost:8080/personas/crear';
-    // this.editForm.value.img=this.base64;
-    console.log(this.editForm.value);
-     this.httpClient.post(url, this.editForm.value).subscribe(res=>{this.Persona!=res,
-    this.ngOnInit();
-  })
-    this.modalService.dismissAll();
-  }
-  
-
-  openDelete(targetModal, persona:Persona) {
-    this.deleteId= persona.id;
-    this.modalService.open(targetModal, {
-      backdrop: 'static',
-      size: 'lg'
-    });
+    // console.log(this.editForm.value);
   }
 
-  onDelete() {
-    const deleteURL = 'http://localhost:8080/personas/' +  'borrar/'+ this.deleteId ;
-    this.httpClient.delete(deleteURL)
+
+
+  editar() {
+    this.personaService.updatePersona(this.editForm.value)
       .subscribe((results) => {
         this.ngOnInit();
         this.modalService.dismissAll();
@@ -138,13 +133,6 @@ obtener($event:any){
   }
 
 
-  open(content) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
 
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
@@ -158,6 +146,6 @@ obtener($event:any){
 
 
 }
-  
+
 
 

@@ -49,7 +49,7 @@
         <label for="img">img</label>
         <div class="input-group">
           <input type="file" alife-file-to-base64 (onFileChanged)="obtener($event)" class="form-control" name="img" ngModel>
-          <img src="{{base64}}" height="100px">
+          <img src="{{this.editForm.value.img}}" height="100px">
         </div>
       </div>
 

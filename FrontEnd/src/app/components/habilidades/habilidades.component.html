@@ -1,72 +1,84 @@
 <section class="habilidad container" id="habilidad">
+  <div class="d-flex justify-content-between">
     <div class="main-titulo">
         <h2>Habilidades</h2>
         <span>02.</span>
+      </div>
+    <div class="iconoAgregar">
+      <i class="bi bi-plus-circle" (click)="modalAgregar(content)" *ngIf="isAdmin"></i>
     </div>
-
-    <div class="container col-12 d-flex alingn-contetn-center justify-content-center">
-      <i class="bi bi-plus-circle" (click)="open(content)" *ngIf="isAdmin"></i>
-      <div class="col-lg-2 col-sm-12 col-md-4 justify-self-center" *ngFor="let habilidad of habilidades">
-            
-          <div class="card">
-            <i class="position-absolute mb-5 pb-5 display-6" [class]="habilidad.tecnologia"></i>
+  </div>
+    <div class="row">
+      <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 d-flex justify-content-center" *ngFor="let habilidad of habilidad">
+          <div class="card mb-4 pt-2">
+            <i class="iconoLeng display-4" [class]="habilidad.icono" [style.color]="habilidad.color"></i>
             <circle-progress 
-            [percent]="habilidad.porcentaje" 
-            [radius]="70" 
-            [outerStrokeWidth]="10"
-            [innerStrokeWidth]="2"
-            [showTitle]="false"
-            [showSubtitle]="false"
-            [outerStrokeGradient] = "true"
-            [outerStrokeColor]="'#00ffee'" 
-            [outerStrokeGradientStopColor]="'#ca07b0'"
-            [innerStrokeColor]="'#bdf5e7'"
-            [animation]="true" 
-            [animationDuration]="200">
+              [percent]="habilidad.porcentaje" 
+              [radius]="70" 
+              [outerStrokeWidth]="8"
+              [innerStrokeWidth]="2"
+              [innerStrokeColor]="'#bdf5e7'"
+              [showUnits]="false"
+              [showTitle]="false"
+              [showSubtitle]="false"
+              [subtitleColor]="'#bdf5e7'"
+              [subtitleFontSize]="'20'"
+              [showBackground]="false"
+              [outerStrokeGradient] = "true"
+              [outerStrokeColor]="'#00ffee'" 
+              [outerStrokeGradientStopColor]="'#ca07b0'"
+              [animation]="true" 
+              [animationDuration]="600">
             </circle-progress>
             <div class="card-body">
-              
-              <h5 class="card-tittle"><i class="display-6" [class]="habilidad.tecnologia"></i></h5>
-              <i class="bi bi-pencil-square" (click)="modalEdit(contentEdit,Habilidad)" *ngIf="isAdmin"></i>
-              <i class="bi bi-trash3" (click)="modalBorrar(contentDelete,Habilidad)" *ngIf="isAdmin"></i>
+              <h5 class="card-tittle display-6">{{habilidad.titulo}}</h5>
+              <i class="bi bi-pencil-square" (click)="modalEdit(contentEdit,habilidad)" *ngIf="isAdmin"></i>
+              <i class="bi bi-trash3" (click)="modalBorrar(contentDelete,habilidad)" *ngIf="isAdmin"></i>
             </div>
           </div>
-          </div>
-        </div>      
-        
+        </div>
+    </div>      
 </section>
 
-<!-- MODAL AGREGAR -->
+<!-- AGREGAR MODAL -->
 <ng-template #content let-c="close" let-d="dismiss">
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Bienvenid@!</h4>
-    <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
-  </div>
-  <div class="modal-body">
 
-    <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
-      <div class="form-group">
-        <label for="tecnologia">Tecnologia</label>
-        <div class="input-group">
-          <input class="form-control" name="tecnologia" #tecnologia="ngModel" ngModel required>
-        </div>
-      </div>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Agregar habilidad</h4>
+    <button type="button" class="btn-close" aria-label="btn-Close" (click)="d('Cross click')"></button>
+  </div>
+
+  <div class="modal-body">
+    <form #f="ngForm" (ngSubmit)="enviar(f)" novalidate>
       <div class="form-group">
         <label for="porcentaje">Porcentaje</label>
         <div class="input-group">
-          <input class="form-control" name="porcentaje" ngModel>
+          <input type="range" class="form-range" id="porcentaje" name="porcentaje"  
+          ngModel required>
         </div>
       </div>
       <div class="form-group">
-        <label for="img">img</label>
+      <label for="titulo">Titulo</label>
         <div class="input-group">
-          <input type="file" alife-file-to-base64 (onFileChanged)="obtener($event)" class="form-control" name="img" ngModel>
-          <img src="{{base64}}" height="100px">
+          <input class="form-control" name="titulo" #titulo="ngModel" ngModel>
         </div>
       </div>
+      <div class="form-group">
+        <label for="icono">Icono</label>
+        <div class="input-group">
+          <input class="form-control" name="icono" #icono="ngModel" ngModel>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="color">Icono Color</label>
+        <div class="input-group">
+          <input type="color" class="form-control form-control-color" name="color" [(ngModel)]="editForm.value.color">
+        </div>
+      </div>
+      <br>
 
       <div class="modal-footer">
-        <button type="submit" class="btn btn-outline-dark" (click)="('Save click')">Agregar</button>
+        <button type="submit" class="btn btn-outline-primary">Agregar</button>
       </div>
     </form>
   </div>
@@ -74,54 +86,65 @@
 
 <!-- EDITAR MODAL -->
 <ng-template #contentEdit let-modal>
+
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title2">Editar Perfil</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
+    <h4 class="modal-title" id="modal-basic-title2">Editar habilidad</h4>
+    <button type="button" class="btn-close" aria-label="btn-Close" (click)="modal.dismiss('Cross click')">
     </button>
   </div>
   <div class="modal-body">
-    <form [formGroup]="editForm">
+    <form [formGroup]="editForm" novalidate>
 
-      <div class="form-group">
-        <label for="tecnologiaa">Tecnologia</label>
-        <div class="input-group">
-          <input class="form-control" formControlName="tecnologia">
-        </div>
-      </div>
       <div class="form-group">
         <label for="porcentaje">Porcentaje</label>
         <div class="input-group">
-          <input class="form-control" formControlName="porcentaje">
+          <input type="range" id="customRange" name="porcentaje" class="form-range" formControlName="porcentaje"
+            ngModelChange/>
         </div>
       </div>
       <div class="form-group">
-        <label for="img">img</label>
+        <label for="titulo">Titulo</label>
         <div class="input-group">
-          <input type="file" alife-file-to-base64 (onFileChanged)="obtener($event)" class="form-control">
-          <img src="{{base64}}" height="100px">
+          <input class="form-control" formControlName="titulo">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="icono">Icono</label>
+        <div class="input-group">
+          <input class="form-control" formControlName="icono">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="color">Icono Color</label>
+        <div class="input-group">
+          <input type="color" class="form-control form-control-color" formControlName="color" 
+          [value]="editForm.value.color"
+          [style.background]="editForm.value.color"
+          >
         </div>
       </div>
     </form>
 
     <div class="modal-footer">
-      <button data-dismiss="modal" class="btn btn-primary" (click)="guardar()">Guardar</button>
+      <button data-dismiss="modal" class="btn btn-primary" (click)="editar()">Actualizar</button>
       <button type="button" class="btn btn-danger" (click)="modal.close('Save click')">Cerrar</button>
     </div>
   </div>
 </ng-template>
 
-<!-- MODAL ELIMINAR-->
+<!-- MODAL ELIMINAR -->
 <ng-template #contentDelete let-modal>
+
   <div class="modal-header">
     <h4 class="modal-title">Eliminar Habilidad</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
+    <button type="button" class="btn-close" aria-label="btn-close" (click)="modal.dismiss('Cross click')">
     </button>
   </div>
+
   <div class="modal-body">
     <h3>Esta seguro de eliminar este registro?</h3>
   </div>
+  
   <div class="modal-footer">
     <button data-dismiss="modal" class="btn btn-danger" (click)="borrar()">Eliminar</button>
     <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Cerrar</button>
