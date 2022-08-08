@@ -20,10 +20,9 @@ export class HabilidadesComponent implements OnInit {
 
   isAdmin = false;
 
-
   constructor(config: NgbModalConfig,
     private modalService: NgbModal,
-    private form: FormBuilder,
+    private fb: FormBuilder,
     private HabilidadService: HabilidadService,
     private tokenService: TokenService,
     public httpClient: HttpClient) {
@@ -34,7 +33,7 @@ export class HabilidadesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getHabilidad();
-    this.editForm = this.form.group({
+    this.editForm = this.fb.group({
       id: [''],
       porcentaje: [''],
       titulo: [''],
@@ -57,9 +56,6 @@ export class HabilidadesComponent implements OnInit {
    
   }
 
-  
-  
-
 
   //Modal Agregar
   modalAgregar(content) {
@@ -71,7 +67,7 @@ export class HabilidadesComponent implements OnInit {
   }
 
   enviar(f: NgForm) {
-    console.log(f.form.value);
+    // console.log(f.form.value);
     this.HabilidadService.addHabilidad(f.value)
       .subscribe((result) => {
         this.ngOnInit(); // recargar la tabla
@@ -80,9 +76,7 @@ export class HabilidadesComponent implements OnInit {
   }
 
 
-
   //Modal Editar
-
   modalEdit(targetModal, habilidad: Habilidad) {
     this.modalService.open(targetModal, {
       centered: true,
@@ -96,7 +90,7 @@ export class HabilidadesComponent implements OnInit {
       icono: habilidad.icono,
       color: habilidad.color,
     });
-    console.log(this.editForm.value);
+    // console.log(this.editForm.value);
   }
 
   editar() {

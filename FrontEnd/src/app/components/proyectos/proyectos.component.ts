@@ -15,15 +15,13 @@ import { TokenService } from 'src/app/Services/token.service';
 export class ProyectosComponent implements OnInit {
 
   proyectos: Proyecto[];
-  Proyecto = new Proyecto();
   closeResult: string;
   editForm!: FormGroup;
   private deleteId: number;
   base64:string="";
   
   isAdmin = false;
-  roles: string[];
-
+ 
   constructor(config: NgbModalConfig, 
     private modalService: NgbModal,
     private fb: FormBuilder,
@@ -36,16 +34,15 @@ export class ProyectosComponent implements OnInit {
   }
 
   
-
   ngOnInit(): void {
     this.getProyecto();
     this.editForm = this.fb.group({
       id: [''],
       titulo: [''],
-      subtitulo: [''],
       img: [''],
-      
+      descripcion: [''], 
     });
+
 
     //  TOKEN
      if (this.tokenService.getToken()) {
@@ -54,41 +51,39 @@ export class ProyectosComponent implements OnInit {
       this.isAdmin = false;
     }
   }
+
   public getProyecto(){
     this.ProyectoService.getProyecto().subscribe(data => {this.proyectos = data});
     
   }
 
-obtener($event:any){
-  this.base64=$event[0].base64;
+  //Imagen Base64
+  obtener(e:any):void {
+  this.base64= e[0].base64;
   this.editForm.value.img=this.base64;
  }
 
+
  //Modal Agregar
-   open(content) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+  modalAgregar(content) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
   }
    
-  onSubmit(f: NgForm) {
+  enviar(f: NgForm) {
     f.form.value.img=this.base64;
-    
-    console.log(f.form.value);
-    const url = 'http://localhost:8080/proyectos/crear';
-    this.httpClient.post(url, f.value)
+    this.ProyectoService.addProyecto(f.value)
       .subscribe((result) => {
         this.ngOnInit(); // recargar la tabla
       });
-    this.base64='';
-    this.modalService.dismissAll();
-
+    this.modalService.dismissAll(); // desaparece el modal
   }
 
+
  //Modal Editar
- 
  modalEdit(targetModal, proyecto:Proyecto) {
   this.modalService.open(targetModal, {
     centered: true,
@@ -98,18 +93,17 @@ obtener($event:any){
   this.editForm.patchValue( {
     id: proyecto.id,
     titulo: proyecto.titulo,
-    subtitulo: proyecto.subtitulo,
     img: proyecto.img,
+    descripcion: proyecto.descripcion,
   });
  }
 
- guardar(){
-  const editURL = 'http://localhost:8080/proyectos/'+'editar/'+this.editForm.value.id ;
-  this.httpClient.put(editURL, this.editForm.value)
-    .subscribe((results) => {
-      this.ngOnInit();
-      this.modalService.dismissAll();
-    });
+ editar() {
+    this.ProyectoService.updateProyecto(this.editForm.value)
+      .subscribe((results) => {
+        this.ngOnInit();
+        this.modalService.dismissAll();
+      });
   }
   
     // Modal Eliminar
@@ -123,13 +117,12 @@ obtener($event:any){
   }
 
   borrar() {
-    const deleteURL = 'http://localhost:8080/proyectos/' +  'borrar/'+ this.deleteId ;
-    this.httpClient.delete(deleteURL)
-      .subscribe((results) => {
-        this.ngOnInit();
-        this.modalService.dismissAll();
-      });
-  }
+    this.ProyectoService.deleteProyecto(this.deleteId)
+       .subscribe((results) => {
+         this.ngOnInit();
+         this.modalService.dismissAll();
+       });
+   }
 
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {

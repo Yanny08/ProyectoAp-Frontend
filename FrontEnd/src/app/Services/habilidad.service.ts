@@ -13,7 +13,7 @@ export class HabilidadService {
   
   constructor(private http: HttpClient) { }
 
-  public getHabilidad(): Observable<Habilidad[]>  {
+  public getHabilidad(): Observable<Habilidad[]> {
     return this.http.get<Habilidad[]>(this.URL + 'traer');
   }
   public getHabilidadId(id: any): Observable<Habilidad> {

@@ -15,7 +15,7 @@
             <circle-progress 
               [percent]="habilidad.porcentaje" 
               [radius]="70" 
-              [outerStrokeWidth]="8"
+              [outerStrokeWidth]="10"
               [innerStrokeWidth]="2"
               [innerStrokeColor]="'#bdf5e7'"
               [showUnits]="false"
@@ -28,10 +28,10 @@
               [outerStrokeColor]="'#00ffee'" 
               [outerStrokeGradientStopColor]="'#ca07b0'"
               [animation]="true" 
-              [animationDuration]="600">
+              [animationDuration]="400">
             </circle-progress>
             <div class="card-body">
-              <h5 class="card-tittle display-6">{{habilidad.titulo}}</h5>
+              <h5 class="card-tittle display-9">{{habilidad.titulo}}</h5>
               <i class="bi bi-pencil-square" (click)="modalEdit(contentEdit,habilidad)" *ngIf="isAdmin"></i>
               <i class="bi bi-trash3" (click)="modalBorrar(contentDelete,habilidad)" *ngIf="isAdmin"></i>
             </div>
@@ -51,28 +51,28 @@
   <div class="modal-body">
     <form #f="ngForm" (ngSubmit)="enviar(f)" novalidate>
       <div class="form-group">
-        <label for="porcentaje">Porcentaje</label>
+        <label for="porcentaje">Porcentaje:</label>
         <div class="input-group">
           <input type="range" class="form-range" id="porcentaje" name="porcentaje"  
           ngModel required>
         </div>
       </div>
       <div class="form-group">
-      <label for="titulo">Titulo</label>
+      <label for="titulo">Titulo:</label>
         <div class="input-group">
-          <input class="form-control" name="titulo" #titulo="ngModel" ngModel>
+          <input class="form-control" name="titulo" #titulo="ngModel" ngModel placeholder="Titulo">
         </div>
       </div>
       <div class="form-group">
-        <label for="icono">Icono</label>
+        <label for="icono">Icono:</label>
         <div class="input-group">
-          <input class="form-control" name="icono" #icono="ngModel" ngModel>
+          <input class="form-control" name="icono" #icono="ngModel" ngModel placeholder="Class del icono">
         </div>
       </div>
       <div class="form-group">
-        <label for="color">Icono Color</label>
+        <label for="color">Icono Color:</label>
         <div class="input-group">
-          <input type="color" class="form-control form-control-color" name="color" [(ngModel)]="editForm.value.color">
+          <input type="color" class="form-control-color" name="color" [(ngModel)]="editForm.value.color">
         </div>
       </div>
       <br>
@@ -92,34 +92,32 @@
     <button type="button" class="btn-close" aria-label="btn-Close" (click)="modal.dismiss('Cross click')">
     </button>
   </div>
+
   <div class="modal-body">
     <form [formGroup]="editForm" novalidate>
-
       <div class="form-group">
-        <label for="porcentaje">Porcentaje</label>
+        <label for="porcentaje">Porcentaje:</label>
         <div class="input-group">
           <input type="range" id="customRange" name="porcentaje" class="form-range" formControlName="porcentaje"
             ngModelChange/>
         </div>
       </div>
       <div class="form-group">
-        <label for="titulo">Titulo</label>
+        <label for="titulo">Titulo:</label>
         <div class="input-group">
-          <input class="form-control" formControlName="titulo">
+          <input class="form-control" formControlName="titulo" placeholder="Titulo">
         </div>
       </div>
       <div class="form-group">
-        <label for="icono">Icono</label>
+        <label for="icono">Icono:</label>
         <div class="input-group">
-          <input class="form-control" formControlName="icono">
+          <input class="form-control" formControlName="icono" placeholder="Class del icono">
         </div>
       </div>
       <div class="form-group">
-        <label for="color">Icono Color</label>
+        <label for="color">Icono Color:</label>
         <div class="input-group">
-          <input type="color" class="form-control form-control-color" formControlName="color" 
-          [value]="editForm.value.color"
-          [style.background]="editForm.value.color"
+          <input type="color" class="form-control-color" formControlName="color" 
           >
         </div>
       </div>

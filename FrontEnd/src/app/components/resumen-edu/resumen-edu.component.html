@@ -40,25 +40,25 @@
   <div class="modal-body">
     <form #f="ngForm" (ngSubmit)="enviar(f)" novalidate>
       <div class="form-group">
-        <label for="titulo">Titulo</label>
+        <label for="titulo">Titulo:</label>
           <div class="input-group">
-            <input class="form-control" name="titulo" #titulo="ngModel" ngModel required>
+            <input class="form-control" name="titulo" #titulo="ngModel" ngModel required placeholder="Titulo">
           </div>
         </div>
       <div class="form-group">
-        <label for="institucion">Institucion</label>
+        <label for="institucion">Institución:</label>
         <div class="input-group">
-          <input class="form-control" name="titulo" #titulo="ngModel" ngModel>
+          <input class="form-control" name="institucion" #titulo="ngModel" ngModel placeholder="Institución">
         </div>
       </div>
       <div class="form-group">
-        <label for="fechaIni">FechaIni</label>
+        <label for="fechaIni">Fecha inicio:</label>
         <div class="input-group">
           <input type="date" class="form-control" name="fechaIni" #fechaIni="ngModel" ngModel>
         </div>
       </div>
       <div class="form-group">
-        <label for="fechaFin">FechaFin</label>
+        <label for="fechaFin">Fecha fin:</label>
         <div class="input-group">
           <input type="date" class="form-control" name="fechaFin" #fechaFin="ngModel" ngModel>
         </div>
@@ -66,7 +66,7 @@
       <div class="form-group">
         <label for="descripcion">Descripción</label>
         <textarea type="text" name="descripcion" class="form-control" rows="5" cols="10"
-        #descripcion="ngModel" ngModel></textarea>
+        #descripcion="ngModel" ngModel placeholder="Descripción"></textarea>
       </div>
       <br>
 

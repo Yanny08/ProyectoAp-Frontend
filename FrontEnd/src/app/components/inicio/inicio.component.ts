@@ -24,9 +24,6 @@ export class InicioComponent implements OnInit {
 
   isAdmin = false;
 
-  // IMAGEN BANNER
-  // @ViewChild('banner', { static: true }) imgBanner!: ElementRef<HTMLDivElement>; //para la imagen representativa.
-
   
   constructor(config: NgbModalConfig,
     private modalService: NgbModal,
@@ -76,15 +73,6 @@ export class InicioComponent implements OnInit {
     this.router.navigate(['/login'])
   }
 
-  // ngAfterViewChecked() {
-   
-  //   this.imgBanner.nativeElement.style.background="url(" + "../assets/banner.jpg" + ")"
-  //   this.imgBanner.nativeElement.style.background="url(" + this.personas[0].imgBanner + ")"
-  //   this.imgBanner.nativeElement.style.backgroundAttachment = "fixed"
-  //   this.imgBanner.nativeElement.style.backgroundSize = "cover"
-  //   this.imgBanner.nativeElement.style.width = "auto"
-  //   this.imgBanner.nativeElement.style.height = "100vh"
-  // }  
 
   public getPersona() {
     this.personaService.getPersona().subscribe(data => { this.personas = data });

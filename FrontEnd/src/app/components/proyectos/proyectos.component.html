@@ -1,60 +1,62 @@
 <section class="proyectos container" id="proyectos">
-  <div class="main-titulo">
-    <h2>Proyectos</h2>
-    <span>03.</span>
+  <div class="d-flex justify-content-between">
+    <div class="main-titulo">
+      <h2>Proyectos</h2>
+      <span>03.</span>
+    </div>
+
   </div>
-
-
   <div class="container col-12 d-flex alingn-contetn-center justify-content-center">
-    <i class="bi bi-plus-circle" (click)="open(content)" *ngIf="isAdmin"></i>
-    <div >
-      
-      <div class="card col-lg-2 col-sm-12 col-md-4" *ngFor="let proyecto of proyectos">
-        <div class="imgBx">
-          <img src="{{proyecto.img}}">
+    <i class="bi bi-plus-circle" (click)="modalAgregar(content)" *ngIf="isAdmin"></i>
+    <div>
+      <div class="row">
+        <div class="card col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 d-flex justify-content-center"
+          *ngFor="let proyecto of proyectos">
+          <div class="imgBx">
+            <img src="{{proyecto.img}}">
+          </div>
+          <div class="detalles">
+            <h2>{{proyecto.titulo}}<br><h4>{{proyecto.descripcion}}</h4></h2>
+            <i class="bi bi-pencil-square" (click)="modalEdit(contentEdit,proyecto)" *ngIf="isAdmin"></i>
+            <i class="bi bi-trash3" (click)="modalBorrar(contentDelete,proyecto)" *ngIf="isAdmin"></i>
+          </div>
         </div>
-        <div class="detalles">
-          <h2>{{proyecto.titulo}}<br><span>{{proyecto.subtitulo}}</span></h2>
-          <i class="bi bi-pencil-square" (click)="modalEdit(contentEdit,proyecto)" *ngIf="isAdmin"></i>
-          <i class="bi bi-trash3" (click)="modalBorrar(contentDelete,proyecto)" *ngIf="isAdmin"></i>
-        </div>
-        
       </div>
     </div>
-  </div>  
+  </div>
 </section>
 
-<!-- MODAL AGREGAR -->
+<!-- AGREGAR MODAL -->
 <ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Bienvenid@!</h4>
+    <h4 class="modal-title" id="modal-basic-title">Agregar Proyecto</h4>
     <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
   </div>
-  <div class="modal-body">
 
-    <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+  <div class="modal-body">
+    <form #f="ngForm" (ngSubmit)="enviar(f)" novalidate>
       <div class="form-group">
-        <label for="titulo">Titulo</label>
+        <label for="titulo">Titulo:</label>
         <div class="input-group">
-          <input class="form-control" name="titulo" #titulo="ngModel" ngModel required>
+          <input class="form-control" name="titulo" #titulo="ngModel" ngModel required placeholder="Titulo">
         </div>
       </div>
       <div class="form-group">
-        <label for="subtitulo">Subtitulo</label>
-        <div class="input-group">
-          <input class="form-control" name="subtitulo" ngModel>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="img">img</label>
+        <label for="img">Imagen:</label>
         <div class="input-group">
           <input type="file" alife-file-to-base64 (onFileChanged)="obtener($event)" class="form-control" name="img" ngModel>
           <img src="{{this.editForm.value.img}}" height="100px">
         </div>
       </div>
+      <div class="form-group">
+        <label for="descripcion">Descripción:</label>
+        <div class="input-group">
+          <textarea class="form-control" rows="5" cols="10" name="descripcion" placeholder="Descripción"></textarea>
+        </div>
+      </div>
 
       <div class="modal-footer">
-        <button type="submit" class="btn btn-outline-dark" (click)="('Save click')">Agregar</button>
+        <button type="submit" class="btn btn-outline-primary">Agregar</button>
       </div>
     </form>
   </div>
@@ -65,35 +67,34 @@
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title2">Editar Perfil</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
     <form [formGroup]="editForm">
 
       <div class="form-group">
-        <label for="titulo">Titulo</label>
+        <label for="titulo">Titulo:</label>
         <div class="input-group">
-          <input class="form-control" formControlName="titulo">
+          <input class="form-control" formControlName="titulo" placeholder="Titulo">
         </div>
       </div>
       <div class="form-group">
-        <label for="subtitulo">Subtitulo</label>
+        <label for="img">Imagen:</label>
         <div class="input-group">
-          <input class="form-control" formControlName="subtitulo">
+          <input type="file" alife-file-to-base64 (onFileChanged)="obtener($event)" class="form-control" name="img">
+          <img src="{{this.editForm.value.img}}" height="100px">
         </div>
       </div>
       <div class="form-group">
-        <label for="img">img</label>
+        <label for="descripcion">Descripción:</label>
         <div class="input-group">
-          <input type="file" alife-file-to-base64 (onFileChanged)="obtener($event)" class="form-control">
-          <img src="{{base64}}" height="100px">
+          <textarea class="form-control" rows="5" cols="10" formControlName="descripcion" placeholder="Descripción"></textarea>
         </div>
       </div>
     </form>
 
     <div class="modal-footer">
-      <button data-dismiss="modal" class="btn btn-primary" (click)="guardar()">Guardar</button>
+      <button data-dismiss="modal" class="btn btn-primary" (click)="editar()">Actualizar</button>
       <button type="button" class="btn btn-danger" (click)="modal.close('Save click')">Cerrar</button>
     </div>
   </div>
@@ -104,9 +105,9 @@
   <div class="modal-header">
     <h4 class="modal-title">Eliminar Perfil</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
     </button>
   </div>
+
   <div class="modal-body">
     <h3>Esta seguro de eliminar este registro?</h3>
   </div>

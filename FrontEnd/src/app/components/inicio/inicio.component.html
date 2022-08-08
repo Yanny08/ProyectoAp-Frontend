@@ -68,28 +68,28 @@
   <div class="modal-body">
     <form [formGroup]="editForm" novalidate>
       <div class="form-group">
-        <label for="nombre">Nombre</label>
+        <label for="nombre">Nombre:</label>
         <div class="input-group">
-          <input class="form-control" formControlName="nombre">
+          <input class="form-control" formControlName="nombre" placeholder="Nombre">
         </div>
       </div>
       <div class="form-group">
-        <label for="apellido">Apellido</label>
+        <label for="apellido">Apellido:</label>
         <div class="input-group">
-          <input class="form-control" formControlName="apellido">
+          <input class="form-control" formControlName="apellido" placeholder="Apellido">
         </div>
       </div>
       <div class="form-group">
-        <label for="imgPerfil">imgPerfil</label>
+        <label for="imgPerfil">Imagen perfil:</label>
         <div class="input-group">
           <input type="file" alife-file-to-base64 (onFileChanged)="obtener($event)"
-          name="imgPerfil" class="form-control">
+          class="form-control" name="imgPerfil" >
           <!-- <img src="{{base64}}" height="100px"> -->
           <img src="{{this.editForm.value.imgPerfil}}" height="100px">
         </div>
       </div>
       <div class="form-group">
-        <label for="imgBanner">imgBanner</label>
+        <label for="imgBanner">Imagen banner:</label>
         <div class="input-group">
           <input type="file" alife-file-to-base64 (onFileChanged)="obtener2($event)" class="form-control" name="imgBanner">
           <img src="{{this.editForm.value.imgBanner}}" height="100px">
