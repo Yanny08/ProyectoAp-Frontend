@@ -61,7 +61,7 @@ section {
 ==========
 */
 
-
+/* 
   .box{
     width: 1200px;
     display: grid;
@@ -99,7 +99,6 @@ section {
   box-shadow: 0 2px 20px rgba(0,0,0,.2);
   }
   .card .imgBx{
-  /* position: absolute; */
   top: 5px;
   left: 5px;
   bottom: 5px;
@@ -148,4 +147,132 @@ section {
   color: #f38695;
   display: block;
   margin-top: 5px;
-   } 
+   }  */
+
+
+.card {
+    position: relative;
+    width: 500px;
+    height: 460px;
+    border-radius: 36px;
+    overflow: hidden;
+}
+
+.card .card-bg {
+    width: 100%;
+    height: 100%;
+}
+
+.card .card-bg img {
+    width: 100%;
+    transition: .2s ease-out;
+}
+
+.card:hover .card-bg img {
+    transform: scale(1.05);
+}
+
+.card .card-context {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 38%;
+    font-family: 'Poppins';
+    word-wrap: break-word;
+    transform: translateY(68%);
+    transition: .2s ease-out;
+}
+
+.card:hover .card-context {
+    transform: translateY(0);
+}
+
+.card .card-context .dark-bg {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    transform: scale(1.2);
+    background: linear-gradient(
+        rgba(0, 0, 0, .4),
+        rgba(0, 0, 0, .9)   
+    );
+    filter: blur(20px);
+    transition: .2s ease-out;
+}
+
+.card .card-context h2 {
+    position: absolute;
+    left: 32px;
+    color: #fff;
+}
+
+.card .card-context p {
+    position: absolute;
+    left: 32px;
+    top: 36px;
+    width: 82%;
+    line-height: 20px;
+    word-spacing: -2px;
+    color: #f9f9f9;
+    text-align: justify;
+    opacity: 0;
+    transition: .2s ease-out;
+}
+
+.card:hover .card-context p {
+    opacity: 1;
+}
+
+.card .card-context a {
+    cursor: pointer;
+    position: absolute;
+    bottom: 32px;
+    right: 32px;
+    color: #000;
+    background: #feba1b;
+    font-size: 18px;
+    padding: 5px 10px;
+    border-radius: 3px;
+    border-bottom-right-radius: 12px;
+    border-top-left-radius: 12px;
+    transition: .4s;
+}
+
+.card .card-context button:hover {
+    background: #dfa319;
+}
+
+.card .card-icons {
+    position: absolute;
+    top: 32px;
+    right: 32px;
+    opacity: 0;
+    transform: translateX(40px) scale(.5);
+    transform-origin: top;
+    transition: .2s ease-out;
+}
+
+.card:hover .card-icons {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.card .card-icons li {
+    cursor: pointer;
+    color: #000;
+    background: #fffaee;
+    font-size: 22px;
+    margin: 0 0 10px;
+    width: 40px;
+    height: 40px;
+    line-height: 45px;
+    text-align: center;
+    border-radius: 3px;
+    transition: .2s ease-out;
+}
+
+.card .card-icons li:hover {
+    background: #feba1b;
+    transform: translateX(-5px);
+}

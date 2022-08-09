@@ -1,29 +1,35 @@
-<section class="proyectos container" id="proyectos">
+<section class="proyectos container" id="proyectos" >
   <div class="d-flex justify-content-between">
     <div class="main-titulo">
       <h2>Proyectos</h2>
       <span>03.</span>
     </div>
-
+    <div class="iconoAgregar">
+      <i class="bi bi-plus-circle" (click)="modalAgregar(content)" *ngIf="isAdmin"></i>
+    </div>
   </div>
-  <div class="container col-12 d-flex alingn-contetn-center justify-content-center">
-    <i class="bi bi-plus-circle" (click)="modalAgregar(content)" *ngIf="isAdmin"></i>
-    <div>
-      <div class="row">
-        <div class="card col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 d-flex justify-content-center"
-          *ngFor="let proyecto of proyectos">
-          <div class="imgBx">
-            <img src="{{proyecto.img}}">
-          </div>
-          <div class="detalles">
-            <h2>{{proyecto.titulo}}<br><h4>{{proyecto.descripcion}}</h4></h2>
-            <i class="bi bi-pencil-square" (click)="modalEdit(contentEdit,proyecto)" *ngIf="isAdmin"></i>
-            <i class="bi bi-trash3" (click)="modalBorrar(contentDelete,proyecto)" *ngIf="isAdmin"></i>
-          </div>
+  <div class="row">
+  <div class="col-lg-6 d-flex justify-content-center" *ngFor="let proyecto of proyectos">
+    <i class="bi bi-pencil-square" (click)="modalEdit(contentEdit,proyecto)" *ngIf="isAdmin"></i>
+    <i class="bi bi-trash3" (click)="modalBorrar(contentDelete,proyecto)" *ngIf="isAdmin"></i>
+    <div class="row body">
+      <div class="card">
+        <div class="card-bg img-fluid" id="imagen">
+          <img src="{{proyecto.img}}" alt="...">
+        </div>
+        <div class="card-context" id="section-info">
+          <div class="dark-bg"></div>
+          <h2>{{proyecto.titulo}}</h2>
+
+          <p>
+            {{proyecto.descripcion}}
+          </p>
+          <a href="">Live Demo</a>
         </div>
       </div>
     </div>
   </div>
+</div>
 </section>
 
 <!-- AGREGAR MODAL -->
@@ -44,7 +50,8 @@
       <div class="form-group">
         <label for="img">Imagen:</label>
         <div class="input-group">
-          <input type="file" alife-file-to-base64 (onFileChanged)="obtener($event)" class="form-control" name="img" ngModel>
+          <input type="file" alife-file-to-base64 (onFileChanged)="obtener($event)" class="form-control" name="img"
+            ngModel>
           <img src="{{this.editForm.value.img}}" height="100px">
         </div>
       </div>
@@ -88,7 +95,8 @@
       <div class="form-group">
         <label for="descripcion">Descripción:</label>
         <div class="input-group">
-          <textarea class="form-control" rows="5" cols="10" formControlName="descripcion" placeholder="Descripción"></textarea>
+          <textarea class="form-control" rows="5" cols="10" formControlName="descripcion"
+            placeholder="Descripción"></textarea>
         </div>
       </div>
     </form>
