@@ -156,3 +156,19 @@ section {
   label{
     color: #fff;
   }
+
+  .alerta{
+    color:yellow;
+    
+  }
+
+  /* .form-control {
+    background-color: #ff008c !important;
+    color: #ffff !important;
+    }
+
+    
+  .form-control: focus{
+    background-color: #ff008c !important;
+    color: #ffff !important;
+    } */

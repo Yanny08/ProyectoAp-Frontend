@@ -16,10 +16,11 @@ import { TokenService } from 'src/app/Services/token.service';
 export class InicioComponent implements OnInit {
 
   personas:Persona[];
-  // persona= new persona();
+  persona: Persona =new Persona();
   closeResult: string;
   editForm: FormGroup;
-  base64: string = "";
+  base64Img1: string = "";
+  base64Img2: string = "";
  
 
   isAdmin = false;
@@ -81,15 +82,16 @@ export class InicioComponent implements OnInit {
 
   //Imagen Base64
   obtener(e:any):void {
-    this.base64=e[0].base64;
-    this.editForm.value.imgPerfil=this.base64;
+    this.base64Img1=e[0].base64;
+    this.editForm.value.imgPerfil=this.base64Img1;
    }
    
   
 
   obtener2(e:any):void {
-    this.base64= e[0].base64;
-    this.editForm.value.imgBanner=this.base64;
+    this.base64Img2= e[0].base64;
+    this.editForm.value.imgBanner=this.base64Img2;
+    
    
   }
 
@@ -105,7 +107,7 @@ export class InicioComponent implements OnInit {
       nombre: persona.nombre,
       apellido: persona.apellido,
       imgPerfil: persona.imgPerfil,
-      // imgBanner: persona.imgBanner,
+      imgBanner: persona.imgBanner,
     });
     // console.log(this.editForm.value);
   }

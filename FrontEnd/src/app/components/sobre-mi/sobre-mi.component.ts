@@ -60,8 +60,8 @@ export class SobreMiComponent implements OnInit {
   }
   
   //Imagen Base64
-  obtener($event:any){
-    this.base64=$event[0].base64;
+  obtener(e:any): void {
+    this.base64=e[0].base64;
     this.editForm.value.img=this.base64;
    }
 

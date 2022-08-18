@@ -22,7 +22,7 @@ export class ResumenEduComponent implements OnInit {
 
   constructor(config: NgbModalConfig,
     private modalService: NgbModal,
-    private form: FormBuilder,
+    private fb: FormBuilder,
     private resumenEduService: ResumenEduService,
     private tokenService: TokenService,
     public httpClient: HttpClient) {
@@ -33,7 +33,8 @@ export class ResumenEduComponent implements OnInit {
 
   ngOnInit(): void {
     this.getResumenEdu();
-    this.editForm = this.form.group({
+
+    this.editForm = this.fb.group({
       id: [''],
       titulo: [''],
       institucion: [''],
@@ -41,6 +42,8 @@ export class ResumenEduComponent implements OnInit {
       fechaFin: [''],
       descripcion: [''],
     });
+
+    
     // TOKEN
     if (this.tokenService.getToken()) {
       this.isAdmin = true;
@@ -53,8 +56,6 @@ export class ResumenEduComponent implements OnInit {
   public getResumenEdu(){
     this.resumenEduService.getResumenEdu().subscribe(data => { this.resumenEdu = data });
      // console.log(this.resumenEdu)
-
-    
   }
 
  
@@ -65,20 +66,24 @@ export class ResumenEduComponent implements OnInit {
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
+    // this.editForm.get('porcentaje').setValue(0)
+    // this.editForm.get('titulo').setValue("")
   }
 
-  enviar(f: NgForm) {
-    console.log(f.form.value);
-    this.resumenEduService.addResumenEdu(f.value)
+  enviar(event:Event) {
+    // console.log(f.form.value);
+    event.preventDefault()
+    if(this.editForm.valid){
+    this.resumenEduService.addResumenEdu(this.editForm.value)
       .subscribe((result) => {
         this.ngOnInit(); // recargar la tabla
       });
+    }
     this.modalService.dismissAll(); // desaparece el modal
   }
 
 
  //Modal Editar
-
   modalEdit(targetModal, resumenEdu: ResumenEdu) {
     this.modalService.open(targetModal, {
       centered: true,
@@ -93,7 +98,7 @@ export class ResumenEduComponent implements OnInit {
       fechaFin: resumenEdu.fechaFin,
       descripcion: resumenEdu.descripcion,
     });
-    console.log(this.editForm.value);
+    // console.log(this.editForm.value);
   }
 
   editar() {  

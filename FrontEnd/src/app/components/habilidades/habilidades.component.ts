@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { NgbModalConfig, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Habilidad } from 'src/app/Models/habilidades.model';
 import { HabilidadService } from 'src/app/Services/habilidad.service';
@@ -15,7 +15,7 @@ export class HabilidadesComponent implements OnInit {
 
   habilidad: Habilidad[];
   closeResult: string;
-  editForm!: FormGroup;
+  editForm: FormGroup;
   private deleteId: number;
 
   isAdmin = false;
@@ -33,10 +33,11 @@ export class HabilidadesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getHabilidad();
+
     this.editForm = this.fb.group({
       id: [''],
-      porcentaje: [''],
-      titulo: [''],
+      porcentaje: ['',[Validators.min(1)]],
+      titulo: ['',[Validators.required,Validators.maxLength(20)]],
       icono: [''],
       color: [''],
     });
@@ -53,7 +54,6 @@ export class HabilidadesComponent implements OnInit {
   public getHabilidad() {
     this.HabilidadService.getHabilidad().subscribe(data => { this.habilidad = data });
     // console.log(this.habilidad)
-   
   }
 
 
@@ -64,14 +64,20 @@ export class HabilidadesComponent implements OnInit {
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
+    this.editForm.get('porcentaje').setValue(0)
+    this.editForm.get('titulo').setValue("")
+
   }
 
-  enviar(f: NgForm) {
+  enviar(event:Event) {
     // console.log(f.form.value);
-    this.HabilidadService.addHabilidad(f.value)
+    event.preventDefault()
+    if(this.editForm.valid){
+      this.HabilidadService.addHabilidad(this.editForm.value)
       .subscribe((result) => {
         this.ngOnInit(); // recargar la tabla
       });
+    }
     this.modalService.dismissAll(); // desaparece el modal
   }
 
@@ -99,6 +105,8 @@ export class HabilidadesComponent implements OnInit {
         this.ngOnInit();
         this.modalService.dismissAll();
       });
+    // console.log(this.editForm.value);
+    
   }
 
 

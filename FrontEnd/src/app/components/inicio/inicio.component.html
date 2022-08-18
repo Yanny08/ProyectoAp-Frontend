@@ -83,7 +83,7 @@
         <label for="imgPerfil">Imagen perfil:</label>
         <div class="input-group">
           <input type="file" alife-file-to-base64 (onFileChanged)="obtener($event)"
-          class="form-control" name="imgPerfil" >
+          class="form-control" name="imgPerfil" id="file">
           <!-- <img src="{{base64}}" height="100px"> -->
           <img src="{{this.editForm.value.imgPerfil}}" height="100px">
         </div>

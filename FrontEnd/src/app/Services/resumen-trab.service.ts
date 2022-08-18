@@ -9,20 +9,20 @@ import { ResumenTrab } from '../Models/resumenTrab.model';
 export class ResumenTrabService {
 
   URL = 'http://localhost:8080/resumenTrab/';
+  url = 'https://portfolio-yanny.herokuapp.com/resumenTrab/'
 
   constructor(private http: HttpClient) { }
 
- 
-
-  public getResumenTrab()  {
+  public getResumenTrab(): Observable<ResumenTrab[]> {
     return this.http.get<ResumenTrab[]>(this.URL + 'traer');
   }
+
   public getResumenTrabId(id: any): Observable<ResumenTrab> {
     return this.http.get<ResumenTrab>(this.URL + 'traer/' + id);
   }
+
   public addResumenTrab(resumenTrab:ResumenTrab) {
     return this.http.post<ResumenTrab>(this.URL + 'crear', resumenTrab);
-  
   }
 
   public deleteResumenTrab(id: any) {
@@ -31,7 +31,6 @@ export class ResumenTrabService {
 
   public updateResumenTrab(resumenTrab: ResumenTrab) {
     return this.http.put<ResumenTrab>(this.URL + 'editar/'+ resumenTrab.id,resumenTrab)
-   
   }
  
 }

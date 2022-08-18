@@ -9,41 +9,28 @@ import { ResumenEdu } from '../Models/resumenEdu.model';
 export class ResumenEduService {
 
   URL = 'http://localhost:8080/resumenEdu/';
-  
+  url = 'https://portfolio-yanny.herokuapp.com/resumenEdu/'
 
   constructor(private http: HttpClient) { }
 
- 
-
-  public getResumenEdu()  {
+  public getResumenEdu(): Observable<ResumenEdu[]> {
     return this.http.get<ResumenEdu[]>(this.URL + 'traer');
-    
   }
-
 
   public getResumenEduId(id: any): Observable<ResumenEdu> {
     return this.http.get<ResumenEdu>(this.URL + 'traer/' + id);
   }
 
-
-  public addResumenEdu(resumenEdu:ResumenEdu) {
+  public addResumenEdu(resumenEdu: ResumenEdu) {
     return this.http.post<ResumenEdu>(this.URL + 'crear', resumenEdu);
-  
   }
 
-  
   public deleteResumenEdu(id: any) {
     return this.http.delete<ResumenEdu>(this.URL + 'borrar/' + id);
   }
 
-
-
   public updateResumenEdu(resumenEdu: ResumenEdu) {
-    return this.http.put<ResumenEdu>(this.URL + 'editar/'+ resumenEdu.id,resumenEdu)
-   
+    return this.http.put<ResumenEdu>(this.URL + 'editar/' + resumenEdu.id, resumenEdu)
   }
 
-
- 
- 
 }

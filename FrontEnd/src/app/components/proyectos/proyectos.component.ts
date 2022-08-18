@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, NgForm } from '@angular/forms';
+import { FormGroup, FormBuilder, NgForm, Validators } from '@angular/forms';
 import { NgbModalConfig, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Proyecto } from 'src/app/Models/proyecto.model';
 import { ProyectoService } from 'src/app/Services/proyecto.service';
@@ -16,9 +16,9 @@ export class ProyectosComponent implements OnInit {
 
   proyectos: Proyecto[];
   closeResult: string;
-  editForm!: FormGroup;
+  editForm: FormGroup;
   private deleteId: number;
-  base64:string="";
+  Prueba64:String="";
   
   isAdmin = false;
  
@@ -36,12 +36,13 @@ export class ProyectosComponent implements OnInit {
   
   ngOnInit(): void {
     this.getProyecto();
+
     this.editForm = this.fb.group({
-      id: [''],
-      titulo: [''],
-      img: [''],
-      descripcion: [''], 
-    });
+        id: [''],
+        titulo: ['',[Validators.required,Validators.maxLength(20)]],
+        img: [''],
+        descripcion: ['' ,[Validators.maxLength(500)]], 
+      });
 
 
     //  TOKEN
@@ -52,15 +53,18 @@ export class ProyectosComponent implements OnInit {
     }
   }
 
+
   public getProyecto(){
     this.ProyectoService.getProyecto().subscribe(data => {this.proyectos = data});
     
   }
 
+  
+
   //Imagen Base64
-  obtener(e:any):void {
-  this.base64= e[0].base64;
-  this.editForm.value.img=this.base64;
+  obtener(e:any) {
+  this.Prueba64= e[0].base64;
+  this.editForm.value.img=this.Prueba64;
  }
 
 
@@ -72,15 +76,15 @@ export class ProyectosComponent implements OnInit {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
   }
-   
-  enviar(f: NgForm) {
-    f.form.value.img=this.base64;
-    this.ProyectoService.addProyecto(f.value)
-      .subscribe((result) => {
-        this.ngOnInit(); // recargar la tabla
-      });
-    this.modalService.dismissAll(); // desaparece el modal
-  }
+
+  enviar(){
+    this.editForm.value.img=this.Prueba64;
+    this.ProyectoService.addProyecto(this.editForm.value)
+    .subscribe((results) => {
+      this.ngOnInit();
+      this.modalService.dismissAll();
+    });
+}
 
 
  //Modal Editar

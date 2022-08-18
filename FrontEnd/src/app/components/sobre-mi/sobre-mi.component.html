@@ -58,7 +58,7 @@
       </div>
       <div class="form-group">
         <label for="linkLinke">Linkedin:</label>
-        <input class="form-control" formControlName="inkLinke" placeholder="Link linkedin">
+        <input class="form-control" formControlName="linkLinke" placeholder="Link linkedin">
       </div>
       <div class="form-group">
         <label for="descripcion">Descripción:</label>
@@ -69,8 +69,7 @@
       <div class="form-group">
         <label for="img">Imagen:</label>
         <div class="input-group">
-          <input type="file" alife-file-to-base64 (onFileChanged)="obtener($event)" class="form-control" name="img"
-          ngModel>
+          <input type="file" alife-file-to-base64 (onFileChanged)="obtener($event)" class="form-control" name="img">
           <img src="{{this.editForm.value.img}}" height="100px">
         </div>
       </div>

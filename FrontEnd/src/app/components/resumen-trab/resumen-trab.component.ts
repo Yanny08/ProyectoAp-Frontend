@@ -71,7 +71,7 @@ export class ResumenTrabComponent implements OnInit {
   }
 
   enviar(f: NgForm) {
-    console.log(f.form.value);
+    // console.log(f.form.value);
     this.resumenTrabService.addResumenTrab(f.value)
       .subscribe((result) => {
         this.ngOnInit(); // recargar la tabla
@@ -95,7 +95,7 @@ export class ResumenTrabComponent implements OnInit {
       fechaFin: resumenTrab.fechaFin,
       descripcion: resumenTrab.descripcion,
     });
-    console.log(this.editForm.value);
+    // console.log(this.editForm.value);
   }
 
   editar() {  

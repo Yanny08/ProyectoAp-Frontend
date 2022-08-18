@@ -152,8 +152,8 @@ section {
 
 .card {
     position: relative;
-    width: 500px;
-    height: 460px;
+    width: 30em;
+    height: 20em;
     border-radius: 36px;
     overflow: hidden;
 }

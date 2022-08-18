@@ -31,47 +31,49 @@
 
 <!--MODAL AGREGAR -->
 <ng-template #content let-c="close" let-d="dismiss">
-  <div class="modal-header">
 
+  <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Agregar Educación</h4>
     <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
   </div>
 
   <div class="modal-body">
-    <form #f="ngForm" (ngSubmit)="enviar(f)" novalidate>
+    <form [formGroup]="editForm" (ngSubmit)="enviar($event)" novalidate>
+      <input type="text" formControlName="id" hidden>
       <div class="form-group">
         <label for="titulo">Titulo:</label>
-          <div class="input-group">
-            <input class="form-control" name="titulo" #titulo="ngModel" ngModel required placeholder="Titulo">
-          </div>
+        <div class="input-group">
+          <input class="form-control" formControlName="titulo" placeholder="Titulo" required>
         </div>
+      </div>
       <div class="form-group">
         <label for="institucion">Institución:</label>
         <div class="input-group">
-          <input class="form-control" name="institucion" #titulo="ngModel" ngModel placeholder="Institución">
+          <input class="form-control" formControlName="institucion" placeholder="Institución">
         </div>
       </div>
       <div class="form-group">
         <label for="fechaIni">Fecha inicio:</label>
         <div class="input-group">
-          <input type="date" class="form-control" name="fechaIni" #fechaIni="ngModel" ngModel>
+          <input type="date" class="form-control" formControlName="fechaIni">
         </div>
       </div>
       <div class="form-group">
         <label for="fechaFin">Fecha fin:</label>
         <div class="input-group">
-          <input type="date" class="form-control" name="fechaFin" #fechaFin="ngModel" ngModel>
+          <input type="date" class="form-control" formControlName="fechaFin">
         </div>
       </div>
       <div class="form-group">
         <label for="descripcion">Descripción</label>
-        <textarea type="text" name="descripcion" class="form-control" rows="5" cols="10"
-        #descripcion="ngModel" ngModel placeholder="Descripción"></textarea>
+        <textarea type="text" formControlName="descripcion" class="form-control" rows="5" cols="10"
+          placeholder="Descripción"></textarea>
       </div>
       <br>
 
       <div class="modal-footer">
-        <button type="submit" class="btn btn-outline-primary">Agregar</button>
+        <button type="button" [disabled]="editForm.invalid" (click)="enviar($event)"
+          class="btn btn-outline-primary">Agregar</button>
       </div>
     </form>
   </div>
@@ -121,7 +123,7 @@
     </form>
 
     <div class="modal-footer">
-      
+
       <button data-dismiss="modal" class="btn btn-outline-primary" (click)="editar()">Actualizar</button>
       <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">Cerrar</button>
     </div>
