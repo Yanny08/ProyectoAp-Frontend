@@ -16,13 +16,13 @@
            "/>"
         </span> -->
     <!-- boton login -->
-     <a class="boton-login" (click)="login()" *ngIf="!isAdmin">
-      <i class="bi bi-person-plus"></i>
-     </a>
+     <span class="boton-login" (click)="login()" *ngIf="!isAdmin">
+      <i class="bi bi-person-plus "></i>
+     </span>
     <!-- boton logOut (cerrar sesion)-->
-    <a class="boton-login" (click)="onLogOut()" *ngIf="isAdmin">
+    <span class="boton-login" (click)="onLogOut()" *ngIf="isAdmin">
       <i class="bi bi-person-x" ></i> 
-    </a>
+    </span>
     <!-- boton Menu -->
     <div class="boton-menu" (click)="mostrarBarra()">
       <i class="bi bi-list fs-4"></i>

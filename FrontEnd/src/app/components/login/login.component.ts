@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { LoginUsuario } from 'src/app/Models/login-usuario';
 import { AuthService } from 'src/app/Services/auth.service';
 import { TokenService } from 'src/app/Services/token.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -44,12 +45,22 @@ export class LoginComponent implements OnInit {
       this.tokenService.setUserName(data.nombreUsuario);
       this.tokenService.setAuthorities(data.authorities);
       this.roles = data.authorities;
+      Swal.fire(
+        'Bienvenido',
+        'te has logeado',
+        'success'
+      )
       this.router.navigate(['/']);
     }, err => {
       this.isAdmin = false;
       this.isLogginFail = true;
       this.errMsj = err.error.mensaje;
-      this.toastr.error(this.errMsj, 'Fail', { timeOut: 3000, positionClass: 'toast-top-center', });
+      // this.toastr.error(this.errMsj, 'Fail', { timeOut: 3000, positionClass: 'toast-top-center', });
+      Swal.fire(
+        'Good job!',
+        'You clicked the button!',
+        'success'
+      )
     })
 
   }

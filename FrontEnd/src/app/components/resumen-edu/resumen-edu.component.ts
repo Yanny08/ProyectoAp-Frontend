@@ -19,7 +19,8 @@ export class ResumenEduComponent implements OnInit {
   private deleteId: number;
 
   isAdmin = false;
-
+  roles: string[];
+  
   constructor(config: NgbModalConfig,
     private modalService: NgbModal,
     private fb: FormBuilder,
@@ -44,13 +45,13 @@ export class ResumenEduComponent implements OnInit {
     });
 
     
-    // TOKEN
-    if (this.tokenService.getToken()) {
-      this.isAdmin = true;
-    } else {
-      this.isAdmin = false;
-    }
-    
+   //  TOKEN
+   this.roles = this.tokenService.getAuthorities();
+   this.roles.forEach(rol => {
+     if (rol === 'ROLE_ADMIN') {
+       this.isAdmin = true;
+     }
+   });
   }
 
   public getResumenEdu(){

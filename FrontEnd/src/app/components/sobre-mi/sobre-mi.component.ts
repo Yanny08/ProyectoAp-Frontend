@@ -16,15 +16,14 @@ export class SobreMiComponent implements OnInit {
   sobreMi: SobreMi[];
   closeResult: string;
   editForm: FormGroup;
-  
-  base64:string="";
+  imagen64:String="";
   
   isAdmin = false;
- 
+  roles: string[];
 
   constructor(config: NgbModalConfig, 
     private modalService: NgbModal,
-    private form: FormBuilder,
+    private fb: FormBuilder,
     private sobreMiService: SobreMiService,
     private tokenService:TokenService,
     public httpClient:HttpClient) {
@@ -36,7 +35,8 @@ export class SobreMiComponent implements OnInit {
   
   ngOnInit(): void {
     this.getSobreMi();
-    this.editForm = this.form.group({
+
+    this.editForm = this.fb.group({
       id: [''],
       linkGit: [''],
       linkDisc: [''],
@@ -45,28 +45,27 @@ export class SobreMiComponent implements OnInit {
       img: [''],
     });
 
-     // TOKEN
-     if(this.tokenService.getToken()){
-      this.isAdmin = true;
-    }else{
-      this.isAdmin = false;
+     //  TOKEN
+    this.roles = this.tokenService.getAuthorities();
+    this.roles.forEach(rol => {
+      if (rol === 'ROLE_ADMIN') {
+        this.isAdmin = true;
       }
+    });
   }
 
   public getSobreMi(){
     this.sobreMiService.getSobreMi().subscribe(data => { this.sobreMi = data });
-     // console.log(this.resumenEdu)
    
   }
   
   //Imagen Base64
   obtener(e:any): void {
-    this.base64=e[0].base64;
-    this.editForm.value.img=this.base64;
+    this.imagen64=e[0].base64;
+    this.editForm.value.img=this.imagen64;
    }
 
   //Modal Editar
-
   modalEdit(targetModal, sobreMi:SobreMi) {
     this.modalService.open(targetModal, {
       centered: true,
@@ -81,7 +80,6 @@ export class SobreMiComponent implements OnInit {
       descripcion: sobreMi.descripcion,
       img: sobreMi.img,
     });
-    console.log(this.editForm.value);
    }
 
 

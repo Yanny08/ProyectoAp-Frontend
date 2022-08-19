@@ -18,57 +18,60 @@ export class ProyectosComponent implements OnInit {
   closeResult: string;
   editForm: FormGroup;
   private deleteId: number;
-  Prueba64:String="";
-  
+  imagen64: String = "";
+
   isAdmin = false;
- 
-  constructor(config: NgbModalConfig, 
+  roles: string[];
+
+  constructor(config: NgbModalConfig,
     private modalService: NgbModal,
     private fb: FormBuilder,
     private ProyectoService: ProyectoService,
     private tokenService: TokenService,
-    public httpClient:HttpClient) {
-   
+    public httpClient: HttpClient) {
+
     config.backdrop = 'static';
     config.keyboard = false;
   }
 
-  
+
   ngOnInit(): void {
     this.getProyecto();
 
     this.editForm = this.fb.group({
-        id: [''],
-        titulo: ['',[Validators.required,Validators.maxLength(20)]],
-        img: [''],
-        descripcion: ['' ,[Validators.maxLength(500)]], 
-      });
+      id: [''],
+      titulo: ['', [Validators.required, Validators.maxLength(20)]],
+      img: [''],
+      descripcion: ['', [Validators.maxLength(500)]],
+    });
 
 
     //  TOKEN
-     if (this.tokenService.getToken()) {
-      this.isAdmin = true;
-    } else {
-      this.isAdmin = false;
-    }
+    this.roles = this.tokenService.getAuthorities();
+    this.roles.forEach(rol => {
+      if (rol === 'ROLE_ADMIN') {
+        this.isAdmin = true;
+      }
+    });
+
   }
 
 
-  public getProyecto(){
-    this.ProyectoService.getProyecto().subscribe(data => {this.proyectos = data});
-    
+  public getProyecto() {
+    this.ProyectoService.getProyecto().subscribe(data => { this.proyectos = data });
+
   }
 
-  
+
 
   //Imagen Base64
-  obtener(e:any) {
-  this.Prueba64= e[0].base64;
-  this.editForm.value.img=this.Prueba64;
- }
+  obtener(e: any): void {
+    this.imagen64 = e[0].base64;
+    this.editForm.value.img = this.imagen64;
+  }
 
 
- //Modal Agregar
+  //Modal Agregar
   modalAgregar(content) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -77,43 +80,42 @@ export class ProyectosComponent implements OnInit {
     });
   }
 
-  enviar(){
-    this.editForm.value.img=this.Prueba64;
+  agregar() {
+    this.editForm.value.img = this.imagen64;
     this.ProyectoService.addProyecto(this.editForm.value)
-    .subscribe((results) => {
-      this.ngOnInit();
-      this.modalService.dismissAll();
+      .subscribe((results) => {
+        this.ngOnInit();
+        this.modalService.dismissAll();
+      });
+  }
+
+
+  //Modal Editar
+  modalEdit(targetModal, proyecto: Proyecto) {
+    this.modalService.open(targetModal, {
+      centered: true,
+      backdrop: 'static',
+      size: 'lg'
     });
-}
+    this.editForm.patchValue({
+      id: proyecto.id,
+      titulo: proyecto.titulo,
+      img: proyecto.img,
+      descripcion: proyecto.descripcion,
+    });
+  }
 
-
- //Modal Editar
- modalEdit(targetModal, proyecto:Proyecto) {
-  this.modalService.open(targetModal, {
-    centered: true,
-    backdrop: 'static',
-    size: 'lg'
-  });
-  this.editForm.patchValue( {
-    id: proyecto.id,
-    titulo: proyecto.titulo,
-    img: proyecto.img,
-    descripcion: proyecto.descripcion,
-  });
- }
-
- editar() {
+  editar() {
     this.ProyectoService.updateProyecto(this.editForm.value)
       .subscribe((results) => {
         this.ngOnInit();
         this.modalService.dismissAll();
       });
   }
-  
-    // Modal Eliminar
 
-  modalBorrar(targetModal, proyecto:Proyecto) {
-    this.deleteId= proyecto.id;
+  // Modal Eliminar
+  modalBorrar(targetModal, proyecto: Proyecto) {
+    this.deleteId = proyecto.id;
     this.modalService.open(targetModal, {
       backdrop: 'static',
       size: 'lg'
@@ -122,11 +124,11 @@ export class ProyectosComponent implements OnInit {
 
   borrar() {
     this.ProyectoService.deleteProyecto(this.deleteId)
-       .subscribe((results) => {
-         this.ngOnInit();
-         this.modalService.dismissAll();
-       });
-   }
+      .subscribe((results) => {
+        this.ngOnInit();
+        this.modalService.dismissAll();
+      });
+  }
 
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {

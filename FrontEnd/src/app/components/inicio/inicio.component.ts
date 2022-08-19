@@ -24,7 +24,7 @@ export class InicioComponent implements OnInit {
  
 
   isAdmin = false;
-
+  roles: string[];
   
   constructor(config: NgbModalConfig,
     private modalService: NgbModal,
@@ -54,14 +54,13 @@ export class InicioComponent implements OnInit {
       imgBanner: [''],
     });
    
-    
-    // TOKEN
-    if (this.tokenService.getToken()) {
-      this.isAdmin = true;
-    } else {
-      this.isAdmin = false;
-    }
-    
+    //  TOKEN
+    this.roles = this.tokenService.getAuthorities();
+    this.roles.forEach(rol => {
+      if (rol === 'ROLE_ADMIN') {
+        this.isAdmin = true;
+      }
+    });
   }
 
   // LOGIN
@@ -78,6 +77,7 @@ export class InicioComponent implements OnInit {
   public getPersona() {
     this.personaService.getPersona().subscribe(data => { this.personas = data });
     
+
   }
 
   //Imagen Base64

@@ -19,6 +19,7 @@ export class HabilidadesComponent implements OnInit {
   private deleteId: number;
 
   isAdmin = false;
+  roles: string[];
 
   constructor(config: NgbModalConfig,
     private modalService: NgbModal,
@@ -44,11 +45,12 @@ export class HabilidadesComponent implements OnInit {
 
      
     //  TOKEN
-    if (this.tokenService.getToken()) {
-      this.isAdmin = true;
-    } else {
-      this.isAdmin = false;
-    }
+    this.roles = this.tokenService.getAuthorities();
+    this.roles.forEach(rol => {
+      if (rol === 'ROLE_ADMIN') {
+        this.isAdmin = true;
+      }
+    });
   }
 
   public getHabilidad() {
