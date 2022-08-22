@@ -18,7 +18,7 @@ export class ProyectosComponent implements OnInit {
   closeResult: string;
   editForm: FormGroup;
   private deleteId: number;
-  imagen64: String = "";
+  base64Img: String = "";
 
   isAdmin = false;
   roles: string[];
@@ -40,9 +40,10 @@ export class ProyectosComponent implements OnInit {
 
     this.editForm = this.fb.group({
       id: [''],
-      titulo: ['', [Validators.required, Validators.maxLength(20)]],
-      img: [''],
-      descripcion: ['', [Validators.maxLength(500)]],
+      titulo: ['',[Validators.required, Validators.maxLength(20)]],
+      subtitulo: ['', [Validators.maxLength(30)]],
+      img: ['',[Validators.required]],
+      // img: [''],
     });
 
 
@@ -53,21 +54,17 @@ export class ProyectosComponent implements OnInit {
         this.isAdmin = true;
       }
     });
-
   }
-
 
   public getProyecto() {
     this.ProyectoService.getProyecto().subscribe(data => { this.proyectos = data });
-
   }
-
 
 
   //Imagen Base64
   obtener(e: any): void {
-    this.imagen64 = e[0].base64;
-    this.editForm.value.img = this.imagen64;
+    this.base64Img = e[0].base64;
+    this.editForm.value.img = this.base64Img;
   }
 
 
@@ -81,14 +78,13 @@ export class ProyectosComponent implements OnInit {
   }
 
   agregar() {
-    this.editForm.value.img = this.imagen64;
+    this.editForm.value.img = this.base64Img;
     this.ProyectoService.addProyecto(this.editForm.value)
       .subscribe((results) => {
         this.ngOnInit();
         this.modalService.dismissAll();
       });
   }
-
 
   //Modal Editar
   modalEdit(targetModal, proyecto: Proyecto) {
@@ -101,7 +97,7 @@ export class ProyectosComponent implements OnInit {
       id: proyecto.id,
       titulo: proyecto.titulo,
       img: proyecto.img,
-      descripcion: proyecto.descripcion,
+      subtitulo: proyecto.subtitulo,
     });
   }
 

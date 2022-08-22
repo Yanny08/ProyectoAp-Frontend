@@ -37,8 +37,8 @@ export class HabilidadesComponent implements OnInit {
 
     this.editForm = this.fb.group({
       id: [''],
-      porcentaje: ['',[Validators.min(1)]],
-      titulo: ['',[Validators.required,Validators.maxLength(20)]],
+      porcentaje: ['',[Validators.required,Validators.min(1)]],
+      titulo: ['',[Validators.required, Validators.maxLength(15)]],
       icono: [''],
       color: [''],
     });
@@ -55,7 +55,6 @@ export class HabilidadesComponent implements OnInit {
 
   public getHabilidad() {
     this.HabilidadService.getHabilidad().subscribe(data => { this.habilidad = data });
-    // console.log(this.habilidad)
   }
 
 
@@ -66,22 +65,19 @@ export class HabilidadesComponent implements OnInit {
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
+    //Para que el porcentaje comience en 0
     this.editForm.get('porcentaje').setValue(0)
-    this.editForm.get('titulo').setValue("")
 
   }
 
-  enviar(event:Event) {
-    // console.log(f.form.value);
-    event.preventDefault()
-    if(this.editForm.valid){
+  agregar() {
       this.HabilidadService.addHabilidad(this.editForm.value)
       .subscribe((result) => {
         this.ngOnInit(); // recargar la tabla
+        this.modalService.dismissAll(); // desaparece el modal
       });
     }
-    this.modalService.dismissAll(); // desaparece el modal
-  }
+  
 
 
   //Modal Editar

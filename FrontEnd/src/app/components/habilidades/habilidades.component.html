@@ -29,42 +29,39 @@
   </div>
 </section>
 
-<!--MODAL AGREGAR -->
+<!-- AGREGAR MODAL -->
 <ng-template #content let-c="close" let-d="dismiss">
-
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Agregar habilidad</h4>
-    <button type="button" class="btn-close" aria-label="btn-Close" (click)="d('Cross click')"></button>
+    <i class="iconoCerrar bi bi-x-square" (click)="d('Cross click')"></i>
   </div>
 
   <div class="modal-body">
-    <form [formGroup]="editForm" (ngSubmit)="enviar($event)" novalidate>
-      <input type="text" formControlName="id" hidden>
+    <form [formGroup]="editForm" (ngSubmit)="agregar()" novalidate>
       <div class="form-group">
         <label for="porcentaje">Porcentaje:</label>
-        <div class="input-group">
-          <input type="range" class="form-range" id="porcentaje" formControlName="porcentaje" required>
-          <label style="margin-right: 50px;"><small>{{this.editForm.get('porcentaje').value}}/100%</small></label>
-          <div *ngIf="editForm.get('porcentaje').errors && editForm.get('porcentaje').touched">
-            <p *ngIf="editForm.get('porcentaje').hasError('min')" class="alerta">
+        <input type="range" class="form-range" id="porcentaje" name="porcentaje" formControlName="porcentaje" required>
+        <!-- VALIDACIONES -->
+        <div *ngIf="editForm.get('porcentaje').errors && editForm.get('porcentaje').touched">
+            <div *ngIf="editForm.get('porcentaje').hasError('min')" class="alert text-primary">
               "Este campo requiere un minimo de 1"
-            </p>
+            </div>
           </div>
+        <div class="contador">{{this.editForm.get('porcentaje').value}}/100%
         </div>
       </div>
       <div class="form-group">
         <label for="titulo">Titulo:</label>
-          <input class="form-control" formControlName="titulo" placeholder="Titulo">
-          <label>{{this.editForm.get('titulo').value.length}}/20</label>
-          <div *ngIf="editForm.get('titulo').errors && editForm.get('titulo').touched">
-            <p *ngIf="editForm.get('titulo').hasError('required')" class="alerta">
-              "Este campo requiere un titulo"
-            </p>
-            <p *ngIf="editForm.get('titulo').hasError('maxlength')" class="alerta">
-              "Este campo requiere un maximo de 20 caracteres"
-            </p>
+        <input class="form-control" formControlName="titulo" name="titulo" placeholder="Titulo" required [class]="{'is-invalid':editForm.get('titulo').touched && editForm.get('titulo').errors}">
+        <!-- VALIDACIONES -->
+        <div *ngIf="editForm.get('titulo').touched && editForm.get('titulo').errors?.['required']"
+        class="alert text-danger">"Este campo es requerido"</div>
+        <div *ngIf="editForm.get('titulo').touched && editForm.get('titulo').errors?.['maxlength']"
+        class="alert text-primary">
+            "Este campo requiere un máximo de 15 caracteres"
           </div>
-      </div>
+        <div class="contador">{{this.editForm.get('titulo').value.length}}/15</div>
+        </div>
       <div class="form-group">
         <label for="icono">Icono:</label>
         <div class="input-group">
@@ -80,8 +77,7 @@
       <br>
 
       <div class="modal-footer">
-        <button type="button" [disabled]="editForm.invalid" (click)="enviar($event)"
-          class="btn btn-outline-primary">Agregar</button>
+        <button type="submit" class="btn btn-outline-primary" [disabled]="editForm.invalid">Agregar</button>
       </div>
     </form>
   </div>
@@ -89,26 +85,35 @@
 
 <!-- EDITAR MODAL -->
 <ng-template #contentEdit let-modal>
-
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title2">Editar habilidad</h4>
-    <button type="button" class="btn-close" aria-label="btn-Close" (click)="modal.dismiss('Cross click')">
-    </button>
+    <i class="iconoCerrar bi bi-x-square" aria-label="btn-Close" (click)="modal.dismiss('Cross click')"></i>
   </div>
 
   <div class="modal-body">
     <form [formGroup]="editForm" novalidate>
       <div class="form-group">
         <label for="porcentaje">Porcentaje:</label>
-        <div class="input-group">
-          <input type="range" id="customRange" name="porcentaje" class="form-range" formControlName="porcentaje">
+          <input type="range" id="customRange" name="porcentaje" class="form-range" formControlName="porcentaje" required>
+          <!-- VALIDACIONES -->
+          <div *ngIf="editForm.get('porcentaje').errors && editForm.get('porcentaje').touched">
+              <div *ngIf="editForm.get('porcentaje').hasError('min')" class="alert text-primary">
+                "Este campo requiere un minimo de 1"
+              </div>
+            </div>
+          <div class="contador">{{this.editForm.get('porcentaje').value}}/100%
+          </div>
         </div>
-      </div>
       <div class="form-group">
         <label for="titulo">Titulo:</label>
-        <div class="input-group">
-          <input class="form-control" formControlName="titulo" placeholder="Titulo">
-        </div>
+        <input class="form-control" formControlName="titulo" name="titulo" placeholder="Titulo" required
+          [class]="{'is-invalid':editForm.get('titulo').touched && editForm.get('titulo').errors}">
+        <!-- VALIDACIONES -->
+        <div *ngIf="editForm.get('titulo').touched && editForm.get('titulo').errors?.['required']"
+          class="alert text-danger">"Este campo es requerido"</div>
+        <div *ngIf="editForm.get('titulo').touched && editForm.get('titulo').errors?.['maxlength']"
+          class="alert text-primary">"Este campo requiere un máximo de 15 caracteres"</div>
+        <div class="contador">{{this.editForm.get('titulo').value.length}}/15</div>
       </div>
       <div class="form-group">
         <label for="icono">Icono:</label>
@@ -125,19 +130,18 @@
     </form>
 
     <div class="modal-footer">
-      <button data-dismiss="modal" class="btn btn-primary" (click)="editar()">Actualizar</button>
-      <button type="button" class="btn btn-danger" (click)="modal.close('Save click')">Cerrar</button>
+      <button data-dismiss="modal" class="btn btn-outline-primary" (click)="editar()" [disabled]="editForm.invalid">Actualizar</button>
+      <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">Cerrar</button>
     </div>
   </div>
 </ng-template>
 
-<!-- MODAL ELIMINAR -->
+<!-- ELIMINAR ELIMINAR -->
 <ng-template #contentDelete let-modal>
-
   <div class="modal-header">
-    <h4 class="modal-title">Eliminar Habilidad</h4>
-    <button type="button" class="btn-close" aria-label="btn-close" (click)="modal.dismiss('Cross click')">
-    </button>
+    <h4 class="modal-title3">Eliminar Habilidad</h4>
+    <i class="iconoCerrar bi bi-x-square" aria-label="btn-close" (click)="modal.dismiss('Cross click')">
+    </i>
   </div>
 
   <div class="modal-body">
@@ -145,7 +149,7 @@
   </div>
 
   <div class="modal-footer">
-    <button data-dismiss="modal" class="btn btn-danger" (click)="borrar()">Eliminar</button>
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Cerrar</button>
+    <button data-dismiss="modal" class="btn btn-outline-danger" (click)="borrar()">Eliminar</button>
+    <button type="button" class="btn btn-outline-primary" (click)="modal.close('Save click')">Cerrar</button>
   </div>
 </ng-template>

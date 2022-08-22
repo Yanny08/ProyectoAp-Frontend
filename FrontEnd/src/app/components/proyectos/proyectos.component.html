@@ -9,7 +9,8 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 m-1d-flex justify-content-center" *ngFor="let proyecto of proyectos">
+    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 m-1d-flex justify-content-center"
+      *ngFor="let proyecto of proyectos">
       <i class="bi bi-pencil-square" (click)="modalEdit(contentEdit,proyecto)" *ngIf="isAdmin"></i>
       <i class="bi bi-trash3" (click)="modalBorrar(contentDelete,proyecto)" *ngIf="isAdmin"></i>
       <div class="card" style="width: 30rem;">
@@ -23,7 +24,7 @@
               <h2>{{proyecto.titulo}}</h2>
 
               <p clss="d-inblock">
-                {{proyecto.descripcion}}
+                {{proyecto.subtitulo}}
               </p>
               <div class="footer">
                 <a href="">Live Demo</a>
@@ -36,44 +37,49 @@
   </div>
 </section>
 
-<!--MODAL AGREGAR -->
+<!-- AGREGAR MODAL -->
 <ng-template #content let-c="close" let-d="dismiss">
+
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Agregar Proyecto</h4>
-    <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+    <h4 class="modal-title" id="modal-basic-title">Agregar proyecto</h4>
+    <i class="iconoCerrar bi bi-x-square" (click)="d('Cross click')"></i>
   </div>
 
   <div class="modal-body">
     <form [formGroup]="editForm" (ngSubmit)="agregar()" novalidate>
-      <!-- <input type="text" formControlName="id"> -->
       <div class="form-group">
         <label for="titulo">Titulo:</label>
-        <input [class]="{'is-invalid':editForm.get('titulo').touched && editForm.get('titulo').errors}" type="text"
-          class="form-control" id="titulo" name="titulo" formControlName="titulo" required placeholder="Titulo">
+        <input type="text" class="form-control" id="titulo" name="titulo" formControlName="titulo" placeholder="Titulo"
+          required [class]="{'is-invalid':editForm.get('titulo').touched && editForm.get('titulo').errors}">
+        <!-- VALIDACIONES -->
         <div *ngIf="editForm.get('titulo').touched && editForm.get('titulo').errors?.['required']"
           class="alert text-danger">"Este campo es requerido"</div>
         <div *ngIf="editForm.get('titulo').touched && editForm.get('titulo').errors?.['maxlength']"
           class="alert text-primary">"En este campo es requerido un max de 20 caracteres"</div>
-          <div>{{this.editForm.get('titulo').value.length}}/20</div>
+        <div class="contador">{{this.editForm.get('titulo').value.length}}/20</div>
+      </div>
+      <div class="form-group">
+        <label for="subtitulo">Subtitulo:</label>
+        <input class="form-control"  id="subtitulo" name="subtitulo" formControlName="subtitulo" placeholder="Subtitulo">
+        <!-- VALIDACIONES -->
+        <div *ngIf="editForm.get('subtitulo').touched && editForm.get('subtitulo').errors?.['maxlength']"
+          class="alert text-primary">
+          "Este campo requiere un máximo de 30 caracteres"
+        </div>
+        <div class="contador">{{this.editForm.get('subtitulo').value.length}}/30</div>
       </div>
       <div class="form-group">
         <label for="img">Imagen:</label>
-        <div class="input-group">
-          <input type="file" alife-file-to-base64 (onFileChanged)="obtener($event)" class="form-control" name="img">
-          <img src="{{imagen64}}" height="100px">
-          <!-- <img src="{{this.editForm.value.img}}" height="100px"> -->
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="descripcion">Descripción:</label>
-        <div class="input-group">
-          <textarea class="form-control" rows="5" cols="10" name="descripcion" formControlName="descripcion"
-            placeholder="Descripción"></textarea>
-        </div>
+          <input type="file" alife-file-to-base64 (onFileChanged)="obtener($event)" class="form-control" name="img"
+            required [class]="{'is-invalid':editForm.get('img').touched && editForm.get('img').errors}">
+          <!-- VALIDACIONES -->
+          <div *ngIf="editForm.get('img').touched && editForm.get('img').errors?.['required']"
+          class="alert text-danger">"Este campo es requerido"</div>
+          <img src="{{base64Img}}" height="100px">
       </div>
 
       <div class="modal-footer">
-        <button type="submit" class="btn btn-outline-primary">Agregar</button>
+        <button type="submit" [disabled]="editForm.invalid" class="btn btn-outline-primary">Agregar</button>
       </div>
     </form>
   </div>
@@ -82,18 +88,32 @@
 <!-- EDITAR MODAL -->
 <ng-template #contentEdit let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title2">Editar Perfil</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-    </button>
+    <h4 class="modal-title" id="modal-basic-title2">Editar proyecto</h4>
+    <i class="iconoCerrar bi bi-x-square" (click)="modal.dismiss('Cross click')"></i>
   </div>
+
   <div class="modal-body">
     <form [formGroup]="editForm">
-
       <div class="form-group">
         <label for="titulo">Titulo:</label>
-        <div class="input-group">
-          <input class="form-control" formControlName="titulo" placeholder="Titulo">
+        <input class="form-control" formControlName="titulo" name="titulo" placeholder="Titulo" required
+          [class]="{'is-invalid':editForm.get('titulo').touched && editForm.get('titulo').errors}">
+        <!-- VALIDACIONES -->
+        <div *ngIf="editForm.get('titulo').touched && editForm.get('titulo').errors?.['required']"
+          class="alert text-danger">"Este campo es requerido"</div>
+        <div *ngIf="editForm.get('titulo').touched && editForm.get('titulo').errors?.['maxlength']"
+          class="alert text-primary">"Este campo requiere un máximo de 20 caracteres"</div>
+        <div class="contador">{{this.editForm.get('titulo').value.length}}/20</div>
+      </div>
+      <div class="form-group">
+        <label for="subtitulo">Subtitulo:</label>
+        <input class="form-control" name="subtitulo" formControlName="subtitulo" placeholder="Subtitulo">
+        <!-- VALIDACIONES -->
+        <div *ngIf="editForm.get('subtitulo').touched && editForm.get('subtitulo').errors?.['maxlength']"
+          class="alert text-primary">
+          "Este campo requiere un máximo de 30 caracteres"
         </div>
+        <div class="contador">{{this.editForm.get('subtitulo').value.length}}/30</div>
       </div>
       <div class="form-group">
         <label for="img">Imagen:</label>
@@ -102,35 +122,29 @@
           <img src="{{this.editForm.value.img}}" height="100px">
         </div>
       </div>
-      <div class="form-group">
-        <label for="descripcion">Descripción:</label>
-        <div class="input-group">
-          <textarea class="form-control" rows="5" cols="10" formControlName="descripcion"
-            placeholder="Descripción"></textarea>
-        </div>
-      </div>
     </form>
 
     <div class="modal-footer">
-      <button data-dismiss="modal" class="btn btn-primary"  (click)="editar()">Actualizar</button>
-      <button type="button" class="btn btn-danger" (click)="modal.close('Save click')">Cerrar</button>
+      <button data-dismiss="modal" class="btn btn-outline-primary" (click)="editar()" [disabled]="editForm.invalid">Actualizar</button>
+      <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">Cerrar</button>
     </div>
   </div>
 </ng-template>
 
-<!-- MODAL ELIMINAR-->
+<!-- ELIMINAR MODAL -->
 <ng-template #contentDelete let-modal>
   <div class="modal-header">
-    <h4 class="modal-title">Eliminar Perfil</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-    </button>
+    <h4 class="modal-title" id="modal-basic-title3">Eliminar Perfil</h4>
+    <i class="iconoCerrar bi bi-x-square" aria-label="btn-Close" (click)="modal.dismiss('Cross click')">
+    </i>
   </div>
 
   <div class="modal-body">
     <h3>Esta seguro de eliminar este registro?</h3>
   </div>
+  
   <div class="modal-footer">
-    <button data-dismiss="modal" class="btn btn-danger" (click)="borrar()">Eliminar</button>
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Cerrar</button>
+    <button data-dismiss="modal" class="btn btn-outline-danger" (click)="borrar()">Eliminar</button>
+    <button type="button" class="btn btn-outline-primary" (click)="modal.close('Save click')">Cerrar</button>
   </div>
 </ng-template>

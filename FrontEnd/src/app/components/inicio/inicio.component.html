@@ -16,12 +16,12 @@
            "/>"
         </span> -->
     <!-- boton login -->
-     <span class="boton-login" (click)="login()" *ngIf="!isAdmin">
+    <span class="boton-login" (click)="login()" *ngIf="!isAdmin">
       <i class="bi bi-person-plus "></i>
-     </span>
+    </span>
     <!-- boton logOut (cerrar sesion)-->
     <span class="boton-login" (click)="onLogOut()" *ngIf="isAdmin">
-      <i class="bi bi-person-x" ></i> 
+      <i class="bi bi-person-x"></i>
     </span>
     <!-- boton Menu -->
     <div class="boton-menu" (click)="mostrarBarra()">
@@ -29,7 +29,7 @@
     </div>
   </nav>
 </header>
-<!--Barra de Navegacion-->
+<!--Barra lateral de Navegacion-->
 <aside class="sidebar" id="menu-lateral" [ngClass]="{'mostrarLateral': barraActiva}">
   <div class="menu-bar">
     <div *ngFor="let persona of personas">
@@ -45,62 +45,66 @@
     <a href="#Contact"><i class="bi bi-envelope fs-4"></i><span>Contacto</span></a>
   </div>
 </aside>
+<!--BANNER-->
 <div *ngFor="let persona of personas">
-<main class="banner" #banner [ngStyle]="{ 'background-image': 'url(' + persona.imgBanner + ')' }">
-  
-  <!-- <div class="banner_titulo" id="banner-titulo">
+  <main class="banner" #banner [ngStyle]="{ 'background-image': 'url(' + persona.imgBanner + ')' }">
+    <!-- <div class="banner_titulo" id="banner-titulo">
             <h1 class="display-3 fw-bold">Yanina Loiacono</h1>
             <h3>Desarrollador@ Web Fullstack</h3>
         </div> -->
-</main>
+  </main>
 </div>
-<!--BANNER-->
 
-<!-- MODAL EDITAR -->
+<!-- EDITAR MODAL -->
 <ng-template #contentEdit let-modal>
-
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title2">Editar Perfil</h4>
-    <button type="button" class="btn-close" aria-label="btn-close" (click)="modal.dismiss('Cross click')">
-    </button>
+    <i class="iconoCerrar bi bi-x-square" (click)="modal.dismiss('Cross click')"></i>
   </div>
 
   <div class="modal-body">
     <form [formGroup]="editForm" novalidate>
       <div class="form-group">
         <label for="nombre">Nombre:</label>
-        <div class="input-group">
-          <input class="form-control" formControlName="nombre" placeholder="Nombre">
-        </div>
+        <input class="form-control" id="nombre" name="nombre" formControlName="nombre" placeholder="Nombre" required [class]="{'is-invalid':editForm.get('nombre').touched && editForm.get('nombre').errors}">
+        <!-- VALIDACIONES -->
+        <div *ngIf="editForm.get('nombre').touched && editForm.get('nombre').errors?.['required']"
+          class="alert text-danger">"Este campo es requerido"</div>
+        <div *ngIf="editForm.get('nombre').touched && editForm.get('nombre').errors?.['maxlength']"
+          class="alert text-primary">"Este campo requiere un máximo de 15 caracteres"</div>
+        <div class="contador">{{this.editForm.get('nombre').value.length}}/15</div>
       </div>
       <div class="form-group">
         <label for="apellido">Apellido:</label>
-        <div class="input-group">
-          <input class="form-control" formControlName="apellido" placeholder="Apellido">
+        <input class="form-control" id="apellido" name="apellido" formControlName="apellido" placeholder="Apellido"
+          required [class]="{'is-invalid':editForm.get('apellido').touched && editForm.get('apellido').errors}">
+          <!-- VALIDACIONES -->
+          <div *ngIf="editForm.get('apellido').touched && editForm.get('apellido').errors?.['required']"
+            class="alert text-danger">"Este campo es requerido"</div>
+          <div *ngIf="editForm.get('apellido').touched && editForm.get('apellido').errors?.['maxlength']"
+            class="alert text-primary">"En este campo es requerido un max de 15 caracteres"</div>
+          <div class="contador">{{this.editForm.get('apellido').value.length}}/15</div>
         </div>
-      </div>
       <div class="form-group">
         <label for="imgPerfil">Imagen perfil:</label>
         <div class="input-group">
-          <input type="file" alife-file-to-base64 (onFileChanged)="obtener($event)"
-          class="form-control" name="imgPerfil" id="file">
-          <!-- <img src="{{base64}}" height="100px"> -->
+          <input type="file" alife-file-to-base64 accept="image/*" (onFileChanged)="obtener($event)" class="form-control" id="file" name="imgPerfil" required>
           <img src="{{this.editForm.value.imgPerfil}}" height="100px">
         </div>
       </div>
       <div class="form-group">
         <label for="imgBanner">Imagen banner:</label>
         <div class="input-group">
-          <input type="file" alife-file-to-base64 (onFileChanged)="obtener2($event)" class="form-control" name="imgBanner">
+          <input type="file" alife-file-to-base64 accept="image/*" (onFileChanged)="obtener2($event)"
+            class="form-control" name="imgBanner" required>
           <img src="{{this.editForm.value.imgBanner}}" height="100px">
         </div>
       </div>
-    </form> 
+    </form>
 
     <div class="modal-footer">
-
-      <button data-dismiss="modal" class="btn btn-primary" (click)="editar()">Actualizar</button>
-      <button type="button" class="btn btn-danger" (click)="modal.close('Save click')">Cerrar</button>
+      <button data-dismiss="modal" class="btn btn-outline-primary" (click)="editar()" [disabled]="editForm.invalid">Actualizar</button>
+      <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">Cerrar</button>
     </div>
   </div>
 </ng-template>

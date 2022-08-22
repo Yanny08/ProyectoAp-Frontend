@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component,ElementRef,OnInit, ViewChild} from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgbModalConfig, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Persona } from 'src/app/Models/persona.model';
 import { PersonaService } from 'src/app/Services/persona.service';
@@ -19,8 +19,8 @@ export class InicioComponent implements OnInit {
   persona: Persona =new Persona();
   closeResult: string;
   editForm: FormGroup;
-  base64Img1: string = "";
-  base64Img2: string = "";
+  base64Img1: String = "";
+  base64Img2: String = "";
  
 
   isAdmin = false;
@@ -48,10 +48,10 @@ export class InicioComponent implements OnInit {
     this.getPersona();
     this.editForm = this.fb.group({
       id: [''],
-      nombre: [''],
-      apellido: [''],
-      imgPerfil: [''],
-      imgBanner: [''],
+      nombre: ['', [Validators.required, Validators.maxLength(15)]],
+      apellido: ['', [Validators.required, Validators.maxLength(15)]],
+      imgPerfil: ['', [Validators.required]],
+      imgBanner: ['', [Validators.required]],
     });
    
     //  TOKEN
@@ -73,26 +73,20 @@ export class InicioComponent implements OnInit {
     this.router.navigate(['/login'])
   }
 
-
   public getPersona() {
     this.personaService.getPersona().subscribe(data => { this.personas = data });
-    
-
   }
 
-  //Imagen Base64
+
+  //Imagenes en Base64
   obtener(e:any):void {
     this.base64Img1=e[0].base64;
     this.editForm.value.imgPerfil=this.base64Img1;
    }
    
-  
-
   obtener2(e:any):void {
     this.base64Img2= e[0].base64;
     this.editForm.value.imgBanner=this.base64Img2;
-    
-   
   }
 
   //Modal Editar
@@ -109,10 +103,7 @@ export class InicioComponent implements OnInit {
       imgPerfil: persona.imgPerfil,
       imgBanner: persona.imgBanner,
     });
-    // console.log(this.editForm.value);
   }
-
-
 
   editar() {
     this.personaService.updatePersona(this.editForm.value)
@@ -121,19 +112,6 @@ export class InicioComponent implements OnInit {
         this.modalService.dismissAll();
       });
   }
-
-
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
-  }
-
 
 }
 

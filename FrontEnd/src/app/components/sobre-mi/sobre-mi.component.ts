@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgbModalConfig, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { SobreMi } from 'src/app/Models/sobre-mi.model';
 import { SobreMiService } from 'src/app/Services/sobre-mi.service';
@@ -38,10 +38,11 @@ export class SobreMiComponent implements OnInit {
 
     this.editForm = this.fb.group({
       id: [''],
-      linkGit: [''],
-      linkDisc: [''],
-      linkLinke: [''],
-      descripcion: [''],
+      linkGit: ['', [Validators.maxLength(100)]],
+      linkDisc: ['', [Validators.maxLength(100)]],
+      linkLinke: ['', [Validators.maxLength(100)]],
+      linkCv: ['', [Validators.maxLength(100)]],
+      descripcion: ['', [Validators.required, Validators.maxLength(500)]],
       img: [''],
     });
 
@@ -77,6 +78,7 @@ export class SobreMiComponent implements OnInit {
       linkGit: sobreMi.linkGit,
       linkDisc: sobreMi.linkDisc,
       linkLinke: sobreMi.linkLinke,
+      linkCv: sobreMi.linkCv,
       descripcion: sobreMi.descripcion,
       img: sobreMi.img,
     });

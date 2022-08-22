@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, NgForm } from '@angular/forms';
+import { FormGroup, FormBuilder, NgForm, Validators } from '@angular/forms';
 import { NgbModalConfig, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ResumenTrab } from 'src/app/Models/resumenTrab.model';
 import { ResumenTrabService } from 'src/app/Services/resumen-trab.service';
@@ -24,7 +24,7 @@ export class ResumenTrabComponent implements OnInit {
 
   constructor(config: NgbModalConfig,
     private modalService: NgbModal,
-    private form: FormBuilder,
+    private fb: FormBuilder,
     private resumenTrabService: ResumenTrabService,
     private tokenService: TokenService,
     public httpClient: HttpClient) {
@@ -33,17 +33,16 @@ export class ResumenTrabComponent implements OnInit {
     config.keyboard = false;
   }
 
-
-
   ngOnInit(): void {
     this.getResumenTrab();
-    this.editForm = this.form.group({
+
+    this.editForm = this.fb.group({
       id: [''],
-      puesto: [''],
-      organismo: [''],
-      fechaIni: [''],
-      fechaFin: [''],
-      descripcion: [''],
+      puesto: ['',[Validators.required, Validators.maxLength(20)]],
+      organismo: ['',[Validators.required, Validators.maxLength(20)]],
+      fechaIni: ['',[Validators.required]],
+      fechaFin: ['',[Validators.required]],
+      descripcion: ['',[Validators.maxLength(500)]],
     });
 
     
@@ -59,7 +58,6 @@ export class ResumenTrabComponent implements OnInit {
   public getResumenTrab(){
     this.resumenTrabService.getResumenTrab().subscribe(data => { this.resumenTrab = data });
      // console.log(this.resumenEdu)
-
   }
 
   
@@ -72,17 +70,15 @@ export class ResumenTrabComponent implements OnInit {
     });
   }
 
-  enviar(f: NgForm) {
-    // console.log(f.form.value);
-    this.resumenTrabService.addResumenTrab(f.value)
+  agregar() {
+    this.resumenTrabService.addResumenTrab(this.editForm.value)
       .subscribe((result) => {
         this.ngOnInit(); // recargar la tabla
+        this.modalService.dismissAll(); // desaparece el modal
       });
-    this.modalService.dismissAll(); // desaparece el modal
   }
 
 //Modal Editar
-
   modalEdit(targetModal, resumenTrab: ResumenTrab) {
     this.modalService.open(targetModal, {
       centered: true,
@@ -97,7 +93,6 @@ export class ResumenTrabComponent implements OnInit {
       fechaFin: resumenTrab.fechaFin,
       descripcion: resumenTrab.descripcion,
     });
-    // console.log(this.editForm.value);
   }
 
   editar() {  
@@ -109,7 +104,6 @@ export class ResumenTrabComponent implements OnInit {
   }
 
  // Modal Eliminar
-
  modalBorrar(targetModal, resumenTrab: ResumenTrab) {
     this.deleteId = resumenTrab.id;
     this.modalService.open(targetModal, {
@@ -125,8 +119,6 @@ export class ResumenTrabComponent implements OnInit {
       this.modalService.dismissAll();
     });
 }
-
-
 
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {

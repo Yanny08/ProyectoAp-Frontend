@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, NgForm } from '@angular/forms';
+import { FormGroup, FormBuilder, NgForm, Validators } from '@angular/forms';
 import { NgbModalConfig, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ResumenEdu } from 'src/app/Models/resumenEdu.model';
 import { ResumenEduService } from 'src/app/Services/resumen-edu.service';
@@ -37,11 +37,11 @@ export class ResumenEduComponent implements OnInit {
 
     this.editForm = this.fb.group({
       id: [''],
-      titulo: [''],
-      institucion: [''],
-      fechaIni: [''],
-      fechaFin: [''],
-      descripcion: [''],
+      titulo: ['',[Validators.required, Validators.maxLength(20)]],
+      institucion: ['',[Validators.required, Validators.maxLength(20)]],
+      fechaIni: ['',[Validators.required]],
+      fechaFin: ['',[Validators.required]],
+      descripcion: ['',[Validators.maxLength(500)]],
     });
 
     
@@ -67,21 +67,16 @@ export class ResumenEduComponent implements OnInit {
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
-    // this.editForm.get('porcentaje').setValue(0)
-    // this.editForm.get('titulo').setValue("")
   }
 
-  enviar(event:Event) {
-    // console.log(f.form.value);
-    event.preventDefault()
-    if(this.editForm.valid){
+  agregar() {
     this.resumenEduService.addResumenEdu(this.editForm.value)
       .subscribe((result) => {
         this.ngOnInit(); // recargar la tabla
+        this.modalService.dismissAll(); // desaparece el modal
       });
     }
-    this.modalService.dismissAll(); // desaparece el modal
-  }
+
 
 
  //Modal Editar
@@ -99,7 +94,6 @@ export class ResumenEduComponent implements OnInit {
       fechaFin: resumenEdu.fechaFin,
       descripcion: resumenEdu.descripcion,
     });
-    // console.log(this.editForm.value);
   }
 
   editar() {  
@@ -112,7 +106,6 @@ export class ResumenEduComponent implements OnInit {
 
 
    // Modal Eliminar
-
   modalBorrar(targetModal, resumenEdu: ResumenEdu) {
     this.deleteId = resumenEdu.id;
     this.modalService.open(targetModal, {

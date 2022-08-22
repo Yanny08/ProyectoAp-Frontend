@@ -21,7 +21,7 @@
             </p>
           </div>
           <div class="row content-borders">
-            <a href="#" class="btn btn-primary">
+            <a href="{{sobreMi.linkCv}}" target="blank" class="botonCv btn btn-primary">
               Descargar CV <i class="bi bi-arrow-down-circle-fill"></i>
             </a>
           </div>
@@ -37,13 +37,11 @@
   </div>
 </section>
 
-<!-- MODAL EDITAR -->
+<!-- EDITAR MODAL -->
 <ng-template #contentEdit let-modal>
-
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title2">Editar SobreMi</h4>
-    <button type="button" class="btn-close" aria-label="btn-close" (click)="modal.dismiss('Cross click')">
-    </button>
+    <h4 class="modal-title" id="modal-basic-title2">Editar Sobre Mí</h4>
+    <i class="iconoCerrar bi bi-x-square" (click)="modal.dismiss('Cross click')"></i>
   </div>
 
   <div class="modal-body">
@@ -51,20 +49,42 @@
       <div class="form-group">
         <label for="linkGit ">Github:</label>
         <input class="form-control" formControlName="linkGit" placeholder="Link github">
+        <!-- VALIDACIONES -->
+        <div *ngIf="editForm.get('linkGit').touched && editForm.get('linkGit').errors?.['maxlength']"
+          class="alert text-primary">
+          "Este campo requiere un máximo de 100 caracteres"
+        </div>
+        <div class="contador">{{this.editForm.get('linkGit').value.length}}/100</div>
       </div>
       <div class="form-group">
         <label for="linkDisc">Discord:</label>
         <input class="form-control" formControlName="linkDisc" placeholder="Link discord">
+        <!-- VALIDACIONES -->
+        <div *ngIf="editForm.get('linkDisc').touched && editForm.get('linkDisc').errors?.['maxlength']"
+          class="alert text-primary">
+          "Este campo requiere un máximo de 100 caracteres"
+        </div>
+        <div class="contador">{{this.editForm.get('linkDisc').value.length}}/100</div>
       </div>
       <div class="form-group">
         <label for="linkLinke">Linkedin:</label>
         <input class="form-control" formControlName="linkLinke" placeholder="Link linkedin">
+        <!-- VALIDACIONES -->
+        <div *ngIf="editForm.get('linkLinke').touched && editForm.get('linkLinke').errors?.['maxlength']"
+          class="alert text-primary">
+          "Este campo requiere un máximo de 100 caracteres"
+        </div>
+        <div class="contador">{{this.editForm.get('linkLinke').value.length}}/100</div>
       </div>
       <div class="form-group">
-        <label for="descripcion">Descripción:</label>
-        <div class="input-group">
-          <textarea class="form-control" rows="5" cols="10" formControlName="descripcion" placeholder="Descripción"></textarea>
+        <label for="linkCv">Link Cv:</label>
+        <input class="form-control" formControlName="linkCv" placeholder="Link Cv">
+        <!-- VALIDACIONES -->
+        <div *ngIf="editForm.get('linkCv').touched && editForm.get('linkCv').errors?.['maxlength']"
+          class="alert text-primary">
+          "Este campo requiere un máximo de 100 caracteres"
         </div>
+        <div class="contador">{{this.editForm.get('linkCv').value.length}}/100</div>
       </div>
       <div class="form-group">
         <label for="img">Imagen:</label>
@@ -73,10 +93,22 @@
           <img src="{{this.editForm.value.img}}" height="100px">
         </div>
       </div>
+      <div class="form-group">
+        <label for="descripcion">Descripción:</label>
+        <textarea type="text" class="form-control" rows="5" cols="10" formControlName="descripcion"
+          placeholder="Descripción" required [class]="{'is-invalid':editForm.get('descripcion').touched && editForm.get('descripcion').errors}"></textarea>
+        <!-- VALIDACIONES -->
+        <div *ngIf="editForm.get('descripcion').touched && editForm.get('descripcion').errors?.['required']"
+          class="alert text-danger">"Este campo es requerido"</div>
+        <div *ngIf="editForm.get('descripcion').touched && editForm.get('descripcion').errors?.['maxlength']"
+          class="alert text-primary">"Este campo requiere un máximo de 500 caracteres"</div>
+        <div class="contador">{{this.editForm.get('descripcion').value.length}}/500</div>
+      </div>
+      
 
       <div class="modal-footer">
-        <button data-dismiss="modal" class="btn btn-primary" (click)="editar()">Actualizar</button>
-        <button type="button" class="btn btn-danger" (click)="modal.close('Save click')">Cerrar</button>
+        <button data-dismiss="modal" class="btn btn-outline-primary" (click)="editar()" [disabled]="editForm.invalid">Actualizar</button>
+        <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">Cerrar</button>
       </div>
 
     </form>

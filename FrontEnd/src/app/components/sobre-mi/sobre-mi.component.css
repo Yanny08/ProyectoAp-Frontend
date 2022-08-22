@@ -53,14 +53,14 @@ padding-left: 50px;
   padding: 1rem;
 }
 
-.btn{
+.botonCv{
   box-shadow: 5px 5px 8px var(--pink);
   transition: 0.5s;
   transition-property: background;
   
 }
 
-.btn:hover{
+.botonCv:hover{
   background:#ff008c;
 }
 
@@ -91,15 +91,64 @@ padding-left: 50px;
   max-width: 350;
 }
 
-.modal-header{
-  background-color: #ff008c;
+/* Formularios */
+.iconoCerrar {
+  color: #006eff;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: 0.5s;
+  transition-property: background;
+  display: flex;
 }
 
-.modal-body{
-  background: var(--grey);
-  backdrop-filter: blur(20px);
+.iconoCerrar:hover{
+  background:#14a3dc;
+  color:#d6d6d6;
 }
 
-label{
-  color: #fff;
+.modal-title {
+  color: #d6d6d6 !important;
+}
+
+.modal-header {
+  border: 2px solid #14a3dc;
+  ;
+  background: var(--dark);
+}
+
+.modal-body {
+  background: #102a4d;
+}
+
+label {
+  color: #d6d6d6;
+  margin-top: 10px;
+}
+
+input, textarea {
+  color: #006eff;
+  border: 2px solid #14a3dc;
+  margin-top: 2px;
+  border-radius: 10px;
+  padding: 10px;
+  background: var(--dark); 
+}
+
+input:active {
+  box-shadow: 2px 2px 15px #14a3dc inset;
+  background: var(--dark);
+}
+
+textarea:active {
+  box-shadow: 2px 2px 15px #14a3dc inset;
+  background: var(--dark);
+}
+
+.placeholder {
+  color: rgb(208, 210, 208);
+}
+
+.contador {
+  color: #d6d6d6;
+  margin-top: 6px;
 }
