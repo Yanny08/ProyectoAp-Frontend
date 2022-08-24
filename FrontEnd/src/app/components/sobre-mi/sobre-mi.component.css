@@ -142,6 +142,7 @@ input:active {
 textarea:active {
   box-shadow: 2px 2px 15px #14a3dc inset;
   background: var(--dark);
+  resize: none;
 }
 
 .placeholder {

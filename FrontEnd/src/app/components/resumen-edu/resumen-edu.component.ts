@@ -41,7 +41,7 @@ export class ResumenEduComponent implements OnInit {
       institucion: ['',[Validators.required, Validators.maxLength(20)]],
       fechaIni: ['',[Validators.required]],
       fechaFin: ['',[Validators.required]],
-      descripcion: ['',[Validators.maxLength(500)]],
+      descripcion: ['',[Validators.maxLength(100)]],
     });
 
     

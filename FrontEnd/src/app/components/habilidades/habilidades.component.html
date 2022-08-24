@@ -63,9 +63,20 @@
         <div class="contador">{{this.editForm.get('titulo').value.length}}/15</div>
         </div>
       <div class="form-group">
-        <label for="icono">Icono:</label>
+        <label for="icono">Icono habilidad:</label>
         <div class="input-group">
-          <input class="form-control" formControlName="icono" placeholder="Class del icono">
+          <select name="icono" class="form-control" formControlName="icono" placeholder="Icono habilidad">
+            <option value="default" selected disabled>Elige un icono:</option>
+            <option value="fab fa-html5">Html</option>
+            <option  value="fab fa-css3-alt">Css</option>
+            <option value="fa-brands fa-angular">Angular</option>
+            <option value="fa-brands fa-java">Java</option>
+            <option value="fa-brands fa-node-js">Node.Js</option>
+            <option value="fa-brands fa-js">Js</option>
+            <option value="fa-brands fa-square-github">GitHub</option>
+            <option value="fa-brands fa-php">php</option>
+
+          </select>
         </div>
       </div>
       <div class="form-group">

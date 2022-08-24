@@ -42,7 +42,7 @@ export class ResumenTrabComponent implements OnInit {
       organismo: ['',[Validators.required, Validators.maxLength(20)]],
       fechaIni: ['',[Validators.required]],
       fechaFin: ['',[Validators.required]],
-      descripcion: ['',[Validators.maxLength(500)]],
+      descripcion: ['',[Validators.maxLength(100)]],
     });
 
     

@@ -1,17 +1,22 @@
-.contenido{
+.titulo-trab {
+margin-top:2rem;
+}
+
+.contenedor {
   border: 2px solid var(--blue);
+  width: 27em;
+  height: 14em;
   margin-top: 1em;
-  padding: 10px; 
+  padding: 10px;
   box-shadow: 3px 3px 10px var(--pink);
   background: var(--grey2);
   padding-left: 2rem;
+  overflow-wrap: break-word;
 }
 
 #titulo {
   position: relative;
-  
 }
-
 
 #titulo::before {
   content: "";
@@ -23,12 +28,8 @@
   background-color: var(--dark);
   border: 2px solid var(--blue);
   border-radius: 1rem;
-} 
-
-.content-footer {
-  overflow-wrap: break-word;
-
 }
+
 
 /* Formularios */
 .iconoCerrar {
@@ -40,53 +41,59 @@
   display: flex;
 }
 
-.iconoCerrar:hover{
-  background:#14a3dc;
-  color:#d6d6d6;
+.iconoCerrar:hover {
+  background: #14a3dc;
+  color: #d6d6d6;
 }
-  
-  .modal-title {
-    color: #d6d6d6 !important;
-  }
-  
-  .modal-header {
-    border: 2px solid #14a3dc;
-    ;
-    background: var(--dark);
-  }
-  
-  .modal-body {
-    background: #102a4d;
-  }
-  
-  .modal-footer {
-    background: #102a4d;
-  }
-  
-  label {
-    color: #d6d6d6;
-    margin-top: 10px;
-  }
-  
-  .contador {
-    color: #d6d6d6;
-    margin-top: 6px;
-  }
-  
-  input {
-    color: #006eff;
-    border: 2px solid #14a3dc;
-    margin-top: 2px;
-    border-radius: 10px;
-    padding: 10px;
-    background: var(--dark); 
-  }
-  
-  input:active {
-    box-shadow: 2px 2px 15px #14a3dc inset;
-    background: var(--dark);
-  }
-  
-  .placeholder {
-    color: rgb(208, 210, 208);
-  }
+
+.modal-title {
+  color: #d6d6d6 !important;
+}
+
+.modal-header {
+  border: 2px solid #14a3dc;
+  ;
+  background: var(--dark);
+}
+
+.modal-body {
+  background: #102a4d;
+}
+
+.modal-footer {
+  background: #102a4d;
+}
+
+label {
+  color: #d6d6d6;
+  margin-top: 10px;
+}
+
+.contador {
+  color: #d6d6d6;
+  margin-top: 6px;
+}
+
+input, textarea {
+  color: #006eff;
+  border: 2px solid #14a3dc;
+  margin-top: 2px;
+  border-radius: 10px;
+  padding: 10px;
+  background: var(--dark); 
+}
+
+input:active {
+  box-shadow: 2px 2px 15px #14a3dc inset;
+  background: var(--dark);
+}
+
+textarea:active {
+  box-shadow: 2px 2px 15px #14a3dc inset;
+  background: var(--dark);
+  resize: none;
+}
+
+.placeholder {
+  color: rgb(208, 210, 208);
+}

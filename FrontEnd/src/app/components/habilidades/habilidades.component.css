@@ -178,7 +178,7 @@ label {
   margin-top: 6px;
 }
 
-input {
+input, select {
   color: #006eff;
   border: 2px solid #14a3dc;
   margin-top: 2px;
@@ -188,6 +188,11 @@ input {
 }
 
 input:active {
+  box-shadow: 2px 2px 15px #14a3dc inset;
+  background: var(--dark);
+}
+
+select:active {
   box-shadow: 2px 2px 15px #14a3dc inset;
   background: var(--dark);
 }
