@@ -124,7 +124,7 @@
   /* box-shadow: inset 1px 1px 22px 4px var(--dark2); */
 }
 
-/* active el side bar */
+/* activa el sidebar */
 .mostrarLateral {
   left: 0px;
 }
@@ -226,7 +226,7 @@ main i {
       line-height: 50px;
       -webkit-text-stroke: 1.5px rgba(0, 0, 0, 0.308);
     } */
-/* .css-1rohdmw {
+.css-1rohdmw {
     margin: 0;
     font-family: "Roboto", "Helvetica", "Arial", sans-serif;
     font-weight: 400;
@@ -234,20 +234,13 @@ main i {
     color: #fff;
     line-height: 1.5;
     letter-spacing: 0.00938em;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-align-items: center;
-    -webkit-box-align: center;
+    text-align: center;
     -ms-flex-align: center;
     align-items: center;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    -webkit-justify-content: center;
     justify-content: center;
     font-weight: 700;
-  } */
+  }
 
 
 @media(max-width:463px) {

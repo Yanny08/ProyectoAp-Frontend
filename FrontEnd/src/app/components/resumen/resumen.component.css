@@ -1,13 +1,16 @@
+/*
+==========
+SECCIÓN "titulo y contorno"
+==========
+*/
+
 section {
     margin-top: 3rem;
     box-shadow: 3px 3px 30px #14a3dc;
-    /* background: var(--grey2); */
-    padding-bottom: 3rem;
 }
 
 #resumen{
-    padding-top: 3em;
-    padding-left: 2em;
+    padding: 3em;
 }
 
 .main-titulo{
@@ -53,14 +56,13 @@ section {
 
 
 .info-resumen{
-    padding-left: 3em;
+    display: flex;
+    justify-content: center;
 }
 
 
-.info-edu{
-    padding-right: 5rem;
-}
-
-.info-exp{
-    padding-right: 5rem;
+.info{
+    display:flex;
+    justify-content:center;
+    align-items: center;
 }

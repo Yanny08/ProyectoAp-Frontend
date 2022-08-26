@@ -1,13 +1,16 @@
+/*
+==========
+SECCIÓN "titulo"
+==========
+*/
+
 section {
     margin-top: 3rem;
     box-shadow: 3px 3px 30px #14a3dc;
-    /* background: var(--grey2); */
-    padding-bottom: 3rem;
 }
 
-.contacto{
-    padding-top: 3em;
-    padding-left: 2em;
+#contacto {
+    padding: 3em;
 }
 
 .main-titulo{
@@ -52,14 +55,23 @@ section {
 }
 
 /* Formulario */
+.body-form{
+    height: 100vh;
+    background-image: url("src/assets/banner.jpg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-attachment: fixed;
+}
 
 form{
-    background-color:white;
-    width: 90%;
+    background-color: rgba(0,0,0,0.4);
+    width: 450px;
     display:flex;
     max-width: 400px;
-    border-radius: 1em;
-    padding: 3.5em 1.5em;
+    margin-top: 20px;
+    border-radius: 7px;
+    padding: 10px 20px;
     margin:auto;
 }
 
@@ -68,15 +80,15 @@ form{
     display:grid;
     gap: 1em; /*espaciador */
     grid-auto-columns: 100%;
+    margin-top: 20px;
 
 }
 
 .form_title{
     text-align: center;
     font-size: 1.9rem;
-    margin-bottom: .4em;
-    color:black;
-
+    margin: 0em;
+    color: #fff;
 }
 
 .form_input{
@@ -112,3 +124,15 @@ form{
         padding: 3.5em 1em;
     }
 }
+
+.fondo {
+    background: #6a11cb;
+    
+    height: 100vh;
+    background-image: url("src/assets/banner.jpg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    
+    background-attachment: fixed;
+    }

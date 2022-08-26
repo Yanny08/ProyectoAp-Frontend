@@ -1,7 +1,5 @@
 .fondo {
-    /* fallback for old browsers */
-    background: #6a11cb;
-    
+    /* background: #6a11cb; */
     height: 100vh;
     background-image: url("src/assets/banner.jpg");
     background-repeat: no-repeat;
@@ -9,4 +7,12 @@
     background-size: cover;
     /*ajusta la imagen */
     background-attachment: fixed;
+    }
+
+    .centrar-form {
+        padding: 3rem 5rem 3rem 5rem ;
+    }
+
+    .card {
+        background: rgba(0,0,0,0.4);
     }

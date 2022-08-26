@@ -1,4 +1,4 @@
-<section class="proyectos container" id="proyectos">
+<section class="container" id="proyectos">
   <div class="d-flex justify-content-between">
     <div class="main-titulo">
       <h2>Proyectos</h2>
@@ -8,17 +8,19 @@
       <i class="bi bi-plus-circle" (click)="modalAgregar(content)" *ngIf="isAdmin"></i>
     </div>
   </div>
-  <div class="row">
-    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 m-1d-flex justify-content-center"
+  <div class="row d-flex justify-content-center align-items-center">
+    <div class="col-lg-5 col-md-12 d-flex justify-content-center"
       *ngFor="let proyecto of proyectos">
+      <div class="col-lg-1">
       <i class="bi bi-pencil-square" (click)="modalEdit(contentEdit,proyecto)" *ngIf="isAdmin"></i>
       <i class="bi bi-trash3" (click)="modalBorrar(contentDelete,proyecto)" *ngIf="isAdmin"></i>
-      <div class="card" style="width: 30rem;">
-        <div class="row header">
+      </div>
+      <div class="card m-2 d-flex justify-between">
+        <div class="header">
           <div class="card-bg img-fluid" id="imagen">
             <img src="{{proyecto.img}}" accept="image/*" alt="...">
           </div>
-          <div class="row body mb-2">
+          <div class="body mb-2">
             <div class="card-context" id="section-info">
               <div class="dark-bg"></div>
               <h2>{{proyecto.titulo}}</h2>

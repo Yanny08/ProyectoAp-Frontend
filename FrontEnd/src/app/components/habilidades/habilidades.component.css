@@ -1,155 +1,167 @@
+/*
+==========
+SECCIÓN "titulo"
+==========
+*/
+
 section {
-    margin-top: 3rem;
-    box-shadow: 3px 3px 30px #14a3dc;
-    /* background: var(--grey2); */
-    padding-bottom: 3rem;
+  margin-top: 3rem;
+  box-shadow: 3px 3px 30px #14a3dc;
 }
 
-.habilidad{
-    padding-top: 3em;
-    padding-left: 2em;
+#habilidad {
+  padding: 3em;
 }
 
-.main-titulo{
-    margin-bottom: 60px;
-    position:relative;
-    display: inline-block;
+.main-titulo {
+  margin-bottom: 60px;
+  position: relative;
+  display: inline-block;
 }
 
-.main-titulo h2{
-    color: #fff;
-    text-transform: uppercase;
-    font-weight: 600px;
-    font-size:28px;
-    letter-spacing: .7px;
-    line-height: 1;
-    margin: 0;
-    padding-bottom: 15px;
+.main-titulo h2 {
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 600px;
+  font-size: 28px;
+  letter-spacing: .7px;
+  line-height: 1;
+  margin: 0;
+  padding-bottom: 15px;
 }
 
-.main-titulo h2:before{
-    content:"";
-    position: absolute;
-    bottom:-4px;
-    left:0;
-    width: 100%;
-    height: 2px;
-    background-color: rgb(25, 57, 71);
+.main-titulo h2:before {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: rgb(25, 57, 71);
 
 }
 
-.main-titulo span{
-    position: absolute;
-    bottom: -9px;
-    left: 67%;
-    line-height: 1;
-    background:rgb(25, 57, 71);
-    padding: 0 42px;
-    font-size: 20px;
-    color: rgb(234, 0, 255);
-    list-style: none;
-    font-weight: 600px;
+.main-titulo span {
+  position: absolute;
+  bottom: -9px;
+  left: 67%;
+  line-height: 1;
+  background: rgb(25, 57, 71);
+  padding: 0 42px;
+  font-size: 20px;
+  color: rgb(234, 0, 255);
+  list-style: none;
+  font-weight: 600px;
 }
 
+/*
+==========
+SECCIÓN "Card"
+==========
+*/
 
 @property --rotate {
-    syntax: "<angle>";
-    initial-value: 152deg;
-    inherits: false;
-  }
-  
+  syntax: "<angle>";
+  initial-value: 152deg;
+  inherits: false;
+}
 
-  .card {
-    background: #191c29;
-    width: 10em;
-    padding-left: 5px;
-    position: relative;
-    border-radius: 6px;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    display: flex;
-    font-size: 1.5em;
-    color: rgb(88 199 250 / 0%);
-    cursor: pointer;
-    font-family: cursive;
-    padding-right: 5px;
-  }
-  
-  .card:hover {
-    color: rgb(88 199 250 / 100%);
-    transition: color 1s;
-  }
-  .card:hover:before{
-    animation: none;
-    opacity: 0;
-  }
-  
-  
-  .card::before {
-    content: "";
-    width: 104%;
-    height: 105%;
-    border-radius: 8px;
-    background-image: linear-gradient(var(--rotate)
-    , #5ddcff, #3c67e3 43%, #4e00c2);
-    position: absolute;
-    z-index: -1;
-    animation: spin 2.5s linear infinite;
-  }
-  
-  .card::after {
-    position: absolute;
-    content: "";
-    top: calc(var(--card-height) / 27);
-    left: 0;
-    right: 0;
-    z-index: -1;
-    height: 100%;
-    width: 100%;
-    margin: 0 auto;
-    transform: scale(0.8);
-    filter: blur(calc(var(--card-height) / 6));
-    background-image: linear-gradient(
-      var(--rotate)
-      , #5ddcff, #3c67e3 43%, #4e00c2);
-      opacity: 1;
-    transition: opacity .5s;
-    animation: spin 2.5s linear infinite;
-  }
-  
-  @keyframes spin {
-    0% {
-      --rotate: 0deg;
-    }
-    100% {
-      --rotate: 360deg;
-    }
-  }
-  
-  .iconoLeng{
-    position: absolute;
-    Overflow:hidden;
-    align-items: center;
-    top: 50px;
-    justify-content: center;
+
+.card {
+  background: #191c29;
+  width: 10em;
+  padding-left: 5px;
+  position: relative;
+  border-radius: 6px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  display: flex;
+  font-size: 1.5em;
+  color: rgb(88 199 250 / 0%);
+  cursor: pointer;
+  font-family: cursive;
+  padding-right: 5px;
+}
+
+.card:hover {
+  color: rgb(88 199 250 / 100%);
+  transition: color 1s;
+}
+
+.card:hover:before {
+  animation: none;
+  opacity: 0;
+}
+
+
+.card::before {
+  content: "";
+  width: 104%;
+  height: 105%;
+  border-radius: 8px;
+  background-image: linear-gradient(var(--rotate), #5ddcff, #3c67e3 43%, #4e00c2);
+  position: absolute;
+  z-index: -1;
+  animation: spin 2.5s linear infinite;
+}
+
+.card::after {
+  position: absolute;
+  content: "";
+  top: calc(var(--card-height) / 27);
+  left: 0;
+  right: 0;
+  z-index: -1;
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+  transform: scale(0.8);
+  filter: blur(calc(var(--card-height) / 6));
+  background-image: linear-gradient(var(--rotate), #5ddcff, #3c67e3 43%, #4e00c2);
+  opacity: 1;
+  transition: opacity .5s;
+  animation: spin 2.5s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    --rotate: 0deg;
   }
 
-  /* Formularios */
-  .iconoCerrar {
-    color: #006eff;
-    font-size: 2rem;
-    cursor: pointer;
-    transition: 0.5s;
-    transition-property: background;
-    display: flex;
+  100% {
+    --rotate: 360deg;
   }
-  
-  .iconoCerrar:hover{
-    background:#14a3dc;
-    color:#d6d6d6;
-  }
-  
+}
+
+.iconoLeng {
+  position: absolute;
+  Overflow: hidden;
+  align-items: center;
+  top: 50px;
+  justify-content: center;
+}
+
+/*
+==========
+SECCIÓN "Formularios"
+==========
+*/
+
+.iconoCerrar {
+  color: #006eff;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: 0.5s;
+  transition-property: background;
+  display: flex;
+}
+
+.iconoCerrar:hover {
+  background: #14a3dc;
+  color: #d6d6d6;
+}
+
 .modal-title {
   color: #d6d6d6 !important;
 }
@@ -178,13 +190,14 @@ label {
   margin-top: 6px;
 }
 
-input, select {
+input,
+select {
   color: #006eff;
   border: 2px solid #14a3dc;
   margin-top: 2px;
   border-radius: 10px;
   padding: 10px;
-  background: var(--dark); 
+  background: var(--dark);
 }
 
 input:active {
@@ -200,16 +213,3 @@ select:active {
 .placeholder {
   color: rgb(208, 210, 208);
 }
-
-  /* .alerta{
-    color:red;
-    
-  } */
-
-  /* .form-control {
-    background-color: #ff008c !important;
-    color: #ffff !important;
-  } */
-
-    
-  
