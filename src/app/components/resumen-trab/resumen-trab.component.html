@@ -1,36 +1,34 @@
 <div class="row">
-  <div class="titulo-trab col-lg-10">
-    <h3 class="fw-bold">
-      <i class="bi bi-briefcase-fill"> Experiencia Laboral</i>
+  <div class="titulo-trab col-md-10">
+    <h3 class="fw-bold"><i class="bi bi-mortarboard-fill">
+      Experiencia Laboral</i>
     </h3>
   </div>
-  <div class="col-lg-2 text-center">
+  <div class="col-md-2 text-center">
     <i class="bi bi-plus-circle" (click)="modalAgregar(content)" *ngIf="isAdmin"></i>
   </div>
 </div>
 
 <div class="contenedor" *ngFor="let resumenTrab of resumenTrab">
   <div class="row">
-    <div class="col-lg-10">
-     <h3 class="adorno" id="titulo">{{ resumenTrab.puesto }}</h3>
+    <div class="col-md-10">
+      <h3 class="adorno" id="titulo">{{resumenTrab.puesto}}</h3>
       <h5 class="adorno">
-        <em>{{ resumenTrab.organismo }}</em>
+        <em>{{resumenTrab.organismo}}</em>
       </h5>
       <h6 class="adorno">
-        {{ resumenTrab.fechaIni | date: "dd/MM/yyyy" }} -
-        {{ resumenTrab.fechaFin | date: "dd/MM/yyyy" }}
+        {{resumenTrab.fechaIni | date: 'dd/MM/yyyy'}} - {{resumenTrab.fechaFin | date: 'dd/MM/yyyy'}}
       </h6>
       <p>
-        {{ resumenTrab.descripcion }}
+        {{resumenTrab.descripcion}}
       </p>
     </div>
-    <div class="col-lg-2 text-center">
-      <i class="bi bi-pencil-square" (click)="modalEdit(contentEdit, resumenTrab)" *ngIf="isAdmin"></i>
-      <i class="bi bi-trash3" (click)="modalBorrar(contentDelete, resumenTrab)" *ngIf="isAdmin"></i>
+    <div class="botones col-md-2 text-center">
+      <i class="bi bi-pencil-square" (click)="modalEdit(contentEdit,resumenTrab)" *ngIf="isAdmin"></i>
+      <i class="bi bi-trash3" (click)="modalBorrar(contentDelete,resumenTrab)" *ngIf="isAdmin"></i>
     </div>
   </div>
 </div>
-
 <!-- AGREGAR MODAL -->
 <ng-template #content let-c="close" let-d="dismiss">
 

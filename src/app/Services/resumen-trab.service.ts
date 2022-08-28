@@ -9,7 +9,7 @@ import { ResumenTrab } from '../Models/resumenTrab.model';
 export class ResumenTrabService {
 
   URL = 'http://localhost:8080/resumenTrab/';
-  url = 'https://portfolio-yanny.herokuapp.com/resumenTrab/'
+  // URL = 'https://portfolio-yanny.herokuapp.com/resumenTrab/'
 
   constructor(private http: HttpClient) { }
 

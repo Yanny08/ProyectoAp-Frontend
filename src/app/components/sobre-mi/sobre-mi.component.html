@@ -89,14 +89,16 @@
       <div class="form-group">
         <label for="img">Imagen:</label>
         <div class="input-group">
-          <input type="file" alife-file-to-base64 accept="image/*" (onFileChanged)="obtener($event)" class="form-control" name="img">
+          <input type="file" alife-file-to-base64 accept="image/*" (onFileChanged)="obtener($event)"
+            class="form-control" name="img">
           <img src="{{this.editForm.value.img}}" height="100px">
         </div>
       </div>
       <div class="form-group">
         <label for="descripcion">Descripción:</label>
         <textarea type="text" class="form-control" rows="5" cols="10" formControlName="descripcion"
-          placeholder="Descripción" required [class]="{'is-invalid':editForm.get('descripcion').touched && editForm.get('descripcion').errors}"></textarea>
+          placeholder="Descripción" required
+          [class]="{'is-invalid':editForm.get('descripcion').touched && editForm.get('descripcion').errors}"></textarea>
         <!-- VALIDACIONES -->
         <div *ngIf="editForm.get('descripcion').touched && editForm.get('descripcion').errors?.['required']"
           class="alert text-danger">"Este campo es requerido"</div>
@@ -104,10 +106,11 @@
           class="alert text-primary">"Este campo requiere un máximo de 500 caracteres"</div>
         <div class="contador">{{this.editForm.get('descripcion').value.length}}/500</div>
       </div>
-      
+
 
       <div class="modal-footer">
-        <button data-dismiss="modal" class="btn btn-outline-primary" (click)="editar()" [disabled]="editForm.invalid">Actualizar</button>
+        <button data-dismiss="modal" class="btn btn-outline-primary" (click)="editar()"
+          [disabled]="editForm.invalid">Actualizar</button>
         <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">Cerrar</button>
       </div>
 

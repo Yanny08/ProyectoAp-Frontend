@@ -55,84 +55,71 @@ section {
 }
 
 /* Formulario */
-.body-form{
+.body-formu{
     height: 100vh;
     background-image: url("src/assets/banner.jpg");
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
     background-attachment: fixed;
+    padding: 30px;
 }
 
-form{
+.form{
     background-color: rgba(0,0,0,0.4);
-    width: 450px;
-    display:flex;
-    max-width: 400px;
-    margin-top: 20px;
+    max-width: 450px;
+    margin-top: 30px;
     border-radius: 7px;
     padding: 10px 20px;
+    box-sizing: border-box;
     margin:auto;
 }
 
-.form_container{
-    width: 100%;
-    display:grid;
-    gap: 1em; /*espaciador */
-    grid-auto-columns: 100%;
-    margin-top: 20px;
-
-}
-
 .form_title{
-    text-align: center;
-    font-size: 1.9rem;
-    margin: 0em;
     color: #fff;
+    text-align: center;
+    font-size: 30px;
+    margin: 0;
+    margin-bottom: 20px;
+    overflow-wrap: break-word;
 }
 
-.form_input{
-    font-size: 1rem;
-    padding: .8em 1em;
+
+input, textarea {
+    width: 100%;
+    font-size: 17px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    padding: 7px;
     outline: none;
     border: none;
-    border: 1px solid #bbb0b0;
     border-radius: 0.2em;
-}
+} 
 
-.form_input--message{
-    resize: none; /*para q no crezca a voluntad el textarea*/
-    padding: 1.8em 1em;
+textarea {
+    resize: none; 
+    padding: 7px;
     margin-bottom: .5em;
-}
+    min-height: 100px;
+} 
 
 .form_cta{
-    font-size: 1rem;
     background-color: #089FE0;
     color:#fff;
     border : none;
-    font-weight: 300;
-    padding:.7em 0;
+    padding: 20px;
     border-radius: .2em;
     cursor: pointer;
-    font-weight: 400;
-
+    font-size: 20px;
 }
 
-@media (max-width:450px){
-    .form{
-        padding: 3.5em 1em;
-    }
+.form_cta:hover{
+    background-color: #e008ae;
 }
 
-.fondo {
-    background: #6a11cb;
-    
-    height: 100vh;
-    background-image: url("src/assets/banner.jpg");
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
-    
-    background-attachment: fixed;
+
+@media (max-width:380px){
+    .body-formu {
+        padding: 20px;
     }
+}

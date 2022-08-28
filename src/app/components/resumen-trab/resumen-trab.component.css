@@ -1,16 +1,18 @@
 .titulo-trab {
-margin-top:2rem;
-}
+  margin-top:2rem;
+  }
 
 .contenedor {
   border: 2px solid var(--blue);
-  width: 27em;
-  height: 14em;
+  max-width: 22em;
+  /* width: 22em; */
+  height: 15em;
   margin-top: 1em;
-  padding: 10px;
+  box-sizing: border-box;
+  padding: 1em;
   box-shadow: 3px 3px 10px var(--pink);
   background: var(--grey2);
-  padding-left: 2rem;
+  /* padding-left: 2rem; */
   overflow-wrap: break-word;
 }
 
@@ -22,7 +24,7 @@ margin-top:2rem;
   content: "";
   position: absolute;
   top: 0;
-  left: -40px;
+  left: -24px;
   width: 1rem;
   height: 1rem;
   background-color: var(--dark);
@@ -30,6 +32,10 @@ margin-top:2rem;
   border-radius: 1rem;
 }
 
+.botones{
+  margin: 0;
+  display:flex;
+}
 
 /* Formularios */
 .iconoCerrar {
@@ -96,4 +102,21 @@ textarea:active {
 
 .placeholder {
   color: rgb(208, 210, 208);
+}
+
+@media (max-width:530px) {
+  .contenedor {
+      max-width: 23em;
+      min-width: 22em;
+      height: 18em;
+      
+  }
+}
+
+@media (max-width:401px) {
+  .contenedor {
+      min-width: 16em;
+      height: 18em;
+      
+  }
 }

@@ -7,11 +7,13 @@ SECCIÓN "titulo y contorno"
 section {
     margin-top: 3rem;
     box-shadow: 3px 3px 30px #14a3dc;
-}
-
-#resumen{
+    box-sizing: border-box;
     padding: 3em;
 }
+
+/* #resumen{
+    padding: 3em;
+} */
 
 .main-titulo{
     margin-bottom: 20px;
@@ -55,9 +57,11 @@ section {
 }
 
 
-.info-resumen{
+.global-contenedor{
     display: flex;
     justify-content: center;
+    margin:0;
+    padding: 2em;
 }
 
 
@@ -65,4 +69,5 @@ section {
     display:flex;
     justify-content:center;
     align-items: center;
+    width:30em;
 }

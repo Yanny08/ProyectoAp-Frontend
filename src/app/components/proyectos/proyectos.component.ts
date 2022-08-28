@@ -42,8 +42,7 @@ export class ProyectosComponent implements OnInit {
       id: [''],
       titulo: ['',[Validators.required, Validators.maxLength(20)]],
       subtitulo: ['', [Validators.maxLength(30)]],
-      img: ['',[Validators.required]],
-      // img: [''],
+      img: [''],
     });
 
 

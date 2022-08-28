@@ -9,7 +9,7 @@ import { ResumenEdu } from '../Models/resumenEdu.model';
 export class ResumenEduService {
 
   URL = 'http://localhost:8080/resumenEdu/';
-  url = 'https://portfolio-yanny.herokuapp.com/resumenEdu/'
+  // URL = 'https://portfolio-yanny.herokuapp.com/resumenEdu/'
 
   constructor(private http: HttpClient) { }
 
