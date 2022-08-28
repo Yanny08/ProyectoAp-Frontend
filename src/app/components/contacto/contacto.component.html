@@ -8,11 +8,14 @@
             method="POST">
             <div class="form_container">
                 <h2 class="form_title">Contáctame</h2>
-                <input type="text" class="form_input" placeholder="Nombre:" name="name" />
-                <input type="email" class="form_input" placeholder="Email:" name="email" />
-                <input type="text" class="form_input" placeholder="Teléfono:" name="telefono" />
-                <textarea class="form_input" placeholder="Escriba aquí su mensaje:"
-                    name="message"></textarea>
+                <input type="text" class="form_input" placeholder="Nombre:" name="Nombre" />
+                <input type="email" class="form_input" placeholder="Email:" name="Email" />
+                <input type="text" class="form_input" placeholder="Teléfono:" name="Telefono" />
+                <textarea class="form_input" placeholder="Escriba aquí su mensaje:" name="Mensaje"></textarea>
+                <div class="mb-3 text-center">
+                    <input type="hidden" name="_captcha" value="false" />
+                    <input type="hidden" name="_next" value="http://localhost:4200/#inicio" />
+                </div>
                 <input type="submit" value="Enviar" class="form_cta" />
             </div>
         </form>
