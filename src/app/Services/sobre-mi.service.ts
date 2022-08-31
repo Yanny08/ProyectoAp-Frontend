@@ -8,8 +8,8 @@ import { SobreMi } from '../Models/sobre-mi.model';
 })
 export class SobreMiService {
 
-  URL = 'http://localhost:8080/sobreMi/';
-  // URL = 'https://portfolio-yanny.herokuapp.com/sobreMi/'
+  // URL = 'http://localhost:8080/sobreMi/';
+  URL = 'https://portfolio-yanny.herokuapp.com/sobreMi/'
 
 
   constructor(private http: HttpClient) { }
