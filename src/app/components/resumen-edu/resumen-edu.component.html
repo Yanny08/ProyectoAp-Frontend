@@ -13,22 +13,30 @@
   <div class="row">
     <div class="col-md-10">
       <h3 class="adorno" id="titulo">{{resumenEdu.titulo}}</h3>
+    </div>
+    <div>
       <h5 class="adorno">
         <em>{{resumenEdu.institucion}}</em>
       </h5>
+    </div>
+
+    <div>
       <h6 class="adorno">
         {{resumenEdu.fechaIni | date: 'dd/MM/yyyy'}} - {{resumenEdu.fechaFin | date: 'dd/MM/yyyy'}}
       </h6>
+    </div>
+    <div>
       <p>
         {{resumenEdu.descripcion}}
       </p>
     </div>
-    <div class="botones col-md-2 text-center">
-      <i class="bi bi-pencil-square" (click)="modalEdit(contentEdit,resumenEdu)" *ngIf="isAdmin"></i>
-      <i class="bi bi-trash3" (click)="modalBorrar(contentDelete,resumenEdu)" *ngIf="isAdmin"></i>
-    </div>
+  </div>
+  <div class="botones col-md-2 text-center">
+    <i class="bi bi-pencil-square" (click)="modalEdit(contentEdit,resumenEdu)" *ngIf="isAdmin"></i>
+    <i class="bi bi-trash3" (click)="modalBorrar(contentDelete,resumenEdu)" *ngIf="isAdmin"></i>
   </div>
 </div>
+
 
 <!-- AGREGAR MODAL -->
 <ng-template #content let-c="close" let-d="dismiss">
@@ -109,17 +117,20 @@
     <form [formGroup]="editForm">
       <div class="form-group">
         <label for="titulo">Titulo</label>
-          <input type="text" class="form-control" id="titulo" name="titulo" formControlName="titulo" placeholder="titulo" required [class]="{'is-invalid':editForm.get('titulo').touched && editForm.get('titulo').errors}">
-          <!-- VALIDACIONES -->
-          <div *ngIf="editForm.get('titulo').touched && editForm.get('titulo').errors?.['required']"
-            class="alert text-danger">"Este campo es requerido"</div>
-          <div *ngIf="editForm.get('titulo').touched && editForm.get('titulo').errors?.['maxlength']"
-            class="alert text-primary">"En este campo es requerido un max de 20 caracteres"</div>
-          <div class="contador">{{this.editForm.get('titulo').value.length}}/20</div>
+        <input type="text" class="form-control" id="titulo" name="titulo" formControlName="titulo" placeholder="titulo"
+          required [class]="{'is-invalid':editForm.get('titulo').touched && editForm.get('titulo').errors}">
+        <!-- VALIDACIONES -->
+        <div *ngIf="editForm.get('titulo').touched && editForm.get('titulo').errors?.['required']"
+          class="alert text-danger">"Este campo es requerido"</div>
+        <div *ngIf="editForm.get('titulo').touched && editForm.get('titulo').errors?.['maxlength']"
+          class="alert text-primary">"En este campo es requerido un max de 20 caracteres"</div>
+        <div class="contador">{{this.editForm.get('titulo').value.length}}/20</div>
       </div>
       <div class="form-group">
         <label for="institucion">Institucion</label>
-        <input class="form-control" id="institucion" name="institucion" formControlName="institucion" placeholder="institucion" required [class]="{'is-invalid':editForm.get('institucion').touched && editForm.get('institucion').errors}">
+        <input class="form-control" id="institucion" name="institucion" formControlName="institucion"
+          placeholder="institucion" required
+          [class]="{'is-invalid':editForm.get('institucion').touched && editForm.get('institucion').errors}">
         <!-- VALIDACIONES -->
         <div *ngIf="editForm.get('institucion').touched && editForm.get('institucion').errors?.['required']"
           class="alert text-danger">"Este campo es requerido"</div>
@@ -130,25 +141,28 @@
       <div class="form-group">
         <label for="fechaIni">Fecha inicio:</label>
         <div class="input-group">
-          <input type="date" class="form-control" id="fechaIni" name="fechaIni" formControlName="fechaIni" required [class]="{'is-invalid':editForm.get('fechaIni').touched && editForm.get('fechaIni').errors}">
+          <input type="date" class="form-control" id="fechaIni" name="fechaIni" formControlName="fechaIni" required
+            [class]="{'is-invalid':editForm.get('fechaIni').touched && editForm.get('fechaIni').errors}">
         </div>
       </div>
       <div class="form-group">
         <label for="fechaFin">Fecha fin:</label>
         <div class="input-group">
-          <input type="date" class="form-control" id="fechaFin" name="fechaFin" formControlName="fechaFin" required [class]="{'is-invalid':editForm.get('fechaFin').touched && editForm.get('fechaFin').errors}">
+          <input type="date" class="form-control" id="fechaFin" name="fechaFin" formControlName="fechaFin" required
+            [class]="{'is-invalid':editForm.get('fechaFin').touched && editForm.get('fechaFin').errors}">
         </div>
       </div>
       <div class="form-group">
         <label for="descripcion">Descripción</label>
-        <textarea type="text" id="descripcion" name="descripcion" class="form-control" rows="5" cols="10" formControlName="descripcion"
-          placeholder="Descripción" [class]="{'is-invalid':editForm.get('descripcion').touched && editForm.get('descripcion').errors}"></textarea>
-          <!-- VALIDACIONES -->
+        <textarea type="text" id="descripcion" name="descripcion" class="form-control" rows="5" cols="10"
+          formControlName="descripcion" placeholder="Descripción"
+          [class]="{'is-invalid':editForm.get('descripcion').touched && editForm.get('descripcion').errors}"></textarea>
+        <!-- VALIDACIONES -->
         <div *ngIf="editForm.get('descripcion').touched && editForm.get('descripcion').errors?.['maxlength']"
-        class="alert text-primary">
-        "Este campo requiere un máximo de 100 caracteres"
+          class="alert text-primary">
+          "Este campo requiere un máximo de 100 caracteres"
         </div>
-    </div>
+      </div>
       <div class="contador">{{this.editForm.get('descripcion').value.length}}/100</div>
     </form>
 

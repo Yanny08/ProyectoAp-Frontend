@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/Services/auth.service';
 import { TokenService } from 'src/app/Services/token.service';
 import Swal from 'sweetalert2';
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -19,6 +20,13 @@ export class LoginComponent implements OnInit {
   password: string;
   roles: string[] = [];
   errMsj: string;
+  // faEye=faEye
+  // faEyeSlash=faEyeSlash
+  
+
+  ocultar:boolean=true;
+  ojitoAbierto:boolean=false;
+  ojitoCerrado:boolean=true;
 
 
   constructor(
@@ -35,6 +43,18 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  mostrarOcultar(){
+    this.ocultar=!this.ocultar;
+   if (this.ocultar) {
+    this.ojitoCerrado=true
+      this.ojitoAbierto=false
+
+   }else{
+    this.ojitoAbierto=true
+    this.ojitoCerrado=false
+
+   }
+  }
 
   onLogin(): void {
     this.loginUsuario = new LoginUsuario(this.nombreUsuario, this.password);
@@ -45,6 +65,7 @@ export class LoginComponent implements OnInit {
       this.tokenService.setUserName(data.nombreUsuario);
       this.tokenService.setAuthorities(data.authorities);
       this.roles = data.authorities;
+      //Alerta de Bienvenido
       Swal.fire(
         'Bienvenido',
         'te has logeado',
@@ -56,9 +77,10 @@ export class LoginComponent implements OnInit {
       this.isLogginFail = true;
       this.errMsj = err.error.mensaje;
       // this.toastr.error(this.errMsj, 'Fail', { timeOut: 3000, positionClass: 'toast-top-center', });
+      //Aleta de incorrecta
       Swal.fire(
-        'Good job!',
-        'You clicked the button!',
+        'Error!',
+        'Usuario o contraseña incorrecta!',
         'success'
       )
     })

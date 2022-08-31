@@ -67,6 +67,8 @@ export class ResumenEduComponent implements OnInit {
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
+    
+    // this.editForm.get('descripcion').setValue("")
   }
 
   agregar() {

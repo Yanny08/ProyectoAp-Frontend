@@ -12,17 +12,23 @@
 
               <form #f="ngForm" (ngSubmit)="onLogin()" novalidate>
 
+                <label class="form-label" for="nombreUsuario">Usuario</label>
                 <div class="form-outline form-white mb-2">
-                  <input type="email" id="nombreUsuario" name="nombreUsuario" class="form-control form-control-lg" [(ngModel)]="nombreUsuario" required />
-                  <label class="form-label" for="nombreUsuario">Usuario</label>
+                  <input type="email" id="nombreUsuario" name="nombreUsuario" class="form-control form-control-lg"
+                    [(ngModel)]="nombreUsuario" required />
                 </div>
 
-                <div class="form-outline form-white mb-2">
-                  <input type="password" id="password" name="password" class="form-control form-control-lg" [(ngModel)]="password" required />
-                  <label class="form-label" for="password">Contraseña</label>
+                <label class="form-label" for="password">Contraseña</label>
+                <div class="form-outline groupInputEyes form-white mb-2">
+                  <input [type]="ocultar? 'password':'text'" id="password" name="password"
+                    class="form-control form-control-lg eyesInput" [(ngModel)]="password" required>
+                  <span class="input-group-text posEyes" (click)=mostrarOcultar()>
+                    <i *ngIf="ojitoAbierto" class="fa-solid fa-eye" style="color:black;"></i>
+                    <i *ngIf="ojitoCerrado" class="fa-solid fa-eye-slash" style="color:black;"></i>
+                  </span>
+
                 </div>
 
-                <!-- <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!">Forgot password?</a></p> -->
 
                 <button class="btn btn-outline-primary btn-lg px-5" type="submit">Iniciar</button>
 

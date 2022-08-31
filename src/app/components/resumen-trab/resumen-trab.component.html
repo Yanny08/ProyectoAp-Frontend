@@ -13,12 +13,18 @@
   <div class="row">
     <div class="col-md-10">
       <h3 class="adorno" id="titulo">{{resumenTrab.puesto}}</h3>
+    </div>
+    <div>
       <h5 class="adorno">
         <em>{{resumenTrab.organismo}}</em>
       </h5>
+    </div>
+    <div>
       <h6 class="adorno">
         {{resumenTrab.fechaIni | date: 'dd/MM/yyyy'}} - {{resumenTrab.fechaFin | date: 'dd/MM/yyyy'}}
       </h6>
+    </div>
+    <div>
       <p>
         {{resumenTrab.descripcion}}
       </p>

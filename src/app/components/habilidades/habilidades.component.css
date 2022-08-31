@@ -136,7 +136,7 @@ SECCIÓN "Card"
 
 .iconoLeng {
   position: absolute;
-  Overflow: hidden;
+  overflow: hidden;
   align-items: center;
   top: 50px;
   justify-content: center;
