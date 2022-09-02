@@ -102,12 +102,10 @@ textarea:active {
   color: rgb(208, 210, 208);
 }
 
-@media (max-width:380px) {
+ @media (max-width:380px) {
   .contenedor {
       min-width: 268px;
       max-width: 268px;
-      /* height: 23px; */
-      
       
   }
 }
