@@ -74,6 +74,10 @@ export class ProyectosComponent implements OnInit {
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
+     //Para que el comience comience vacio
+    //  this.editForm.get('porcentaje').setValue(0)
+     this.editForm.get('titulo').setValue("")
+     this.editForm.get('subtitulo').setValue("")
   }
 
   agregar() {

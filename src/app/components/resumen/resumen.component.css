@@ -24,12 +24,12 @@ section {
 .main-titulo h2{
     color: #fff;
     text-transform: uppercase;
-    font-weight: 600px;
-    font-size:28px;
+    /* font-weight: 50rem;
+    font: size 28rem;; */
     letter-spacing: .7px;
     line-height: 1;
-    margin: 0;
-    padding-bottom: 15px;
+    /* margin: 0; */
+    margin-bottom: 16px;
 }
 
 .main-titulo h2:before{
@@ -61,7 +61,7 @@ section {
     display: flex;
     justify-content: center;
     margin:0;
-    padding: 2em;
+    padding: 2rem;
 }
 
 
@@ -69,5 +69,5 @@ section {
     display:flex;
     justify-content:center;
     align-items: center;
-    width:30em;
+    width:30rem;
 }

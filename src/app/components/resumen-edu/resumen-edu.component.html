@@ -50,7 +50,7 @@
     <form [formGroup]="editForm" (ngSubmit)="agregar()" novalidate>
       <div class="form-group">
         <label for="titulo">Titulo:</label>
-        <input type="text" class="form-control" id="titulo" name="titulo" formControlName="titulo" placeholder="titulo"
+        <input type="text" class="form-control" id="titulo"  formControlName="titulo" placeholder="titulo"
           required [class]="{'is-invalid':editForm.get('titulo').touched && editForm.get('titulo').errors}">
         <!-- VALIDACIONES -->
         <div *ngIf="editForm.get('titulo').touched && editForm.get('titulo').errors?.['required']"
@@ -61,7 +61,7 @@
       </div>
       <div class="form-group">
         <label for="institucion">Institución:</label>
-        <input class="form-control" id="institucion" name="institucion" formControlName="institucion"
+        <input class="form-control" id="institucion"  formControlName="institucion"
           placeholder="institucion" required
           [class]="{'is-invalid':editForm.get('institucion').touched && editForm.get('institucion').errors}">
         <!-- VALIDACIONES -->
@@ -74,20 +74,20 @@
       <div class="form-group">
         <label for="fechaIni">Fecha inicio:</label>
         <div class="input-group">
-          <input type="date" class="form-control" id="fechaIni" name="fechaIni" formControlName="fechaIni" required
+          <input type="date" class="form-control" id="fechaIni" formControlName="fechaIni" required
             [class]="{'is-invalid':editForm.get('fechaIni').touched && editForm.get('fechaIni').errors}">
         </div>
       </div>
       <div class="form-group">
         <label for="fechaFin">Fecha fin:</label>
         <div class="input-group">
-          <input type="date" class="form-control" id="fechaFin" name="fechaFin" formControlName="fechaFin" required
+          <input type="date" class="form-control" id="fechaFin" formControlName="fechaFin" required
             [class]="{'is-invalid':editForm.get('fechaFin').touched && editForm.get('fechaFin').errors}">
         </div>
       </div>
       <div class="form-group">
         <label for="descripcion">Descripción</label>
-        <textarea type="text" id="descripcion" name="descripcion" class="form-control" rows="5" cols="10"
+        <textarea type="text" id="descripcion"  class="form-control" rows="5" cols="10"
           formControlName="descripcion" placeholder="Descripción"
           [class]="{'is-invalid':editForm.get('descripcion').touched && editForm.get('descripcion').errors}"></textarea>
         <!-- VALIDACIONES -->

@@ -68,6 +68,11 @@ export class ResumenTrabComponent implements OnInit {
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
+    this.editForm.get('puesto').setValue("")
+    this.editForm.get('organismo').setValue("")
+    this.editForm.get('fechaIni').setValue("dd-mm-aaaa")
+    this.editForm.get('fechaFin').setValue("dd-mm-aaaa")
+    this.editForm.get('descripcion').setValue("")
   }
 
   agregar() {

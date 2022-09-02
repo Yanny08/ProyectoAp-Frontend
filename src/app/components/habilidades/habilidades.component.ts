@@ -65,9 +65,11 @@ export class HabilidadesComponent implements OnInit {
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
-    //Para que el porcentaje comience en 0
+    //Para que comience vacio
     this.editForm.get('porcentaje').setValue(0)
-
+    this.editForm.get('titulo').setValue("")
+    this.editForm.get('icono').setValue("")
+    this.editForm.get('color').setValue("")
   }
 
   agregar() {

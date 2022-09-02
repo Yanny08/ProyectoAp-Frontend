@@ -62,13 +62,18 @@ export class ResumenEduComponent implements OnInit {
  
  //Modal Agregar
   modalAgregar(content) {
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+    
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {      
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
-    
-    // this.editForm.get('descripcion').setValue("")
+    //Para que vacio
+    this.editForm.get('titulo').setValue("")
+    this.editForm.get('institucion').setValue("")
+    this.editForm.get('fechaIni').setValue("dd-mm-aaaa")
+    this.editForm.get('fechaFin').setValue("dd-mm-aaaa")
+    this.editForm.get('descripcion').setValue("")
   }
 
   agregar() {
@@ -96,6 +101,7 @@ export class ResumenEduComponent implements OnInit {
       fechaFin: resumenEdu.fechaFin,
       descripcion: resumenEdu.descripcion,
     });
+    
   }
 
   editar() {  
